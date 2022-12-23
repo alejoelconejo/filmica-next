@@ -1,13 +1,8 @@
 import Head from 'next/head'
-import { Inter } from '@next/font/google'
 import { API_BASE_URL, API_IMG_URL, API_KEY } from '../api'
 import Image from 'next/image'
 import { Header } from '../components/Header'
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-})
+import { useFavorites } from '../contexts/FavoriteContext'
 
 const endPoint = `${API_BASE_URL}/discover/movie?api_key=${API_KEY}&language=es-ES&page=1`
 
@@ -24,6 +19,12 @@ export async function getStaticProps() {
 }
 
 export default function Home({ movies }: { movies: any }) {
+  const { addToFavorites, isFavorite, removeFromFavorites } = useFavorites()
+
+  const toggleFavorites = (id: number, title: string, img: string) => {
+    !isFavorite(id) ? addToFavorites(id, title, img) : removeFromFavorites(id)
+  }
+
   return (
     <>
       <Head>
@@ -42,17 +43,30 @@ export default function Home({ movies }: { movies: any }) {
             >
               <div>
                 <Image
-                  className='rounded-t-lg mb-2 object-contain'
+                  className='rounded-t-lg mb-2'
                   src={`${API_IMG_URL}${movie.poster_path}`}
                   alt={movie.title}
                   width={384}
                   height={576}
+                  // fill
                 />
                 <div className='px-4 py-2'>
                   <div className='flex justify-between items-start mb-2'>
                     <h5 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white line-clamp-2'>
                       {movie.title}
                     </h5>
+                    <button
+                      className='text-2xl text-yellow-400'
+                      onClick={() =>
+                        toggleFavorites(
+                          movie.id,
+                          movie.title,
+                          movie.poster_path
+                        )
+                      }
+                    >
+                      {isFavorite(movie.id) ? '★' : '☆'}
+                    </button>
                   </div>
                   <p className='mb-3 font-normal text-gray-700 dark:text-gray-400'>
                     {movie.release_date}
