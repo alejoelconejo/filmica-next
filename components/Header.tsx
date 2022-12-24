@@ -18,7 +18,7 @@ export const Header = () => {
   }
 
   return (
-    <header className='max-w-5xl mx-auto py-4 flex justify-between'>
+    <header className='max-w-5xl mx-auto py-4 flex justify-between mb-4'>
       <div>
         <Link href='/'>
           <h1 className='text-3xl font-bold text-orange-500 hover:text-white transition-colors'>
