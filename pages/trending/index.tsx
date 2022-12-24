@@ -25,7 +25,7 @@ export const Discover = ({ movies }: { movies: any }) => {
   }
 
   return (
-    <section className='grid grid-cols-[repeat(auto-fill,_minmax(200px,_1fr))] grid-cols gap-4'>
+    <section className='grid grid-cols-[repeat(auto-fill,_minmax(200px,_1fr))] gap-4'>
       {movies.map((movie: any) => (
         <article
           key={movie.id}
