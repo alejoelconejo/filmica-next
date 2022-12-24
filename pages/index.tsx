@@ -37,20 +37,20 @@ export default function Home({
     <>
       <h2 className='text-5xl font-bold text-center mb-8'>Filmica</h2>
       <section className='mb-8'>
-        <div className='flex justify-between mb-4'>
+        <div className='flex justify-between mb-4 items-center'>
           <h3 className='text-3xl font-semibold'>Popular films</h3>
           <Link href='/discover'>See all →</Link>
         </div>
-        <ul className='flex flex-wrap gap-4'>
+        <ul className='grid grid-cols-[repeat(auto-fill,_minmax(192px,_1fr))] gap-4'>
           {moviesPopular.map((movie: any) => (
             <li key={movie.id}>
               <Link href={`/movie/${movie.id}`}>
                 <Image
-                  className='rounded-t-lg mb-2'
+                  className='rounded-lg mb-2'
                   src={`${API_IMG_URL}${movie.poster_path}`}
                   alt={movie.title}
-                  width={192}
-                  height={288}
+                  width={384}
+                  height={576}
                 />
               </Link>
             </li>
@@ -58,11 +58,11 @@ export default function Home({
         </ul>
       </section>
       <section className='mb-8'>
-        <div className='flex justify-between mb-4'>
+        <div className='flex justify-between mb-4 items-center'>
           <h3 className='text-3xl font-semibold'>Upcoming films</h3>
           <Link href='/upcoming'>See all →</Link>
         </div>
-        <ul className='flex flex-wrap gap-4'>
+        <ul className='grid grid-cols-[repeat(auto-fill,_minmax(192px,_1fr))] gap-4'>
           {moviesUpcoming.map((movie: any) => (
             <li key={movie.id}>
               <Link href={`/movie/${movie.id}`}>
@@ -70,8 +70,8 @@ export default function Home({
                   className='rounded-t-lg mb-2'
                   src={`${API_IMG_URL}${movie.poster_path}`}
                   alt={movie.title}
-                  width={192}
-                  height={288}
+                  width={384}
+                  height={576}
                 />
               </Link>
             </li>
@@ -79,11 +79,11 @@ export default function Home({
         </ul>
       </section>
       <section className='mb-8'>
-        <div className='flex justify-between mb-4'>
+        <div className='flex justify-between mb-4 items-center'>
           <h3 className='text-3xl font-semibold'>Trending films</h3>
           <Link href='/trending'>See all →</Link>
         </div>
-        <ul className='flex flex-wrap gap-4'>
+        <ul className='grid grid-cols-[repeat(auto-fill,_minmax(192px,_1fr))] gap-4'>
           {moviesTrending.map((movie: any) => (
             <li key={movie.id}>
               <Link href={`/movie/${movie.id}`}>
@@ -91,8 +91,8 @@ export default function Home({
                   className='rounded-t-lg mb-2'
                   src={`${API_IMG_URL}${movie.poster_path}`}
                   alt={movie.title}
-                  width={192}
-                  height={288}
+                  width={384}
+                  height={576}
                 />
               </Link>
             </li>
