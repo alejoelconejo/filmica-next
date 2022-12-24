@@ -18,15 +18,18 @@ export const Header = () => {
   }
 
   return (
-    <header className='max-w-5xl mx-auto py-4 flex justify-between mb-4'>
-      <div>
+    <header className='max-w-5xl mx-auto py-4 flex flex-wrap justify-between mb-4 px-2 md:px-0 gap-4'>
+      <div className='order-1'>
         <Link href='/'>
           <h1 className='text-3xl font-bold text-orange-500 hover:text-white transition-colors'>
             filmica.
           </h1>
         </Link>
       </div>
-      <form className='flex gap-3' onSubmit={handleSearch}>
+      <form
+        className='order-3 md:order-2 gap-3 md:flex'
+        onSubmit={handleSearch}
+      >
         <label>
           <input
             className='rounded px-3 bg-neutral-900 border-neutral-300 border-2 py-1 placeholder-neutral-400'
@@ -40,7 +43,7 @@ export const Header = () => {
           🔍
         </button>
       </form>
-      <nav className='flex items-center'>
+      <nav className='flex items-center order-2 md:order-3'>
         <ul className='flex gap-4 items-center'>
           <li>
             <Link href='/' className='text-lg font-semibold'>
