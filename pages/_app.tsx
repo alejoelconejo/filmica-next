@@ -1,7 +1,7 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { FavoritesProvider } from '../contexts/FavoriteContext'
-import { Headland_One, Inter } from '@next/font/google'
+import { Inter } from '@next/font/google'
 import Head from 'next/head'
 import { Layout } from '../components/Layout'
 
