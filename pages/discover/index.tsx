@@ -5,7 +5,7 @@ import { useFavorites } from '../../contexts/FavoriteContext'
 
 const endPoint = `${API_BASE_URL}/discover/movie?api_key=${API_KEY}&language=es-ES&page=1`
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const res = await fetch(endPoint)
   const data = await res.json()
   const movies = data.results
