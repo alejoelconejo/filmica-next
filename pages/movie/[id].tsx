@@ -1,43 +1,30 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { API_BASE_URL, API_IMG_URL, API_KEY } from '../../api'
 
-const endPointPath = `${API_BASE_URL}/discover/movie?api_key=${API_KEY}&language=es-ES&page=1`
-// TODO: Fetch recommended movies and render them
-// const recommendedEndPoint = `${API_BASE_URL}/movie/${movieId}/recommendations?api_key=${API_KEY}&language=es-ES`
+export async function getServerSideProps({ params }: any) {
+  const { id } = params
 
-export async function getStaticPaths() {
-  const res = await fetch(endPointPath) // TODO: investigar si hay otra forma de generar el listado de los ids
-  const data = await res.json()
-  const movies = data.results
-
-  const paths = movies.map((movie: any) => {
-    return {
-      params: {
-        id: encodeURIComponent(movie.id),
-      },
-    }
-  })
-
-  return {
-    paths,
-    fallback: false,
-  }
-}
-
-export async function getStaticProps({ params }: any) {
-  const endPoint = `${API_BASE_URL}/movie/${params.id}?api_key=${API_KEY}&language=es-ES`
+  const endPoint = `${API_BASE_URL}/movie/${id}?api_key=${API_KEY}&language=es-ES`
 
   const res = await fetch(endPoint)
   const movie = await res.json()
 
+  const recommendedEndPoint = `${API_BASE_URL}/movie/${id}/recommendations?api_key=${API_KEY}&language=es-ES`
+
+  const recommendedRes = await fetch(recommendedEndPoint)
+  const dataMovies = await recommendedRes.json()
+  const recommendedMovies = await dataMovies.results
+
   return {
     props: {
       movie,
+      recommendedMovies,
     },
   }
 }
 
-const MovieDetail = ({ movie }: any) => {
+const MovieDetail = ({ movie, recommendedMovies }: any) => {
   return (
     <div>
       <div className='flex md:flex-row flex-col gap-4 mb-8'>
@@ -59,25 +46,27 @@ const MovieDetail = ({ movie }: any) => {
         </div>
       </div>
 
-      {/* <section>
-    <ul className='flex flex-wrap gap-4'>
-      {recommendedMovies?.slice(10).map((movie) => (
-        <li className='w-24' key={movie.id}>
-          <Link
-            to={`/detail/${movie.id}`}
-            className='hover:opacity-80 transition-opacity duration-75'
-          >
-            <img
-              src={`${API_IMG_URL}${movie.poster_path}`}
-              className='h-32 object-contain mb-4'
-              alt={movie.title}
-            />
-            <h3>{movie.title}</h3>
-          </Link>
-        </li>
-      ))}
-    </ul>
-  </section> */}
+      <section>
+        <ul className='flex flex-wrap gap-4'>
+          {recommendedMovies?.slice(10).map((movie: any) => (
+            <li className='w-24' key={movie.id}>
+              <Link
+                href={`/movie/${movie.id}`}
+                className='hover:opacity-80 transition-opacity duration-100'
+              >
+                <Image
+                  src={`${API_IMG_URL}${movie.poster_path}`}
+                  className='mb-4'
+                  alt={movie.title}
+                  height={192}
+                  width={128}
+                />
+                <h3>{movie.title}</h3>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
   )
 }
