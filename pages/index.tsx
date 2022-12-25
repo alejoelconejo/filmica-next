@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { API_BASE_URL, API_IMG_URL, API_KEY } from '../api'
 
-const endPointPopular = `${API_BASE_URL}/discover/movie?api_key=${API_KEY}&language=es-ES&page=1`
+const endPointPopular = `${API_BASE_URL}/movie/popular?api_key=${API_KEY}&language=es-ES&page=1`
 const endPointTrending = `${API_BASE_URL}/trending/movie/week?api_key=${API_KEY}&language=es-ES&page=1`
 const endPointUpcoming = `${API_BASE_URL}/movie/upcoming?api_key=${API_KEY}&language=es-ES&page=1`
 
