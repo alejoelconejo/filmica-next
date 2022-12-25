@@ -51,8 +51,8 @@ export const Header = () => {
             </Link>
           </li>
           <li>
-            <Link href='/discover' className='text-lg font-semibold'>
-              <h3>Discover</h3>
+            <Link href='/popular' className='text-lg font-semibold'>
+              <h3>Popular</h3>
             </Link>
           </li>
         </ul>
