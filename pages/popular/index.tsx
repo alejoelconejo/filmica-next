@@ -11,9 +11,8 @@ export const Popular = () => {
   const [totalPages, setTotalPages] = useState(0)
 
   useEffect(() => {
-    fetch(
-      `${API_BASE_URL}/movie/popular?api_key=${API_KEY_PUBLIC}&language=es-ES&page=${page}`
-    )
+    const endPoint = `${API_BASE_URL}/movie/popular?api_key=${API_KEY_PUBLIC}&language=es-ES&page=${page}`
+    fetch(endPoint)
       .then((res) => res.json())
       .then((data) => {
         setMovies((prevMovies: any) => [...prevMovies, ...data.results])
