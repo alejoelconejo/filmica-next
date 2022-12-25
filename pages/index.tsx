@@ -39,7 +39,7 @@ export default function Home({
       <section className='mb-8'>
         <div className='flex justify-between mb-4 items-center'>
           <h3 className='text-3xl font-semibold'>Popular films</h3>
-          <Link href='/discover'>See all →</Link>
+          <Link href='/popular'>See all →</Link>
         </div>
         <ul className='grid grid-cols-[repeat(auto-fill,_minmax(192px,_1fr))] gap-4'>
           {moviesPopular.map((movie: any) => (
