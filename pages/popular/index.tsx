@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { API_BASE_URL, API_IMG_URL, API_KEY } from '../../api'
+import { API_BASE_URL, API_IMG_URL, API_KEY_PUBLIC } from '../../api'
 import { useFavorites } from '../../contexts/FavoriteContext'
 
 export const Popular = () => {
@@ -12,7 +12,7 @@ export const Popular = () => {
 
   useEffect(() => {
     fetch(
-      `${API_BASE_URL}/movie/popular?api_key=${API_KEY}&language=es-ES&page=${page}`
+      `${API_BASE_URL}/movie/popular?api_key=${API_KEY_PUBLIC}&language=es-ES&page=${page}`
     )
       .then((res) => res.json())
       .then((data) => {
