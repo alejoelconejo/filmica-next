@@ -1,9 +1,8 @@
-import Image from 'next/image'
-import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { API_BASE_URL, API_IMG_URL, API_KEY_PUBLIC } from '../../api'
+import { API_BASE_URL, API_KEY_PUBLIC } from '../../api'
 import { ListGrid } from '../../components/ListGrid'
+import { ListGridItem } from '../../components/ListGridItem'
 
 export const Popular = () => {
   const [movies, setMovies] = useState<any>([])
@@ -37,21 +36,7 @@ export const Popular = () => {
       >
         <ListGrid>
           {movies.map((movie: any) => (
-            <li
-              key={movie.id}
-              className='bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 overflow-hidden'
-            >
-              <Link href={`/movie/${movie.id}`} className='w-full'>
-                <Image
-                  src={`${API_IMG_URL}${movie.poster_path}`}
-                  alt={movie.title}
-                  title={movie.title}
-                  width={384}
-                  height={576}
-                  style={{ objectFit: 'cover', height: '100%' }}
-                />
-              </Link>
-            </li>
+            <ListGridItem key={movie.id} item={movie} />
           ))}
         </ListGrid>
       </InfiniteScroll>
