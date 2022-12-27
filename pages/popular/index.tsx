@@ -3,6 +3,7 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { API_BASE_URL, API_KEY_PUBLIC } from '../../api'
 import { ListGrid } from '../../components/ListGrid'
 import { ListGridItem } from '../../components/ListGridItem'
+import { Spinner } from '../../components/Spinner'
 
 export const Popular = () => {
   const [movies, setMovies] = useState<any>([])
@@ -32,7 +33,7 @@ export const Popular = () => {
         dataLength={movies.length}
         next={fetchMoreData}
         hasMore={page < totalPages}
-        loader={<h4>Loading...</h4>}
+        loader={<Spinner />}
       >
         <ListGrid>
           {movies.map((movie: any) => (
