@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { API_BASE_URL, API_IMG_URL, API_KEY } from '../../api'
+import { useFavorites } from '../../contexts/FavoriteContext'
 
 export async function getServerSideProps({ params }: any) {
   const { id } = params
@@ -25,6 +26,12 @@ export async function getServerSideProps({ params }: any) {
 }
 
 const MovieDetail = ({ movie, recommendedMovies }: any) => {
+  const { addToFavorites, isFavorite, removeFromFavorites } = useFavorites()
+
+  const toggleFavorites = (id: number, title: string, img: string) => {
+    !isFavorite(id) ? addToFavorites(id, title, img) : removeFromFavorites(id)
+  }
+
   return (
     <div>
       <div className='flex md:flex-row flex-col gap-4 mb-8'>
@@ -36,7 +43,17 @@ const MovieDetail = ({ movie, recommendedMovies }: any) => {
           width={256}
         />
         <div className='flex flex-col gap-4'>
-          <h2 className='text-3xl'>{movie?.title}</h2>
+          <div className='flex justify-between items-start mb-2'>
+            <h2 className='text-3xl'>{movie?.title}</h2>
+            <button
+              className='text-2xl text-yellow-400'
+              onClick={() =>
+                toggleFavorites(movie.id, movie.title, movie.poster_path)
+              }
+            >
+              {isFavorite(movie.id) ? '★' : '☆'}
+            </button>
+          </div>
           <p>{movie?.overview}</p>
           <ul>
             {movie?.genres.map((genre: any) => (

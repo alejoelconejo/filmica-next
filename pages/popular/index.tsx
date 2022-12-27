@@ -26,12 +26,6 @@ export const Popular = () => {
     }
   }
 
-  const { addToFavorites, isFavorite, removeFromFavorites } = useFavorites()
-
-  const toggleFavorites = (id: number, title: string, img: string) => {
-    !isFavorite(id) ? addToFavorites(id, title, img) : removeFromFavorites(id)
-  }
-
   return (
     <section>
       <h2 className='text-3xl font-semibold mb-4'>Popular</h2>
@@ -58,25 +52,11 @@ export const Popular = () => {
                   />
                 </Link>
                 <div className='px-4 py-2'>
-                  <div className='flex justify-between items-start mb-2'>
-                    <Link href={`/movie/${movie.id}`}>
-                      <h3 className='text-xl font-bold tracking-tight text-gray-900 dark:text-white line-clamp-2'>
-                        {movie.title}
-                      </h3>
-                    </Link>
-                    <button
-                      className='text-2xl text-yellow-400'
-                      onClick={() =>
-                        toggleFavorites(
-                          movie.id,
-                          movie.title,
-                          movie.poster_path
-                        )
-                      }
-                    >
-                      {isFavorite(movie.id) ? '★' : '☆'}
-                    </button>
-                  </div>
+                  <Link href={`/movie/${movie.id}`}>
+                    <h3 className='text-xl font-bold tracking-tight text-gray-900 dark:text-white line-clamp-2'>
+                      {movie.title}
+                    </h3>
+                  </Link>
                   <p className='mb-3 font-normal text-gray-700 dark:text-gray-400'>
                     {movie.release_date}
                   </p>
