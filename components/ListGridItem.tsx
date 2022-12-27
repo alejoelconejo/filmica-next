@@ -5,7 +5,7 @@ import { API_IMG_URL } from '../api'
 export const ListGridItem = ({ item }: any) => {
   return (
     <li className='rounded-lg shadow-md bg-gray-800 border-gray-700 overflow-hidden grid content-center'>
-      <Link href={`/movie/${item.id}`} className='w-full'>
+      <Link href={`/movie/${item.id}`}>
         {item.poster_path ? (
           <Image
             src={`${API_IMG_URL}${item.poster_path}`}
@@ -16,7 +16,7 @@ export const ListGridItem = ({ item }: any) => {
             style={{ objectFit: 'cover', height: '100%' }}
           />
         ) : (
-          <p className='line-clamp-3 m-0 md:m-2 text-center max-w-full'>
+          <p className='line-clamp-3 text-center max-w-full text-xs md:text-sm break-word md:m-2'>
             {item.title}
           </p>
         )}
