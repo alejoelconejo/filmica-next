@@ -1,9 +1,9 @@
 export const Spinner = () => {
   return (
-    <div className='text-center overflow-hidden'>
+    <div className='text-center overflow-hidden mt-6'>
       <div role='status'>
         <svg
-          className='inline mt-4 w-8 h-8 animate-spin  text-gray-200 dark:text-gray-600 fill-blue-600'
+          className='inline w-8 h-8 animate-spin  text-gray-200 dark:text-gray-600 fill-blue-600'
           viewBox='0 0 100 101'
           fill='none'
           xmlns='http://www.w3.org/2000/svg'
