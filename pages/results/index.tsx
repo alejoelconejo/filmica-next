@@ -1,11 +1,10 @@
-import Image from 'next/image'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { API_BASE_URL, API_IMG_URL, API_KEY } from '../../api'
+import { API_BASE_URL, API_KEY } from '../../api'
+import { SearchResultsItem } from '../../components/SearchResultsItem'
 
 export async function getServerSideProps(context: any) {
   const keywords = context.query.kwd
-  const endPoint = `${API_BASE_URL}/search/movie?api_key=${API_KEY}&language=es-ES&query=${keywords}&page=1`
+  const endPoint = `${API_BASE_URL}/search/multi?api_key=${API_KEY}&language=es-ES&query=${keywords}&page=1`
   const res = await fetch(endPoint)
   const data = await res.json()
   const searchResults = data.results
@@ -28,20 +27,8 @@ export default function Results({ searchResults }: any) {
       {searchResults.length ? (
         <section className='mt-8'>
           <ul className='flex flex-col gap-4'>
-            {searchResults.map((movie: any) => (
-              <li key={movie.id} className='flex gap-4'>
-                <Link href={`/movie/${movie.id}`}>
-                  <Image
-                    src={`${API_IMG_URL}${movie.poster_path}`}
-                    alt={movie.original_title}
-                    height={128}
-                    width={64}
-                  />
-                </Link>
-                <Link className='text-xl h-fit' href={`/movie/${movie.id}`}>
-                  {movie.original_title}
-                </Link>
-              </li>
+            {searchResults.map((result: any) => (
+              <SearchResultsItem key={result.id} result={result} />
             ))}
           </ul>
         </section>
