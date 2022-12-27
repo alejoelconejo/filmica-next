@@ -8,6 +8,7 @@ export const ListSlider = ({ children }: any) => {
         slides: { perView: 3, spacing: 10 },
       },
     },
+    mode: 'free',
     slides: {
       perView: 5,
       spacing: 10,
