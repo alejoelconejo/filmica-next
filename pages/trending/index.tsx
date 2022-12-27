@@ -39,16 +39,16 @@ export const Trending = () => {
           {movies.map((movie: any) => (
             <li
               key={movie.id}
-              className='bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 flex flex-col justify-between'
+              className='bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 overflow-hidden'
             >
               <Link href={`/movie/${movie.id}`}>
                 <Image
-                  className='rounded-t-lg mb-2'
                   src={`${API_IMG_URL}${movie.poster_path}`}
                   alt={movie.title}
                   title={movie.title}
                   width={384}
                   height={576}
+                  style={{ objectFit: 'cover', height: '100%' }}
                 />
               </Link>
             </li>

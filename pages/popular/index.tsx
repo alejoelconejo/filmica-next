@@ -48,6 +48,7 @@ export const Popular = () => {
                   title={movie.title}
                   width={384}
                   height={576}
+                  style={{ objectFit: 'cover', height: '100%' }}
                 />
               </Link>
             </li>
