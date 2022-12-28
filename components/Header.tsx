@@ -18,8 +18,8 @@ export const Header = () => {
               </Link>
             </li>
             <li>
-              <Link href='/popular' className='text-lg font-semibold'>
-                <h3>Popular</h3>
+              <Link href='/favorites' className='text-lg font-semibold'>
+                <h3>Favorites</h3>
               </Link>
             </li>
           </ul>
