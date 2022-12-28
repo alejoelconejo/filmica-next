@@ -1,22 +1,30 @@
-import { useEffect, useState } from 'react'
+import { useDebugValue, useEffect, useState } from 'react'
 
-export function useLocalStorage<T>(key: string, initialValue: T | (() => T)) {
-  const [value, setValue] = useState<T>(() => {
-    if (typeof localStorage !== 'undefined') {
-      const jsonValue = localStorage.getItem(key)
-      if (jsonValue != null) return JSON.parse(jsonValue)
-    }
-
-    if (typeof initialValue === 'function') {
-      return (initialValue as () => T)()
-    } else {
-      return initialValue
-    }
-  })
+export const useLocalStorage = <T>(
+  key: string,
+  initialState?: T | (() => T)
+): [T, React.Dispatch<React.SetStateAction<T>>] => {
+  const [state, setState] = useState<T>(initialState as T)
+  useDebugValue(state)
 
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(value))
-  }, [key, value])
+    const item = localStorage.getItem(key)
+    if (item) setState(parse(item))
+  }, [key])
 
-  return [value, setValue] as [typeof value, typeof setValue]
+  useEffect(() => {
+    if (state !== initialState) {
+      localStorage.setItem(key, JSON.stringify(state))
+    }
+  }, [state, key, initialState])
+
+  return [state, setState]
+}
+
+const parse = (value: string) => {
+  try {
+    return JSON.parse(value)
+  } catch {
+    return value
+  }
 }
