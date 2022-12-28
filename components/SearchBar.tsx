@@ -9,7 +9,7 @@ function useDebounce(
   dependencies: string[],
   delay: number
 ) {
-  const callback = useCallback(effect, dependencies)
+  const callback = useCallback(effect, [dependencies, effect])
 
   useEffect(() => {
     const timeout = setTimeout(callback, delay)
@@ -36,9 +36,6 @@ export const SearchBar = () => {
     [search],
     1000
   )
-
-  console.log('Search: ', search)
-  console.log('List: ', filteredList)
 
   const router = useRouter()
 
