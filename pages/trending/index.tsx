@@ -39,7 +39,7 @@ export const Trending = () => {
           {movies.map((movie: any) => (
             <li
               key={movie.id}
-              className='bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 overflow-hidden'
+              className='rounded-lg shadow-md bg-gray-800 border-gray-700 overflow-hidden'
             >
               <ListGridItem key={movie.id} item={movie} />
             </li>
