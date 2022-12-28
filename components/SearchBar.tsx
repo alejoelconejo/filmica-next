@@ -20,7 +20,7 @@ export const SearchBar = () => {
     <form className='gap-1 flex items-center w-full' onSubmit={handleSearch}>
       <label className='flex-1'>
         <input
-          className='rounded px-3 bg-neutral-900 border-neutral-300 w-full border-2 py-1 placeholder-neutral-400 focus-visible:ring-orange-500 focus:ring-orange-500'
+          className='rounded px-3 bg-neutral-900 border-neutral-300 w-full border-2 py-1 placeholder-neutral-400'
           type='text'
           name='search'
           placeholder='Search by keyword...'
