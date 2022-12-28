@@ -4,6 +4,8 @@ import { FavoritesProvider } from '../contexts/FavoriteContext'
 import { Inter } from '@next/font/google'
 import Head from 'next/head'
 import { Layout } from '../components/Layout'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -11,6 +13,14 @@ const inter = Inter({
 })
 
 export default function App({ Component, pageProps }: AppProps) {
+  const router = useRouter()
+
+  // Remove focus when changing route
+  useEffect(() => {
+    document.activeElement instanceof HTMLElement &&
+      document.activeElement.blur()
+  }, [router])
+
   return (
     <div className={`${inter.variable} font-sans`}>
       <FavoritesProvider>
