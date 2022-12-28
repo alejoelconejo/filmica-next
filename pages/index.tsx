@@ -1,11 +1,16 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { API_BASE_URL, API_IMG_URL, API_KEY } from '../api'
+import {
+  API_BASE_URL,
+  API_DEFAULT_LANGUAGE,
+  API_IMG_URL,
+  API_KEY,
+} from '../api'
 import { ListSlider } from '../components/ListSlider'
 
-const endPointPopular = `${API_BASE_URL}/movie/popular?api_key=${API_KEY}&language=es-ES&page=1`
-const endPointTrending = `${API_BASE_URL}/trending/movie/week?api_key=${API_KEY}&language=es-ES&page=1`
-const endPointUpcoming = `${API_BASE_URL}/movie/upcoming?api_key=${API_KEY}&language=es-ES&page=1`
+const endPointPopular = `${API_BASE_URL}/movie/popular?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}&page=1`
+const endPointTrending = `${API_BASE_URL}/trending/movie/week?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}&page=1`
+const endPointUpcoming = `${API_BASE_URL}/movie/upcoming?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}&page=1`
 
 export async function getStaticProps() {
   const resPopular = await fetch(endPointPopular)

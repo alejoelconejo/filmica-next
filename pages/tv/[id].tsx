@@ -1,17 +1,22 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { API_BASE_URL, API_IMG_URL, API_KEY } from '../../api'
+import {
+  API_BASE_URL,
+  API_DEFAULT_LANGUAGE,
+  API_IMG_URL,
+  API_KEY,
+} from '../../api'
 import { useFavorites } from '../../contexts/FavoriteContext'
 
 export async function getServerSideProps({ params }: any) {
   const { id } = params
 
-  const endPoint = `${API_BASE_URL}/tv/${id}?api_key=${API_KEY}&language=es-ES`
+  const endPoint = `${API_BASE_URL}/tv/${id}?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}`
 
   const res = await fetch(endPoint)
   const tvShows = await res.json()
 
-  const recommendedEndPoint = `${API_BASE_URL}/tv/${id}/recommendations?api_key=${API_KEY}&language=es-ES`
+  const recommendedEndPoint = `${API_BASE_URL}/tv/${id}/recommendations?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}`
 
   const recommendedRes = await fetch(recommendedEndPoint)
   const dataMovies = await recommendedRes.json()

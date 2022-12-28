@@ -1,5 +1,10 @@
 import Image from 'next/image'
-import { API_BASE_URL, API_IMG_URL, API_KEY } from '../../api'
+import {
+  API_BASE_URL,
+  API_DEFAULT_LANGUAGE,
+  API_IMG_URL,
+  API_KEY,
+} from '../../api'
 import { useFavorites } from '../../contexts/FavoriteContext'
 
 interface IPeople {
@@ -26,7 +31,7 @@ interface Props {
 export async function getServerSideProps({ params }: any) {
   const { id } = params
 
-  const endPoint = `${API_BASE_URL}/person/${id}?api_key=${API_KEY}&language=es-ES`
+  const endPoint = `${API_BASE_URL}/person/${id}?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}`
 
   const res = await fetch(endPoint)
   const persons = await res.json()

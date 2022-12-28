@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { API_BASE_URL, API_KEY_PUBLIC } from '../../api'
+import { API_BASE_URL, API_DEFAULT_LANGUAGE, API_KEY_PUBLIC } from '../../api'
 import { ListGrid } from '../../components/ListGrid'
 import { ListGridItem } from '../../components/ListGridItem'
 import { Spinner } from '../../components/Spinner'
@@ -11,7 +11,7 @@ export const Upcoming = () => {
   const [totalPages, setTotalPages] = useState(0)
 
   useEffect(() => {
-    const endPoint = `${API_BASE_URL}/movie/upcoming?api_key=${API_KEY_PUBLIC}&language=es-ES&page=${page}`
+    const endPoint = `${API_BASE_URL}/movie/upcoming?api_key=${API_KEY_PUBLIC}&language=${API_DEFAULT_LANGUAGE}&page=${page}`
     fetch(endPoint)
       .then((res) => res.json())
       .then((data) => {

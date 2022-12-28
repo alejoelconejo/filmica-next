@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router'
-import { API_BASE_URL, API_KEY } from '../../api'
+import { API_BASE_URL, API_DEFAULT_LANGUAGE, API_KEY } from '../../api'
 import { SearchResultsItem } from '../../components/SearchResultsItem'
 
 export async function getServerSideProps(context: any) {
   const keywords = context.query.kwd
-  const endPoint = `${API_BASE_URL}/search/multi?api_key=${API_KEY}&language=es-ES&query=${keywords}&page=1`
+  const endPoint = `${API_BASE_URL}/search/multi?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}&query=${keywords}&page=1`
   const res = await fetch(endPoint)
   const data = await res.json()
   const searchResults = data.results
