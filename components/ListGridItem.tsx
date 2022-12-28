@@ -4,8 +4,11 @@ import { API_IMG_URL } from '../api'
 
 export const ListGridItem = ({ item }: any) => {
   return (
-    <li className='rounded-lg shadow-md bg-gray-800 border-gray-700 overflow-hidden grid content-center'>
-      <Link href={`/movie/${item.id}`}>
+    <li className='rounded-lg shadow-md bg-gray-800 border-gray-700 overflow-hidden flex items-stretch'>
+      <Link
+        className='flex items-center justify-center flex-1'
+        href={`/movie/${item.id}`}
+      >
         {item.poster_path ? (
           <Image
             src={`${API_IMG_URL}${item.poster_path}`}
