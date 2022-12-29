@@ -1,8 +1,16 @@
 import Link from 'next/link'
+import { useState } from 'react'
+import { HamburgerButton } from './HamburguerButton'
 import LoginButton from './LoginButton'
 import { SearchBar } from './SearchBar'
 
 export const Header = () => {
+  const [isMenuOpen, toggleMenu] = useState(false)
+
+  function handleMenuToggle() {
+    toggleMenu((prevState) => !prevState)
+  }
+
   return (
     <header className='max-w-5xl mx-auto py-4 mb-4 px-2 md:px-0 gap-4'>
       <div className='flex justify-between items-center mb-4'>
@@ -11,7 +19,7 @@ export const Header = () => {
             filmica.
           </h1>
         </Link>
-        <nav className='flex items-center'>
+        <nav className='items-center hidden md:flex'>
           <ul className='flex gap-4 items-center'>
             <li>
               <Link href='/' className='text-lg font-semibold'>
@@ -25,9 +33,37 @@ export const Header = () => {
             </li>
           </ul>
         </nav>
-        <LoginButton />
+        <div className='hidden md:block'>
+          <LoginButton />
+        </div>
+        <div className='block md:hidden'>
+          <HamburgerButton
+            isMenuOpen={isMenuOpen}
+            toggleMenu={handleMenuToggle}
+          />
+        </div>
       </div>
-      <SearchBar />
+      <div className='hidden md:block'>
+        <SearchBar />
+      </div>
+      <div className={`${isMenuOpen ? 'block' : 'hidden'} w-full pb-4`}>
+        <nav className='items-center flex flex-col'>
+          <SearchBar />
+          <ul className='flex gap-4 items-center flex-col justify-center flex-1 mt-4'>
+            <li>
+              <Link href='/' className='text-lg font-semibold'>
+                <h3>Home</h3>
+              </Link>
+            </li>
+            <li>
+              <Link href='/favorites' className='text-lg font-semibold'>
+                <h3>Favorites</h3>
+              </Link>
+            </li>
+            <LoginButton />
+          </ul>
+        </nav>
+      </div>
     </header>
   )
 }
