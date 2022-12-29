@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import LoginButton from './LoginButton'
 import { SearchBar } from './SearchBar'
 
 export const Header = () => {
@@ -24,6 +25,7 @@ export const Header = () => {
             </li>
           </ul>
         </nav>
+        <LoginButton />
       </div>
       <SearchBar />
     </header>
