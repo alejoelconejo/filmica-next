@@ -5,25 +5,19 @@ import {
   API_DEFAULT_LANGUAGE,
   API_IMG_URL,
   API_KEY,
+  getMovies,
 } from '../api'
 import { ListSlider } from '../components/ListSlider'
+import { MovieListResult } from '../types'
 
 const endPointPopular = `${API_BASE_URL}/movie/popular?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}&page=1`
 const endPointTrending = `${API_BASE_URL}/trending/movie/week?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}&page=1`
 const endPointUpcoming = `${API_BASE_URL}/movie/upcoming?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}&page=1`
 
 export async function getStaticProps() {
-  const resPopular = await fetch(endPointPopular)
-  const dataPopular = await resPopular.json()
-  const moviesPopular = dataPopular.results.slice(0, 10)
-
-  const resTrending = await fetch(endPointTrending)
-  const dataTrending = await resTrending.json()
-  const moviesTrending = dataTrending.results.slice(0, 10)
-
-  const resUpcoming = await fetch(endPointUpcoming)
-  const dataUpcoming = await resUpcoming.json()
-  const moviesUpcoming = dataUpcoming.results.slice(0, 10)
+  const moviesPopular = await getMovies(endPointPopular)
+  const moviesTrending = await getMovies(endPointTrending)
+  const moviesUpcoming = await getMovies(endPointUpcoming)
 
   return {
     props: {
@@ -34,11 +28,17 @@ export async function getStaticProps() {
   }
 }
 
+interface Props {
+  moviesPopular: MovieListResult[]
+  moviesTrending: MovieListResult[]
+  moviesUpcoming: MovieListResult[]
+}
+
 export default function Home({
   moviesPopular,
   moviesTrending,
   moviesUpcoming,
-}: any) {
+}: Props) {
   return (
     <>
       <h2 className='text-5xl font-bold text-center mb-8'>Filmica</h2>
@@ -48,7 +48,7 @@ export default function Home({
           <Link href='/popular'>See all →</Link>
         </div>
         <ListSlider>
-          {moviesPopular.map((movie: any) => (
+          {moviesPopular.map((movie) => (
             <li key={movie.id} className='keen-slider__slide'>
               <Link href={`/movie/${movie.id}`}>
                 <Image
@@ -69,7 +69,7 @@ export default function Home({
           <Link href='/upcoming'>See all →</Link>
         </div>
         <ListSlider>
-          {moviesUpcoming.map((movie: any) => (
+          {moviesUpcoming.map((movie) => (
             <li key={movie.id} className='keen-slider__slide'>
               <Link href={`/movie/${movie.id}`}>
                 <Image
@@ -90,7 +90,7 @@ export default function Home({
           <Link href='/trending'>See all →</Link>
         </div>
         <ListSlider>
-          {moviesTrending.map((movie: any) => (
+          {moviesTrending.map((movie) => (
             <li key={movie.id} className='keen-slider__slide'>
               <Link href={`/movie/${movie.id}`}>
                 <Image
