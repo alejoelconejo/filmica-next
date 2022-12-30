@@ -1,24 +1,17 @@
-import { useKeenSlider } from 'keen-slider/react'
-import 'keen-slider/keen-slider.min.css'
 import { ReactNode } from 'react'
+import useEmblaCarousel, { EmblaOptionsType } from 'embla-carousel-react'
 
-export const ListSlider = ({ children }: { children: ReactNode }) => {
-  const [sliderRef] = useKeenSlider({
-    breakpoints: {
-      '(max-width: 600px)': {
-        slides: { perView: 3, spacing: 10 },
-      },
-    },
-    mode: 'free',
-    slides: {
-      perView: 5,
-      spacing: 10,
-    },
-  })
+interface Props {
+  children: ReactNode
+  options: EmblaOptionsType
+}
+
+export const ListSlider = ({ children, options }: Props) => {
+  const [emblaRef] = useEmblaCarousel(options)
 
   return (
-    <ul className='keen-slider' ref={sliderRef}>
-      {children}
-    </ul>
+    <div className='overflow-hidden' ref={emblaRef}>
+      <ul className='flex gap-2'>{children}</ul>
+    </div>
   )
 }
