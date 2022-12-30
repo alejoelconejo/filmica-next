@@ -13,6 +13,7 @@ const carouselOptions: EmblaOptionsType = {
   dragFree: true,
   align: 'start',
   containScroll: 'trimSnaps',
+  slidesToScroll: 2,
 }
 
 export const HomeListSlider = ({ items, title }: Props) => {
