@@ -33,7 +33,6 @@ export default function Home({
 }: Props) {
   return (
     <>
-      <h2 className='text-5xl font-bold text-center mb-8'>Filmica</h2>
       <HomeListSlider
         title='Popular films'
         items={moviesPopular}
