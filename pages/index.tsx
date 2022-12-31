@@ -34,9 +34,21 @@ export default function Home({
   return (
     <>
       <h2 className='text-5xl font-bold text-center mb-8'>Filmica</h2>
-      <HomeListSlider title='Popular films' items={moviesPopular} />
-      <HomeListSlider title='Upcoming films' items={moviesUpcoming} />
-      <HomeListSlider title='Trending films' items={moviesTrending} />
+      <HomeListSlider
+        title='Popular films'
+        items={moviesPopular}
+        route='popular'
+      />
+      <HomeListSlider
+        title='Upcoming films'
+        items={moviesUpcoming}
+        route='upcoming'
+      />
+      <HomeListSlider
+        title='Trending films'
+        items={moviesTrending}
+        route='trending'
+      />
     </>
   )
 }

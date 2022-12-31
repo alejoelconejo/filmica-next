@@ -7,6 +7,7 @@ import { ListSliderItem } from './ListSliderItem'
 interface Props {
   items: MovieListResult[]
   title: string
+  route: string
 }
 
 const carouselOptions: EmblaOptionsType = {
@@ -16,12 +17,12 @@ const carouselOptions: EmblaOptionsType = {
   slidesToScroll: 2,
 }
 
-export const HomeListSlider = ({ items, title }: Props) => {
+export const HomeListSlider = ({ items, title, route }: Props) => {
   return (
     <section className='mb-8'>
       <div className='flex justify-between mb-4 items-center'>
         <h3 className='text-3xl font-semibold'>{title}</h3>
-        <Link href='/trending'>See all →</Link>
+        <Link href={`/${route}`}>See all →</Link>
       </div>
       <ListSlider options={carouselOptions}>
         {items.map((movie) => (
