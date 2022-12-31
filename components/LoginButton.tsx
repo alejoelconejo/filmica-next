@@ -14,7 +14,8 @@ export default function LoginButton() {
             width={36}
             height={36}
             alt={session.user.name || 'User'}
-            src={session.user.image}
+            src={session.user.image!}
+            referrerPolicy='no-referrer'
           />
         )}
       </div>
