@@ -1,5 +1,6 @@
 import { useSession, signIn, signOut } from 'next-auth/react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function LoginButton() {
   const { data: session } = useSession()
@@ -9,14 +10,16 @@ export default function LoginButton() {
       <div className='flex gap-4'>
         <button onClick={() => signOut()}>Sign Out</button>
         {session.user?.image && (
-          <Image
-            className='rounded-full border border-gray-400'
-            width={36}
-            height={36}
-            alt={session.user.name || 'User'}
-            src={session.user.image!}
-            referrerPolicy='no-referrer'
-          />
+          <Link href='/profile'>
+            <Image
+              className='rounded-full border border-gray-400 bg-gray-400'
+              width={36}
+              height={36}
+              alt={session.user.name || 'User'}
+              src={session.user.image}
+              referrerPolicy='no-referrer'
+            />
+          </Link>
         )}
       </div>
     )
