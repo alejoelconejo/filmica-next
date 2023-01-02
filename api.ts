@@ -9,15 +9,12 @@ export const API_DEFAULT_LANGUAGE = 'en-US'
 export const getMovies = async (endpoint: string) => {
   const res = await fetch(endpoint)
   const data: MovieList = await res.json()
-  const movies: MovieListResult[] = data.results.slice(0, 10)
+  const movies: MovieListResult[] = data.results
   return movies
 }
 
 // IMAGE SIZES ALLOWED FOR URLS IN TMDB API
 //
-// "images": {
-//   "base_url": "http://image.tmdb.org/t/p/",
-//   "secure_base_url": "https://image.tmdb.org/t/p/",
 //   "backdrop_sizes": [
 //     "w300",
 //     "w780",
@@ -54,4 +51,3 @@ export const getMovies = async (endpoint: string) => {
 //     "w300",
 //     "original"
 //   ]
-// }
