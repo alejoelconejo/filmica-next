@@ -27,11 +27,11 @@ export const SearchBar = () => {
 
   useDebounce(
     () => {
-      fetch(endPoint)
-        .then((res) => res.json())
-        .then((data) => {
-          setFilteredList(data.results)
-        })
+      search
+        ? fetch(endPoint)
+            .then((res) => res.json())
+            .then((data) => setFilteredList(data.results))
+        : setFilteredList([])
     },
     [search],
     1000
@@ -75,7 +75,7 @@ export const SearchBar = () => {
         <div
           className={`w-96 max-w-full absolute group-focus-within:block hidden bg-white text-black p-4 z-50`}
         >
-          {filteredList ? (
+          {filteredList.length ? (
             <>
               <ul className='flex flex-col gap-2 mb-4'>
                 {filteredList.slice(0, SEARCH_LIST_LENGTH).map((item: any) => (
