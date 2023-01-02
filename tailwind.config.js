@@ -11,6 +11,9 @@ module.exports = {
       fontFamily: {
         sans: ['var(--font-inter)', ...defaultTheme.fontFamily.sans],
       },
+      animation: {
+        'spin-slow': 'spin 1.8s linear infinite',
+      },
     },
   },
   plugins: [require('@tailwindcss/line-clamp')],

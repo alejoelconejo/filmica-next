@@ -1,6 +1,6 @@
 export const SpinnerPages = () => {
   return (
-    <div className='flex justify-center overflow-hidden mt-6 animate-spin text-gray-300/30'>
+    <div className='flex justify-center overflow-hidden mt-6 animate-spin-slow text-gray-300/30'>
       <div role='status'>
         <svg
           width='100'
