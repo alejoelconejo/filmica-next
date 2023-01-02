@@ -73,11 +73,11 @@ const TvDetail = ({ tvShow, recommendedTvShows }: Props) => {
           </ul>
         </div>
       </div>
-      {recommendedTvShows && (
+      {recommendedTvShows.length ? (
         <section>
           <h3 className='text-2xl mb-4'>Recommended TV Shows</h3>
           <ul className='flex flex-wrap gap-4'>
-            {recommendedTvShows?.map((tvShow) => (
+            {recommendedTvShows.map((tvShow) => (
               <li className='w-24' key={tvShow.id}>
                 <Link
                   href={`/tv/${tvShow.id}`}
@@ -96,6 +96,8 @@ const TvDetail = ({ tvShow, recommendedTvShows }: Props) => {
             ))}
           </ul>
         </section>
+      ) : (
+        ''
       )}
     </div>
   )

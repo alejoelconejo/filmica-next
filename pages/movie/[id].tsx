@@ -73,7 +73,7 @@ const MovieDetail = ({ movie, recommendedMovies }: Props) => {
           </ul>
         </div>
       </div>
-      {recommendedMovies && (
+      {recommendedMovies.length ? (
         <section>
           <h3 className='text-2xl mb-4'>Recommended Movies</h3>
           <ul className='flex flex-wrap gap-4'>
@@ -95,6 +95,8 @@ const MovieDetail = ({ movie, recommendedMovies }: Props) => {
             ))}
           </ul>
         </section>
+      ) : (
+        ''
       )}
     </div>
   )
