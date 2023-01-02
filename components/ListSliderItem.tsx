@@ -11,13 +11,19 @@ export const ListSliderItem = ({ movie }: Props) => {
   return (
     <li className='min-w-0 flex-shrink-0 flex-grow-0 basis-1/4 md:basis-1/5'>
       <Link href={`/movie/${movie.id}`}>
-        <Image
-          className='rounded-lg mb-2'
-          src={`${API_IMG_URL}${movie.poster_path}`}
-          alt={movie.title}
-          width={192}
-          height={288}
-        />
+        {movie.poster_path ? (
+          <Image
+            className='rounded-lg h-full object-cover'
+            src={`${API_IMG_URL}${movie.poster_path}`}
+            alt={movie.title}
+            width={192}
+            height={288}
+          />
+        ) : (
+          <p className='line-clamp-3 text-center max-w-full text-xs md:text-sm break-word md:m-2'>
+            {movie.title}
+          </p>
+        )}
       </Link>
     </li>
   )
