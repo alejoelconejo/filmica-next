@@ -7,6 +7,8 @@ import Head from 'next/head'
 import { Layout } from '../components/Layout'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
+import { usePageLoading } from '../hooks/usePageLoading'
+import { Spinner } from '../components/Spinner'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -18,6 +20,7 @@ export default function App({
   pageProps: { session, ...pageProps },
 }: AppProps) {
   const router = useRouter()
+  const { isPageLoading } = usePageLoading()
 
   // Remove focus when changing route
   useEffect(() => {
@@ -39,7 +42,7 @@ export default function App({
             <link rel='icon' href='/favicon.ico' />
           </Head>
           <Layout>
-            <Component {...pageProps} />
+            {isPageLoading ? <Spinner /> : <Component {...pageProps} />}
           </Layout>
         </FavoritesProvider>
       </SessionProvider>
