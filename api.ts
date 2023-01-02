@@ -1,4 +1,4 @@
-import { MovieList, MovieListResult } from './types'
+import { MovieList } from './types'
 
 export const API_KEY_PUBLIC = process.env.NEXT_PUBLIC_API_KEY
 export const API_KEY = process.env.API_KEY
