@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import Link from 'next/link'
 import {
   API_BASE_URL,
   API_DEFAULT_LANGUAGE,
@@ -7,6 +6,13 @@ import {
   API_KEY,
 } from '../../api'
 import { useFavorites } from '../../contexts/FavoriteContext'
+import { MovieDetail, MovieListResult } from '../../types'
+import Link from 'next/link'
+
+interface Props {
+  movie: MovieDetail
+  recommendedMovies: MovieListResult[]
+}
 
 export async function getServerSideProps({ params }: any) {
   const { id } = params
@@ -30,7 +36,7 @@ export async function getServerSideProps({ params }: any) {
   }
 }
 
-const MovieDetail = ({ movie, recommendedMovies }: any) => {
+const MovieDetail = ({ movie, recommendedMovies }: Props) => {
   const { addToFavorites, isFavorite, removeFromFavorites } = useFavorites()
 
   const toggleFavorites = (id: number, title: string, img: string) => {
@@ -61,34 +67,35 @@ const MovieDetail = ({ movie, recommendedMovies }: any) => {
           </div>
           <p>{movie?.overview}</p>
           <ul>
-            {movie?.genres.map((genre: any) => (
+            {movie?.genres.map((genre) => (
               <li key={genre.id}>{genre.name}</li>
             ))}
           </ul>
         </div>
       </div>
-
-      <section>
-        <ul className='flex flex-wrap gap-4'>
-          {recommendedMovies?.slice(10).map((movie: any) => (
-            <li className='w-24' key={movie.id}>
-              <Link
-                href={`/movie/${movie.id}`}
-                className='hover:opacity-80 transition-opacity duration-100'
-              >
-                <Image
-                  src={`${API_IMG_URL}${movie.poster_path}`}
-                  className='mb-4'
-                  alt={movie.title}
-                  height={192}
-                  width={128}
-                />
-                <h3>{movie.title}</h3>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
+      {recommendedMovies && (
+        <section>
+          <h3 className='text-2xl mb-4'>Recommended Movies</h3>
+          <ul className='flex flex-wrap gap-4'>
+            {recommendedMovies.map((movie) => (
+              <li className='w-24' key={movie.id}>
+                <Link
+                  href={`/movie/${movie.id}`}
+                  className='hover:opacity-80 transition-opacity duration-100'
+                >
+                  <Image
+                    src={`${API_IMG_URL}${movie.poster_path}`}
+                    className='mb-4'
+                    alt={movie.title}
+                    height={192}
+                    width={128}
+                  />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </div>
   )
 }
