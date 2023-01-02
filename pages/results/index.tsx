@@ -1,12 +1,17 @@
 import { useRouter } from 'next/router'
 import { API_BASE_URL, API_DEFAULT_LANGUAGE, API_KEY } from '../../api'
 import { SearchResultsItem } from '../../components/SearchResultsItem'
+import { MovieList, SearchResult } from '../../types'
+
+interface Props {
+  searchResults: SearchResult[]
+}
 
 export async function getServerSideProps(context: any) {
   const keywords = context.query.kwd
   const endPoint = `${API_BASE_URL}/search/multi?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}&query=${keywords}&page=1`
   const res = await fetch(endPoint)
-  const data = await res.json()
+  const data: MovieList = await res.json()
   const searchResults = data.results
 
   return {
@@ -16,7 +21,7 @@ export async function getServerSideProps(context: any) {
   }
 }
 
-export default function Results({ searchResults }: any) {
+export default function Results({ searchResults }: Props) {
   const router = useRouter()
   const keywords = router.query.kwd
 
@@ -27,7 +32,7 @@ export default function Results({ searchResults }: any) {
       {searchResults.length ? (
         <section className='mt-8'>
           <ul className='flex flex-col gap-4'>
-            {searchResults.map((result: any) => (
+            {searchResults.map((result) => (
               <SearchResultsItem key={result.id} result={result} />
             ))}
           </ul>

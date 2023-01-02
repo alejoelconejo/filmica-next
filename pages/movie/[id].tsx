@@ -20,13 +20,13 @@ export async function getServerSideProps({ params }: any) {
   const endPoint = `${API_BASE_URL}/movie/${id}?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}`
 
   const res = await fetch(endPoint)
-  const movie = await res.json()
+  const movie: MovieDetail = await res.json()
 
   const recommendedEndPoint = `${API_BASE_URL}/movie/${id}/recommendations?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}`
 
   const recommendedRes = await fetch(recommendedEndPoint)
   const dataMovies = await recommendedRes.json()
-  const recommendedMovies = await dataMovies.results
+  const recommendedMovies: MovieListResult[] = await dataMovies.results
 
   return {
     props: {

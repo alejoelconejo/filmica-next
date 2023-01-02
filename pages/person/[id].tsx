@@ -6,26 +6,10 @@ import {
   API_KEY,
 } from '../../api'
 import { useFavorites } from '../../contexts/FavoriteContext'
-
-interface IPeople {
-  birthday: string
-  known_for_department: string
-  deathday?: string
-  id: number
-  name: string
-  also_known_as: string[]
-  gender: number
-  biography: string
-  popularity: number
-  place_of_birth: string
-  profile_path: string
-  adult: boolean
-  imdb_id: string
-  homepage?: string
-}
+import { Person } from '../../types'
 
 interface Props {
-  persons: IPeople
+  person: Person
 }
 
 export async function getServerSideProps({ params }: any) {
@@ -34,16 +18,16 @@ export async function getServerSideProps({ params }: any) {
   const endPoint = `${API_BASE_URL}/person/${id}?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}`
 
   const res = await fetch(endPoint)
-  const persons = await res.json()
+  const person: Person = await res.json()
 
   return {
     props: {
-      persons,
+      person,
     },
   }
 }
 
-const PersonDetail = ({ persons }: Props) => {
+const PersonDetail = ({ person }: Props) => {
   const { addToFavorites, isFavorite, removeFromFavorites } = useFavorites()
 
   const toggleFavorites = (id: number, name: string, img: string) => {
@@ -54,25 +38,25 @@ const PersonDetail = ({ persons }: Props) => {
     <div>
       <div className='flex md:flex-row flex-col gap-4 mb-8'>
         <Image
-          src={`${API_IMG_URL}${persons.profile_path}`}
+          src={`${API_IMG_URL}${person.profile_path}`}
           className='h-96 object-contain'
-          alt={persons.name}
+          alt={person.name}
           height={384}
           width={256}
         />
         <div className='flex flex-col gap-4'>
           <div className='flex justify-between items-start mb-2'>
-            <h2 className='text-3xl'>{persons.name}</h2>
+            <h2 className='text-3xl'>{person.name}</h2>
             <button
               className='text-2xl text-yellow-400'
               onClick={() =>
-                toggleFavorites(persons.id, persons.name, persons.profile_path)
+                toggleFavorites(person.id, person.name, person.profile_path)
               }
             >
-              {isFavorite(persons.id) ? '★' : '☆'}
+              {isFavorite(person.id) ? '★' : '☆'}
             </button>
           </div>
-          <p>{persons.biography}</p>
+          <p>{person.biography}</p>
         </div>
       </div>
     </div>

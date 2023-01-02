@@ -4,9 +4,10 @@ import { API_BASE_URL, API_DEFAULT_LANGUAGE, API_KEY_PUBLIC } from '../../api'
 import { ListGrid } from '../../components/ListGrid'
 import { ListGridItem } from '../../components/ListGridItem'
 import { Spinner } from '../../components/Spinner'
+import { MovieListResult } from '../../types'
 
 export const Trending = () => {
-  const [movies, setMovies] = useState<any>([])
+  const [movies, setMovies] = useState<MovieListResult[]>([])
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(0)
 
@@ -15,7 +16,7 @@ export const Trending = () => {
     fetch(endPoint)
       .then((res) => res.json())
       .then((data) => {
-        setMovies((prevMovies: any) => [...prevMovies, ...data.results])
+        setMovies((prevMovies) => [...prevMovies, ...data.results])
         setTotalPages(data.total_pages)
       })
   }, [page])
@@ -36,7 +37,7 @@ export const Trending = () => {
         loader={<Spinner />}
       >
         <ListGrid>
-          {movies.map((movie: any) => (
+          {movies.map((movie) => (
             <li
               key={movie.id}
               className='rounded-lg shadow-md bg-gray-800 border-gray-700 overflow-hidden'

@@ -4,9 +4,10 @@ import { API_BASE_URL, API_DEFAULT_LANGUAGE, API_KEY_PUBLIC } from '../../api'
 import { ListGrid } from '../../components/ListGrid'
 import { ListGridItem } from '../../components/ListGridItem'
 import { Spinner } from '../../components/Spinner'
+import { MovieListResult } from '../../types'
 
 export const Upcoming = () => {
-  const [movies, setMovies] = useState<any>([])
+  const [movies, setMovies] = useState<MovieListResult[]>([])
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(0)
 
@@ -15,7 +16,7 @@ export const Upcoming = () => {
     fetch(endPoint)
       .then((res) => res.json())
       .then((data) => {
-        setMovies((prevMovies: any) => [...prevMovies, ...data.results])
+        setMovies((prevMovies) => [...prevMovies, ...data.results])
         setTotalPages(data.total_pages)
       })
   }, [page])
@@ -36,7 +37,7 @@ export const Upcoming = () => {
         loader={<Spinner />}
       >
         <ListGrid>
-          {movies.map((movie: any) => (
+          {movies.map((movie) => (
             <ListGridItem key={movie.id} item={movie} />
           ))}
         </ListGrid>

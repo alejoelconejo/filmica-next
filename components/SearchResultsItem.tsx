@@ -1,15 +1,20 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { API_IMG_URL } from '../api'
+import { SearchResult } from '../types'
 
-export const SearchResultsItem = ({ result }: any) => {
-  if (result.media_type === 'person')
+interface Props {
+  result: SearchResult
+}
+
+export const SearchResultsItem = ({ result }: Props) => {
+  if (result.media_type === 'person') {
     return (
       <li className='flex gap-4'>
         <Link href={`/person/${result.id}`}>
           <Image
             src={`${API_IMG_URL}${result.profile_path}`}
-            alt={result.name}
+            alt={result.name as string}
             height={128}
             width={64}
           />
@@ -19,6 +24,7 @@ export const SearchResultsItem = ({ result }: any) => {
         </Link>
       </li>
     )
+  }
 
   if (result.media_type === 'tv') {
     return (
@@ -26,7 +32,7 @@ export const SearchResultsItem = ({ result }: any) => {
         <Link href={`/tv/${result.id}`}>
           <Image
             src={`${API_IMG_URL}${result.poster_path}`}
-            alt={result.original_name}
+            alt={result.original_name as string}
             height={128}
             width={64}
           />
@@ -43,7 +49,7 @@ export const SearchResultsItem = ({ result }: any) => {
       <Link href={`/movie/${result.id}`}>
         <Image
           src={`${API_IMG_URL}${result.poster_path}`}
-          alt={result.original_title}
+          alt={result.original_title as string}
           height={128}
           width={64}
         />
