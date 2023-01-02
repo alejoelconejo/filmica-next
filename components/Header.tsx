@@ -23,12 +23,12 @@ export const Header = () => {
           <ul className='flex gap-4 items-center'>
             <li>
               <Link href='/' className='text-lg font-semibold'>
-                <h3>Home</h3>
+                <h2>Home</h2>
               </Link>
             </li>
             <li>
               <Link href='/favorites' className='text-lg font-semibold'>
-                <h3>Favorites</h3>
+                <h2>Favorites</h2>
               </Link>
             </li>
           </ul>
@@ -52,12 +52,12 @@ export const Header = () => {
           <ul className='flex gap-4 items-center flex-col justify-center flex-1 mt-4'>
             <li>
               <Link href='/' className='text-lg font-semibold'>
-                <h3>Home</h3>
+                <h2>Home</h2>
               </Link>
             </li>
             <li>
               <Link href='/favorites' className='text-lg font-semibold'>
-                <h3>Favorites</h3>
+                <h2>Favorites</h2>
               </Link>
             </li>
             <LoginButton />

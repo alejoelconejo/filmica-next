@@ -21,7 +21,7 @@ export const HomeListSlider = ({ items, title, route }: Props) => {
   return (
     <section className='mb-8'>
       <div className='flex justify-between mb-4 items-center'>
-        <h3 className='text-3xl font-semibold'>{title}</h3>
+        <h2 className='text-3xl font-semibold'>{title}</h2>
         <Link href={`/${route}`}>See all →</Link>
       </div>
       <ListSlider options={carouselOptions}>
