@@ -64,9 +64,17 @@ export interface SearchResult {
   media_type: string
 }
 
-export interface MovieList {
+export interface SearchList {
   page: number
   results: SearchResult[]
+  total_results: number
+  total_pages: number
+  dates?: MovieDates
+}
+
+export interface MovieList {
+  page: number
+  results: MovieListResult[]
   total_results: number
   total_pages: number
   dates?: MovieDates

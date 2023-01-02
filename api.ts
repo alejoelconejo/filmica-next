@@ -9,7 +9,7 @@ export const API_DEFAULT_LANGUAGE = 'en-US'
 export const getMovies = async (endpoint: string) => {
   const res = await fetch(endpoint)
   const data: MovieList = await res.json()
-  const movies: MovieListResult[] = data.results
+  const movies = data.results
   return movies
 }
 
