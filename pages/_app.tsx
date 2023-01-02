@@ -8,7 +8,7 @@ import { Layout } from '../components/Layout'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { usePageLoading } from '../hooks/usePageLoading'
-import { Spinner } from '../components/Spinner'
+import { SpinnerPages } from '../components/SpinnerPages'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -42,7 +42,7 @@ export default function App({
             <link rel='icon' href='/favicon.ico' />
           </Head>
           <Layout>
-            {isPageLoading ? <Spinner /> : <Component {...pageProps} />}
+            {isPageLoading ? <SpinnerPages /> : <Component {...pageProps} />}
           </Layout>
         </FavoritesProvider>
       </SessionProvider>
