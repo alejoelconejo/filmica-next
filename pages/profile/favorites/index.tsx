@@ -1,29 +1,11 @@
-import {
-  collection,
-  doc,
-  getDocs,
-  limit,
-  query,
-  setDoc,
-  where,
-} from 'firebase/firestore'
+import { collection, getDocs, limit, query, where } from 'firebase/firestore'
 import { unstable_getServerSession } from 'next-auth'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { API_IMG_URL, PROFILE_SIZES } from '../../../api'
+import { useFavorites } from '../../../contexts/FavoriteContext'
 import { db } from '../../../utils/firebaseConfig'
 import { authOptions } from '../../api/auth/[...nextauth]'
-
-interface Favorite {
-  id: string
-  title: string
-  img: string
-}
-
-interface FavoriteUser {
-  userID: string
-  favs: Favorite[]
-}
 
 interface Props {
   userID: string
@@ -55,45 +37,43 @@ export async function getServerSideProps(context: any) {
 }
 
 const Favorites = ({ userID }: Props) => {
-  const [favorites, setFavorites] = useState<Favorite[]>([])
+  const {
+    addToFavorites,
+    favoritesItems,
+    setFavoritesItems,
+    isFavorite,
+    removeFromFavorites,
+  } = useFavorites()
 
   useEffect(() => {
     const q = query(
-      collection(db, 'favorites'),
-      where('userID', '==', userID),
-      limit(1)
+      collection(db, 'favorites')
+      // where('userID', '==', userID)
+      // limit(1)
     )
     getDocs(q)
       .then((snapshot) => {
         snapshot.forEach((doc) => {
           const { favs } = doc.data()
-          setFavorites(favs)
+
+          console.log(doc.data())
+          setFavoritesItems(favs)
         })
       })
       .catch((e) => console.log(e))
-  }, [userID])
+  }, [userID, setFavoritesItems])
 
-  function handleToggleFavorite(
-    favId: string,
-    favImg: string,
-    favTitle: string
-  ) {
-    const newFavRef = doc(collection(db, 'favorites'))
-
-    const favData = {
-      favs: [{ id: favId, img: favImg, title: favTitle }],
-      userID: userID,
-    }
-    setDoc(newFavRef, favData)
+  const toggleFavorites = (id: number, title: string, img: string) => {
+    !isFavorite(id) ? addToFavorites(id, title, img) : removeFromFavorites(id)
   }
 
   return (
     <>
-      <h2 className='text-3xl font-semibold mb-4'>Favorites</h2>
+      <h2 className='text-3xl font-semibold mb-4'>Favorites Profile</h2>
       <section className='mb-8'>
-        {favorites.length ? (
+        {favoritesItems.length ? (
           <ul className='flex flex-col gap-2'>
-            {favorites.map(({ id, img, title }) => (
+            {favoritesItems.map(({ id, img, title }) => (
               <li className='flex gap-4' key={id}>
                 <Image
                   alt={title}
@@ -104,9 +84,9 @@ const Favorites = ({ userID }: Props) => {
                 <h3>{title}</h3>
                 <button
                   className='text-2xl text-yellow-400'
-                  onClick={() => handleToggleFavorite(id, img, title)}
+                  onClick={() => toggleFavorites(id, title, img)}
                 >
-                  ★
+                  {isFavorite(id) ? '★' : 'vacio'}
                 </button>
               </li>
             ))}

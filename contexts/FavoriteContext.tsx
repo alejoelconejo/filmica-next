@@ -1,5 +1,6 @@
-import { createContext, ReactNode, useContext } from 'react'
-import { useLocalStorage } from '../hooks/useLocalStorage'
+import { collection, doc, setDoc } from 'firebase/firestore'
+import { createContext, ReactNode, useContext, useState } from 'react'
+import { db } from '../utils/firebaseConfig'
 
 interface FavoritesProviderProps {
   children: ReactNode
@@ -17,6 +18,7 @@ interface FavoritesContext {
   removeFromFavorites: (id: number) => void
   removeAllFavorites: () => void
   isFavorite: (id: number) => boolean
+  setFavoritesItems: any
 }
 
 const FavoritesContext = createContext({} as FavoritesContext)
@@ -26,10 +28,7 @@ export function useFavorites() {
 }
 
 export function FavoritesProvider({ children }: FavoritesProviderProps) {
-  const [favoritesItems, setFavoritesItems] = useLocalStorage<FavoritesItem[]>(
-    'favorites',
-    []
-  )
+  const [favoritesItems, setFavoritesItems] = useState<FavoritesItem[]>([])
 
   function addToFavorites(id: number, title: string, img: string) {
     setFavoritesItems((currItems) => {
@@ -39,6 +38,13 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
         return [...currItems]
       }
     })
+
+    const newFavRef = doc(collection(db, 'favorites'))
+
+    const favData = {
+      favs: [{ id, title, img }],
+    }
+    setDoc(newFavRef, favData)
   }
 
   function removeFromFavorites(id: number) {
@@ -63,6 +69,7 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
         removeFromFavorites,
         removeAllFavorites,
         isFavorite,
+        setFavoritesItems,
       }}
     >
       {children}
