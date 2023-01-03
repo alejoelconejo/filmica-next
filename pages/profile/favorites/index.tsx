@@ -1,9 +1,10 @@
 import { collection, getDocs, query, where } from 'firebase/firestore'
-import { useSession } from 'next-auth/react'
+import { DefaultUser, Session, unstable_getServerSession } from 'next-auth'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { API_IMG_URL, PROFILE_SIZES } from '../../../api'
 import { db } from '../../../utils/firebaseConfig'
+import { authOptions } from '../../api/auth/[...nextauth]'
 
 interface Favorite {
   id: string
@@ -16,15 +17,44 @@ interface FavoriteUser {
   favs: Favorite[]
 }
 
-const Favorites = () => {
-  const { data: session, status } = useSession({ required: true })
+interface Props {
+  userID: string
+}
+
+interface IdSession extends Session {
+  user: DefaultUser
+}
+
+export async function getServerSideProps(context: any) {
+  const session: IdSession | null = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions
+  )
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+
+  const userID = session.user.id
+
+  return {
+    props: {
+      userID,
+    },
+  }
+}
+
+const Favorites = ({ userID }: Props) => {
   const [favorites, setFavorites] = useState<Favorite[]>([])
 
   useEffect(() => {
-    const q = query(
-      collection(db, 'favorites'),
-      where('userID', '==', 'IcMoJgYTnTE4qfZzUDDv')
-    )
+    const q = query(collection(db, 'favorites'), where('userID', '==', userID))
     getDocs(q)
       .then((snapshot) => {
         snapshot.forEach((doc) => {
@@ -33,7 +63,7 @@ const Favorites = () => {
         })
       })
       .catch((e) => console.log(e))
-  }, [])
+  }, [userID])
 
   return (
     <>
