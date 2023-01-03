@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { API_IMG_URL } from '../api'
+import { API_IMG_URL, POSTER_SIZES } from '../api'
 
 export const ListGridItem = ({ item }: any) => {
   return (
@@ -11,7 +11,7 @@ export const ListGridItem = ({ item }: any) => {
       >
         {item.poster_path ? (
           <Image
-            src={`${API_IMG_URL}${item.poster_path}`}
+            src={`${API_IMG_URL}${POSTER_SIZES.sm}${item.poster_path}`}
             alt={item.title}
             title={item.title}
             width={384}

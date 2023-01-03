@@ -5,6 +5,7 @@ import {
   API_DEFAULT_LANGUAGE,
   API_IMG_URL,
   API_KEY,
+  POSTER_SIZES,
 } from '../../api'
 import { useFavorites } from '../../contexts/FavoriteContext'
 import { TvShowsListResult, TvShow } from '../../types'
@@ -47,8 +48,8 @@ const TvDetail = ({ tvShow, recommendedTvShows }: Props) => {
     <div>
       <div className='flex md:flex-row flex-col gap-4 mb-8'>
         <Image
-          src={`${API_IMG_URL}${tvShow.poster_path}`}
-          className='h-96 object-contain'
+          src={`${API_IMG_URL}${POSTER_SIZES.lg}${tvShow.poster_path}`}
+          className='object-contain'
           alt={tvShow.name}
           height={384}
           width={256}
@@ -84,12 +85,12 @@ const TvDetail = ({ tvShow, recommendedTvShows }: Props) => {
                   className='hover:opacity-80 transition-opacity duration-100'
                 >
                   <Image
-                    src={`${API_IMG_URL}${tvShow.poster_path}`}
+                    src={`${API_IMG_URL}${POSTER_SIZES.sm}${tvShow.poster_path}`}
                     className='mb-4'
                     alt={tvShow.name}
                     title={tvShow.name}
-                    height={192}
-                    width={128}
+                    height={144}
+                    width={96}
                   />
                 </Link>
               </li>

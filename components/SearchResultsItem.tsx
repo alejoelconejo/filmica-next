@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { API_IMG_URL } from '../api'
+import { API_IMG_URL, POSTER_SIZES, PROFILE_SIZES } from '../api'
 import { SearchResult } from '../types'
 
 interface Props {
@@ -13,9 +13,9 @@ export const SearchResultsItem = ({ result }: Props) => {
       <li className='flex gap-4'>
         <Link href={`/person/${result.id}`}>
           <Image
-            src={`${API_IMG_URL}${result.profile_path}`}
+            src={`${API_IMG_URL}${PROFILE_SIZES.md}${result.profile_path}`}
             alt={result.name as string}
-            height={128}
+            height={96}
             width={64}
           />
         </Link>
@@ -31,9 +31,9 @@ export const SearchResultsItem = ({ result }: Props) => {
       <li className='flex gap-4'>
         <Link href={`/tv/${result.id}`}>
           <Image
-            src={`${API_IMG_URL}${result.poster_path}`}
+            src={`${API_IMG_URL}${POSTER_SIZES.xs}${result.poster_path}`}
             alt={result.original_name as string}
-            height={128}
+            height={96}
             width={64}
           />
         </Link>
@@ -48,9 +48,9 @@ export const SearchResultsItem = ({ result }: Props) => {
     <li className='flex gap-4'>
       <Link href={`/movie/${result.id}`}>
         <Image
-          src={`${API_IMG_URL}${result.poster_path}`}
+          src={`${API_IMG_URL}${POSTER_SIZES.xs}${result.poster_path}`}
           alt={result.original_title as string}
-          height={128}
+          height={96}
           width={64}
         />
       </Link>

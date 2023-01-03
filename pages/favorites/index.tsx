@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { API_IMG_URL } from '../../api'
+import { API_IMG_URL, POSTER_SIZES } from '../../api'
 import { useFavorites } from '../../contexts/FavoriteContext'
 
 const Favorites = () => {
@@ -16,8 +16,8 @@ const Favorites = () => {
               <li className='flex gap-4' key={favorite.id}>
                 <Image
                   alt={favorite.title}
-                  src={`${API_IMG_URL}${favorite.img}`}
-                  height={150}
+                  src={`${API_IMG_URL}${POSTER_SIZES.md}${favorite.img}`}
+                  height={112}
                   width={75}
                 />
                 <h3>{favorite.title}</h3>

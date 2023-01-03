@@ -2,7 +2,7 @@ import { collection, getDocs, query, where } from 'firebase/firestore'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { API_IMG_URL } from '../../../api'
+import { API_IMG_URL, PROFILE_SIZES } from '../../../api'
 import { db } from '../../../utils/firebaseConfig'
 
 interface Favorite {
@@ -45,7 +45,7 @@ const Favorites = () => {
               <li className='flex gap-4' key={favorite.id}>
                 <Image
                   alt={favorite.title}
-                  src={`${API_IMG_URL}${favorite.img}`}
+                  src={`${API_IMG_URL}${PROFILE_SIZES.md}${favorite.img}`}
                   height={150}
                   width={75}
                 />

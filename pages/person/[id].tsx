@@ -4,6 +4,7 @@ import {
   API_DEFAULT_LANGUAGE,
   API_IMG_URL,
   API_KEY,
+  PROFILE_SIZES,
 } from '../../api'
 import { useFavorites } from '../../contexts/FavoriteContext'
 import { Person } from '../../types'
@@ -36,13 +37,13 @@ const PersonDetail = ({ person }: Props) => {
 
   return (
     <div>
-      <div className='flex md:flex-row flex-col gap-4 mb-8'>
+      <div className='flex md:flex-row flex-col gap-8 mb-8'>
         <Image
-          src={`${API_IMG_URL}${person.profile_path}`}
-          className='h-96 object-contain'
+          src={`${API_IMG_URL}${PROFILE_SIZES.md}${person.profile_path}`}
+          className='object-contain'
           alt={person.name}
-          height={384}
-          width={256}
+          height={278}
+          width={185}
         />
         <div className='flex flex-col gap-4'>
           <div className='flex justify-between items-start mb-2'>

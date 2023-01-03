@@ -4,6 +4,7 @@ import {
   API_DEFAULT_LANGUAGE,
   API_IMG_URL,
   API_KEY,
+  POSTER_SIZES,
 } from '../../api'
 import { useFavorites } from '../../contexts/FavoriteContext'
 import { MovieDetail, MovieListResult } from '../../types'
@@ -47,8 +48,8 @@ const MovieDetail = ({ movie, recommendedMovies }: Props) => {
     <div>
       <div className='flex md:flex-row flex-col gap-4 mb-8'>
         <Image
-          src={`${API_IMG_URL}${movie?.poster_path}`}
-          className='h-96 object-contain'
+          src={`${API_IMG_URL}${POSTER_SIZES.lg}${movie.poster_path}`}
+          className='object-contain'
           alt={movie?.title}
           height={384}
           width={256}
@@ -84,11 +85,11 @@ const MovieDetail = ({ movie, recommendedMovies }: Props) => {
                   className='hover:opacity-80 transition-opacity duration-100'
                 >
                   <Image
-                    src={`${API_IMG_URL}${movie.poster_path}`}
+                    src={`${API_IMG_URL}${POSTER_SIZES.sm}${movie.poster_path}`}
                     className='mb-4'
                     alt={movie.title}
-                    height={192}
-                    width={128}
+                    height={144}
+                    width={96}
                   />
                 </Link>
               </li>
