@@ -35,7 +35,7 @@ interface FavoritesContext {
     userId: string
   ) => void
   removeAllFavorites: (userId: string) => void
-  isFavorite: (id: number, userId: string) => Promise<boolean>
+  isFavorite: (id: number, userId: string) => boolean
   setFavoritesItems: any
 }
 
@@ -93,12 +93,14 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
     await deleteDoc(newFavRef)
   }
 
-  async function isFavorite(id: number, userId: string) {
+  function isFavorite(id: number, userId: string) {
     // return Boolean(favoritesItems.find((item) => item.id === id))
-    if (userId === null) return false
-    const newFavRef = doc(db, 'favorites', userId)
-    const docSnap = await getDoc(newFavRef)
-    return docSnap.exists()
+    //
+    // if (userId === null) return false
+    // const newFavRef = doc(db, 'favorites', userId)
+    // const docSnap = await getDoc(newFavRef)
+    // return docSnap.exists()
+    return false
   }
 
   return (
