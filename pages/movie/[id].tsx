@@ -75,7 +75,7 @@ const MovieDetail = ({
   const { addToFavorites, isFavorite, removeFromFavorites } = useFavorites()
 
   const toggleFavorites = (id: number, title: string, img: string) => {
-    isFavorite(movie.id, userId)
+    isFavorite(movie.id)
       ? addToFavorites(id, title, img, userId)
       : removeFromFavorites(id, title, img, userId)
   }
@@ -95,9 +95,7 @@ const MovieDetail = ({
             <h2 className='text-4xl font-semibold'>{movie?.title}</h2>
             <button
               className={`text-2xl bg-neutral-400/20 p-2 rounded-full ${
-                isFavorite(movie.id, userId)
-                  ? 'text-red-500'
-                  : 'text-transparent'
+                isFavorite(movie.id) ? 'text-red-500' : 'text-transparent'
               }`}
               onClick={() =>
                 toggleFavorites(movie.id, movie.title, movie.poster_path)

@@ -35,7 +35,7 @@ interface FavoritesContext {
     userId: string
   ) => void
   removeAllFavorites: (userId: string) => void
-  isFavorite: (id: number, userId: string) => boolean
+  isFavorite: (id: number) => boolean
   setFavoritesItems: any
 }
 
@@ -93,7 +93,7 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
     await deleteDoc(newFavRef)
   }
 
-  function isFavorite(id: number, userId: string) {
+  function isFavorite(id: number) {
     // return Boolean(favoritesItems.find((item) => item.id === id))
     //
     // if (userId === null) return false

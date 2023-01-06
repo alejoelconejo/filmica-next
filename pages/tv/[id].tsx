@@ -40,9 +40,9 @@ export async function getServerSideProps({ params }: any) {
 const TvDetail = ({ tvShow, recommendedTvShows }: Props) => {
   const { addToFavorites, isFavorite, removeFromFavorites } = useFavorites()
 
-  const toggleFavorites = (id: number, title: string, img: string) => {
-    !isFavorite(id) ? addToFavorites(id, title, img) : removeFromFavorites(id)
-  }
+  // const toggleFavorites = (id: number, title: string, img: string) => {
+  //   !isFavorite(id) ? addToFavorites(id, title, img) : removeFromFavorites(id)
+  // }
 
   return (
     <div>
@@ -59,9 +59,9 @@ const TvDetail = ({ tvShow, recommendedTvShows }: Props) => {
             <h2 className='text-3xl'>{tvShow.name}</h2>
             <button
               className='text-2xl text-yellow-400'
-              onClick={() =>
-                toggleFavorites(tvShow.id, tvShow.name, tvShow.poster_path)
-              }
+              // onClick={() =>
+              //   toggleFavorites(tvShow.id, tvShow.name, tvShow.poster_path)
+              // }
             >
               {isFavorite(tvShow.id) ? '★' : '☆'}
             </button>

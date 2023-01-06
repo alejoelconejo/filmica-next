@@ -31,9 +31,9 @@ export async function getServerSideProps({ params }: any) {
 const PersonDetail = ({ person }: Props) => {
   const { addToFavorites, isFavorite, removeFromFavorites } = useFavorites()
 
-  const toggleFavorites = (id: number, name: string, img: string) => {
-    !isFavorite(id) ? addToFavorites(id, name, img) : removeFromFavorites(id)
-  }
+  // const toggleFavorites = (id: number, name: string, img: string) => {
+  //   !isFavorite(id) ? addToFavorites(id, name, img) : removeFromFavorites(id)
+  // }
 
   return (
     <div>
@@ -50,9 +50,9 @@ const PersonDetail = ({ person }: Props) => {
             <h2 className='text-3xl'>{person.name}</h2>
             <button
               className='text-2xl text-yellow-400'
-              onClick={() =>
-                toggleFavorites(person.id, person.name, person.profile_path)
-              }
+              // onClick={() =>
+              //   toggleFavorites(person.id, person.name, person.profile_path)
+              // }
             >
               {isFavorite(person.id) ? '★' : '☆'}
             </button>
