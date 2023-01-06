@@ -13,7 +13,8 @@ import roundNumOneDecimal from '../../utils/roundNumOneDecimal'
 import { authOptions } from '../api/auth/[...nextauth]'
 import { unstable_getServerSession } from 'next-auth'
 import { DetailMovieListSlider } from '../../components/DetailMovieListSlider'
-import { DetailPersonListSlider } from '../../components/DetailPersonListSlider'
+import { DetailCrewListSlider } from '../../components/DetailCrewListSlider'
+import { DetailCastListSlider } from '../../components/DetailCastListSlider'
 
 interface Props {
   userId: string
@@ -153,8 +154,8 @@ const MovieDetail = ({
           </ul>
         </div>
       </div>
-      <DetailPersonListSlider items={cast} title='Cast' />
-      <DetailPersonListSlider items={crew} title='Crew' />
+      <DetailCastListSlider items={cast} title='Cast' />
+      <DetailCrewListSlider items={crew} title='Crew' />
       {recommendedMovies.length ? (
         <DetailMovieListSlider
           title='Recommended Films'
