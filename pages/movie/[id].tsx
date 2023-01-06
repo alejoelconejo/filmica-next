@@ -8,11 +8,12 @@ import {
 } from '../../api'
 import { useFavorites } from '../../contexts/FavoriteContext'
 import { Cast, Crew, MovieDetail, MovieListResult } from '../../types'
-import Link from 'next/link'
 import getYearFromString from '../../utils/getYearFromString'
 import roundNumOneDecimal from '../../utils/roundNumOneDecimal'
 import { authOptions } from '../api/auth/[...nextauth]'
 import { unstable_getServerSession } from 'next-auth'
+import { DetailMovieListSlider } from '../../components/DetailMovieListSlider'
+import { DetailPersonListSlider } from '../../components/DetailPersonListSlider'
 
 interface Props {
   userId: string
@@ -152,46 +153,15 @@ const MovieDetail = ({
               </li>
             ))}
           </ul>
-          {/* <section className='mb-2'>
-            <h4>Crew</h4>
-            <ul className='flex text-sm flex-wrap gap-2'>
-              {crew.map((person) => (
-                <li key={person.id}>{person.name}</li>
-              ))}
-            </ul>
-          </section>
-          <section className='mb-2'>
-            <h4>Cast</h4>
-            <ul className='flex text-sm flex-wrap gap-2'>
-              {cast.map((person) => (
-                <li key={person.id}>{person.name}</li>
-              ))}
-            </ul>
-          </section> */}
         </div>
       </div>
+      <DetailPersonListSlider items={cast} title='Cast' />
+      <DetailPersonListSlider items={crew} title='Crew' />
       {recommendedMovies.length ? (
-        <section>
-          <h3 className='text-2xl mb-4'>Recommended Movies</h3>
-          <ul className='flex flex-wrap gap-4'>
-            {recommendedMovies.map((movie) => (
-              <li className='w-24' key={movie.id}>
-                <Link
-                  href={`/movie/${movie.id}`}
-                  className='hover:opacity-80 transition-opacity duration-100'
-                >
-                  <Image
-                    src={`${API_IMG_URL}${POSTER_SIZES.sm}${movie.poster_path}`}
-                    className='mb-4'
-                    alt={movie.title}
-                    height={144}
-                    width={96}
-                  />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
+        <DetailMovieListSlider
+          title='Recommended Films'
+          items={recommendedMovies}
+        />
       ) : (
         ''
       )}
