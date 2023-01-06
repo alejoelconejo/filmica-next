@@ -1,4 +1,12 @@
-import { collection, doc, setDoc } from 'firebase/firestore'
+import {
+  arrayRemove,
+  arrayUnion,
+  deleteDoc,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore'
 import { createContext, ReactNode, useContext, useState } from 'react'
 import { db } from '../utils/firebaseConfig'
 
@@ -6,7 +14,7 @@ interface FavoritesProviderProps {
   children: ReactNode
 }
 
-interface FavoritesItem {
+export interface FavoritesItem {
   id: number
   title: string
   img: string
@@ -14,10 +22,20 @@ interface FavoritesItem {
 
 interface FavoritesContext {
   favoritesItems: FavoritesItem[]
-  addToFavorites: (id: number, title: string, img: string) => void
-  removeFromFavorites: (id: number) => void
-  removeAllFavorites: () => void
-  isFavorite: (id: number) => boolean
+  addToFavorites: (
+    id: number,
+    title: string,
+    img: string,
+    userId: string
+  ) => void
+  removeFromFavorites: (
+    id: number,
+    title: string,
+    img: string,
+    userId: string
+  ) => void
+  removeAllFavorites: (userId: string) => void
+  isFavorite: (id: number, userId: string) => Promise<boolean>
   setFavoritesItems: any
 }
 
@@ -30,35 +48,57 @@ export function useFavorites() {
 export function FavoritesProvider({ children }: FavoritesProviderProps) {
   const [favoritesItems, setFavoritesItems] = useState<FavoritesItem[]>([])
 
-  function addToFavorites(id: number, title: string, img: string) {
-    setFavoritesItems((currItems) => {
-      if (currItems.find((item) => item.id === id) == null) {
-        return [...currItems, { id, title, img }]
-      } else {
-        return [...currItems]
-      }
-    })
-
-    const newFavRef = doc(collection(db, 'favorites'))
-
-    const favData = {
-      favs: [{ id, title, img }],
+  async function addToFavorites(
+    id: number,
+    title: string,
+    img: string,
+    userId: string
+  ) {
+    if (userId === null) {
+      alert('You must signin to add your favorite movies')
+      return
     }
-    setDoc(newFavRef, favData)
+
+    const newFavRef = doc(db, 'favorites', userId)
+    const docSnap = await getDoc(newFavRef)
+
+    if (!docSnap.exists()) {
+      const favData = {
+        favs: [{ id, title, img }],
+      }
+      await setDoc(newFavRef, favData)
+    } else {
+      const favData = { id, title, img }
+      await updateDoc(newFavRef, {
+        favs: arrayUnion(favData),
+      })
+    }
   }
 
-  function removeFromFavorites(id: number) {
-    setFavoritesItems((currItems) => {
-      return currItems.filter((item) => item.id !== id)
+  async function removeFromFavorites(
+    id: number,
+    title: string,
+    img: string,
+    userId: string
+  ) {
+    const newFavRef = doc(db, 'favorites', userId)
+    const favData = { id, title, img }
+    await updateDoc(newFavRef, {
+      favs: arrayRemove(favData),
     })
   }
 
-  function removeAllFavorites() {
-    setFavoritesItems([])
+  async function removeAllFavorites(userId: string) {
+    const newFavRef = doc(db, 'favorites', userId)
+    await deleteDoc(newFavRef)
   }
 
-  function isFavorite(id: number) {
-    return Boolean(favoritesItems.find((item) => item.id === id))
+  async function isFavorite(id: number, userId: string) {
+    // return Boolean(favoritesItems.find((item) => item.id === id))
+    if (userId === null) return false
+    const newFavRef = doc(db, 'favorites', userId)
+    const docSnap = await getDoc(newFavRef)
+    return docSnap.exists()
   }
 
   return (
@@ -75,4 +115,16 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
       {children}
     </FavoritesContext.Provider>
   )
+}
+
+export async function getFavorites(userId: string) {
+  const newFavRef = doc(db, 'favorites', userId)
+  const docSnap = await getDoc(newFavRef)
+
+  if (!docSnap.exists()) {
+    return null
+  }
+
+  const favsArray = docSnap.data().favs
+  return favsArray
 }

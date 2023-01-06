@@ -11,8 +11,11 @@ import { Cast, Crew, MovieDetail, MovieListResult } from '../../types'
 import Link from 'next/link'
 import getYearFromString from '../../utils/getYearFromString'
 import roundNumOneDecimal from '../../utils/roundNumOneDecimal'
+import { authOptions } from '../api/auth/[...nextauth]'
+import { unstable_getServerSession } from 'next-auth'
 
 interface Props {
+  userId: string
   movie: MovieDetail
   recommendedMovies: MovieListResult[]
   crew: Crew[]
@@ -20,8 +23,16 @@ interface Props {
   directors: Crew[]
 }
 
-export async function getServerSideProps({ params }: any) {
-  const { id } = params
+export async function getServerSideProps(context: any) {
+  const session = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions
+  )
+
+  const userId = session ? session.user.id : null
+
+  const { id } = context.params
 
   const endPoint = `${API_BASE_URL}/movie/${id}?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}`
   const res = await fetch(endPoint)
@@ -42,6 +53,7 @@ export async function getServerSideProps({ params }: any) {
 
   return {
     props: {
+      userId,
       movie,
       recommendedMovies,
       crew,
@@ -52,6 +64,7 @@ export async function getServerSideProps({ params }: any) {
 }
 
 const MovieDetail = ({
+  userId,
   movie,
   recommendedMovies,
   crew,
@@ -61,7 +74,9 @@ const MovieDetail = ({
   const { addToFavorites, isFavorite, removeFromFavorites } = useFavorites()
 
   const toggleFavorites = (id: number, title: string, img: string) => {
-    !isFavorite(id) ? addToFavorites(id, title, img) : removeFromFavorites(id)
+    isFavorite(movie.id, userId)
+      ? addToFavorites(id, title, img, userId)
+      : removeFromFavorites(id, title, img, userId)
   }
 
   return (
@@ -79,7 +94,9 @@ const MovieDetail = ({
             <h2 className='text-4xl font-semibold'>{movie?.title}</h2>
             <button
               className={`text-2xl bg-neutral-400/20 p-2 rounded-full ${
-                isFavorite(movie.id) ? 'text-red-500' : 'text-transparent'
+                isFavorite(movie.id, userId)
+                  ? 'text-red-500'
+                  : 'text-transparent'
               }`}
               onClick={() =>
                 toggleFavorites(movie.id, movie.title, movie.poster_path)
