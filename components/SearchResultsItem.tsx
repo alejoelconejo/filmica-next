@@ -16,7 +16,7 @@ export const SearchResultsItem = ({ result }: Props) => {
     return (
       <li className='bg-neutral-900 text-neutral-50 rounded border border-neutral-700 transition hover:bg-purple-900/30'>
         <Link className='flex' href={`/person/${result.id}`}>
-          <div className='relative'>
+          <div className='relative h-24 w-16 shrink-0'>
             {result.profile_path ? (
               <Image
                 className='rounded-l'
@@ -24,15 +24,15 @@ export const SearchResultsItem = ({ result }: Props) => {
                 alt={result.name as string}
                 height={96}
                 width={64}
+                title={result.name}
               />
             ) : (
-              <div className='h-24 w-16 flex items-center justify-center'>
+              <div className='h-24 w-16 flex items-center justify-center bg-neutral-700/60'>
                 <p className='line-clamp-3 text-center max-w-full text-xs break-word'>
                   {result.name}
                 </p>
               </div>
             )}
-
             <span className='bg-blue-400 text-neutral-50 text-xs p-1 absolute -bottom-1 -right-1 rounded-full'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -79,9 +79,10 @@ export const SearchResultsItem = ({ result }: Props) => {
                 alt={result.original_name as string}
                 height={96}
                 width={64}
+                title={result.original_name}
               />
             ) : (
-              <div className='h-24 w-16 flex items-center justify-center'>
+              <div className='h-24 w-16 flex items-center justify-center bg-neutral-700/60'>
                 <p className='line-clamp-3 text-center max-w-full text-xs break-word'>
                   {result.title}
                 </p>
@@ -140,9 +141,10 @@ export const SearchResultsItem = ({ result }: Props) => {
               alt={result.original_title as string}
               height={96}
               width={64}
+              title={result.original_title}
             />
           ) : (
-            <div className='h-24 w-16 flex items-center justify-center'>
+            <div className='h-24 w-16 flex items-center justify-center bg-neutral-700/60'>
               <p className='line-clamp-3 text-center max-w-full text-xs break-word'>
                 {result.title}
               </p>

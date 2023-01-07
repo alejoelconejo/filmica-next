@@ -93,9 +93,18 @@ const PersonDetail = ({ person, crew, cast }: Props) => {
             <span className='text-lg'>{person.known_for_department}</span>
             <div>
               <span>
-                {`${getYearFromString(person.birthday)} (${getCountryFromPlace(
-                  person.place_of_birth
-                )})`}
+                {person.birthday ? (
+                  <span>{getYearFromString(person.birthday)}</span>
+                ) : (
+                  ''
+                )}
+                {person.place_of_birth ? (
+                  <span className='ml-1'>
+                    ({getCountryFromPlace(person.place_of_birth)})
+                  </span>
+                ) : (
+                  ''
+                )}
               </span>
               <span className='ml-1'>-</span>
               {person.deathday ? (

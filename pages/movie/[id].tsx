@@ -15,6 +15,7 @@ import { unstable_getServerSession } from 'next-auth'
 import { DetailMovieListSlider } from '../../components/DetailMovieListSlider'
 import { DetailCrewListSlider } from '../../components/DetailCrewListSlider'
 import { DetailCastListSlider } from '../../components/DetailCastListSlider'
+import Link from 'next/link'
 
 interface Props {
   userId: string
@@ -122,14 +123,28 @@ const MovieDetail = ({
           </div>
           <section>
             {directors.map((director) => (
-              <h3 key={director.id}>{director.name}</h3>
+              <Link href={`/person/${director.id}`} key={director.id}>
+                {director.name}
+              </Link>
             ))}
           </section>
           <section className='text-sm text-neutral-300 flex gap-1 mb-1'>
-            <span>{getYearFromString(movie.release_date)}</span>
-            <span className='text-neutral-400'>•</span>
-            <span>{movie.runtime} min.</span>
-            <span className='text-neutral-400'>•</span>
+            {movie.release_date ? (
+              <span>
+                {getYearFromString(movie.release_date)}
+                <span className='text-neutral-400 ml-1'>•</span>
+              </span>
+            ) : (
+              ''
+            )}
+            {movie.runtime ? (
+              <span>
+                {movie.runtime} min.
+                <span className='text-neutral-400 ml-1'>•</span>
+              </span>
+            ) : (
+              ''
+            )}
             <p className='flex gap-2'>
               {movie.production_countries.map((country) => (
                 <span className='border-neutral-300' key={country.iso_3166_1}>
@@ -138,13 +153,17 @@ const MovieDetail = ({
               ))}
             </p>
           </section>
-          <p className='text-sm text-neutral-300 mb-4'>
-            <span className='mr-[0.15rem] text-yellow-400'>★</span>
-            {roundNumOneDecimal(movie.vote_average)}
-            <span className='text-xs'>({movie.vote_count})</span>
-          </p>
+          {movie.vote_count ? (
+            <p className='text-sm text-neutral-300 mb-4'>
+              <span className='mr-[0.15rem] text-yellow-400'>★</span>
+              {roundNumOneDecimal(movie.vote_average)}
+              <span className='text-xs'>({movie.vote_count})</span>
+            </p>
+          ) : (
+            ''
+          )}
           <p className='mb-8'>{movie.overview}</p>
-          <ul className='flex gap-2 text-sm mb-4'>
+          <ul className='flex flex-wrap gap-2 text-sm mb-4'>
             {movie.genres.map((genre) => (
               <li
                 key={genre.id}

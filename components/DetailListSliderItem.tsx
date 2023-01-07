@@ -9,10 +9,10 @@ interface Props {
 
 export const DetailListSliderItem = ({ movie }: Props) => {
   return (
-    <li className='min-w-0 flex-shrink-0 flex-grow-0 basis-1/4 sm:basis-1/6 md:basis-1/12'>
+    <li>
       <Link href={`/movie/${movie.id}`}>
         {movie.poster_path ? (
-          <div className='aspect-[154/231] w-20'>
+          <div className='aspect-[154/231] w-24'>
             <Image
               className='rounded-lg h-full object-cover border border-neutral-700'
               src={`${API_IMG_URL}${POSTER_SIZES.sm}${movie.poster_path}`}
@@ -22,7 +22,7 @@ export const DetailListSliderItem = ({ movie }: Props) => {
             />
           </div>
         ) : (
-          <div className='aspect-[154/231] w-20 flex items-center justify-center border rounded-lg border-neutral-700'>
+          <div className='aspect-[154/231] w-24 flex items-center justify-center border rounded-lg border-neutral-700'>
             <p className='line-clamp-3 text-center max-w-full text-xs break-word'>
               {movie.title}
             </p>

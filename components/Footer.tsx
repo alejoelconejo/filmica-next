@@ -1,7 +1,13 @@
+import { Container } from './Container'
+
 export const Footer = () => {
   return (
-    <footer className='max-w-5xl mx-auto py-4 px-2 md:px-0'>
-      Developed by alejoelconejo 🐰
+    <footer className='mt-12 py-4 bg-neutral-900'>
+      <Container>
+        <div>
+          <p className='text-right'>Developed by alejoelconejo 🐰</p>
+        </div>
+      </Container>
     </footer>
   )
 }

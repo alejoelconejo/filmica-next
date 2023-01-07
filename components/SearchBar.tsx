@@ -63,7 +63,7 @@ export const SearchBar = () => {
     >
       <label className='group flex-1 relative'>
         <input
-          className='rounded caret-purple-700 px-3 bg-neutral-900 border-neutral-300 w-full border-2 py-1 placeholder-neutral-400'
+          className='rounded caret-purple-500 px-3 bg-neutral-900 border-neutral-300 w-full border-2 py-1 placeholder-neutral-400'
           type='text'
           name='search'
           placeholder='Search by keyword...'
@@ -73,7 +73,7 @@ export const SearchBar = () => {
         />
 
         <div
-          className={`w-96 max-w-full absolute group-focus-within:block hidden bg-neutral-800 border-2 border-neutral-900 rounded-b text-black p-4 z-50`}
+          className={`md:w-2/5 sm:w-96 w-full overflow-y-auto max-h-[80vh] max-w-full absolute group-focus-within:block hidden bg-neutral-800 border-2 border-neutral-900 rounded-b text-black p-4 z-50`}
         >
           {filteredList.length ? (
             <>
@@ -95,24 +95,26 @@ export const SearchBar = () => {
             </p>
           )}
         </div>
+        <button className='absolute right-2 top-0 bottom-0' type='submit'>
+          <div>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              width='25'
+              height='25'
+              viewBox='0 0 24 24'
+              strokeWidth='1.5'
+              stroke='#ffffff'
+              fill='none'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            >
+              <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+              <circle cx='10' cy='10' r='7' />
+              <line x1='21' y1='21' x2='15' y2='15' />
+            </svg>
+          </div>
+        </button>
       </label>
-      <button type='submit'>
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          width='25'
-          height='25'
-          viewBox='0 0 24 24'
-          strokeWidth='1.5'
-          stroke='#ffffff'
-          fill='none'
-          strokeLinecap='round'
-          strokeLinejoin='round'
-        >
-          <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-          <circle cx='10' cy='10' r='7' />
-          <line x1='21' y1='21' x2='15' y2='15' />
-        </svg>
-      </button>
     </form>
   )
 }

@@ -35,7 +35,7 @@ export interface PersonListResult {
   profile_path: string
   adult: boolean
   id: number
-  known_for: KnownFor[]
+  known_for: MovieListResult[] & TvShowsListResult[]
   name: string
   popularity: number
 }
@@ -60,7 +60,7 @@ export interface SearchResult {
   original_name?: string
   origin_country?: string[]
   profile_path?: string
-  known_for?: KnownFor[]
+  known_for?: MovieListResult[] & TvShowsListResult[]
   media_type: string
 }
 
