@@ -73,7 +73,7 @@ export const SearchBar = () => {
         />
 
         <div
-          className={`w-96 max-w-full absolute group-focus-within:block hidden bg-white text-black p-4 z-50`}
+          className={`w-96 max-w-full absolute group-focus-within:block hidden bg-neutral-800 border-2 border-neutral-900 rounded-b text-black p-4 z-50`}
         >
           {filteredList.length ? (
             <>
@@ -82,7 +82,10 @@ export const SearchBar = () => {
                   <SearchResultsItem key={item.id} result={item} />
                 ))}
               </ul>
-              <Link href={`/results?kwd=${encodeURIComponent(search)}`}>
+              <Link
+                className='w-fit ml-auto block border border-neutral-400 bg-neutral-900 hover:bg-purple-800/90 transition text-sm hover:text-gray-100 rounded text-neutral-100 px-2 py-1 hover:'
+                href={`/results?kwd=${encodeURIComponent(search)}`}
+              >
                 See all results
               </Link>
             </>

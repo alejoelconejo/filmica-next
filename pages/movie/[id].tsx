@@ -138,7 +138,7 @@ const MovieDetail = ({
           </section>
           <p className='text-sm text-neutral-300 mb-4'>
             <span className='mr-[0.15rem] text-yellow-400'>★</span>
-            {roundNumOneDecimal(movie.vote_average)}{' '}
+            {roundNumOneDecimal(movie.vote_average)}
             <span className='text-xs'>({movie.vote_count})</span>
           </p>
           <p className='mb-8'>{movie.overview}</p>

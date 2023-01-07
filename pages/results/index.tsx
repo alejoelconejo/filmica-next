@@ -31,7 +31,7 @@ export default function Results({ searchResults }: Props) {
       <p className='text-xl mb-4'>Your are looking for {keywords}</p>
       {searchResults.length ? (
         <section className='mt-8'>
-          <ul className='flex flex-col gap-4'>
+          <ul className='grid grid-cols-[repeat(auto-fill,_minmax(200px,_1fr))] text-black gap-4'>
             {searchResults.map((result) => (
               <SearchResultsItem key={result.id} result={result} />
             ))}
