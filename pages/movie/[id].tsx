@@ -84,13 +84,15 @@ const MovieDetail = ({
   return (
     <div>
       <div className='flex md:flex-row sm:flex-row flex-col gap-4 mb-8'>
-        <Image
-          src={`${API_IMG_URL}${POSTER_SIZES.lg}${movie.poster_path}`}
-          className='object-contain object-top mx-auto rounded border border-orange-500/40'
-          alt={movie.title}
-          height={384}
-          width={256}
-        />
+        <div>
+          <Image
+            src={`${API_IMG_URL}${POSTER_SIZES.lg}${movie.poster_path}`}
+            className='mx-auto rounded border-2 border-orange-400/20'
+            alt={movie.title}
+            height={384}
+            width={256}
+          />
+        </div>
         <div className='flex flex-1 flex-col'>
           <div className='flex justify-between items-start'>
             <h2 className='text-4xl font-semibold'>{movie?.title}</h2>

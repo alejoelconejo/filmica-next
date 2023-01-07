@@ -71,10 +71,10 @@ export const SearchResultsItem = ({ result }: Props) => {
     return (
       <li className='bg-neutral-900 text-neutral-50 rounded border border-neutral-700 transition hover:bg-purple-900/30'>
         <Link className='flex' href={`/tv/${result.id}`}>
-          <div className='relative'>
+          <div className='relative w-16 flex-shrink-0'>
             {result.poster_path ? (
               <Image
-                className='rounded-l'
+                className='w-full rounded-l '
                 src={`${API_IMG_URL}${POSTER_SIZES.xs}${result.poster_path}`}
                 alt={result.original_name as string}
                 height={96}
