@@ -25,7 +25,7 @@ export const DetailCastListSlider = ({ items, title }: Props) => {
         {items.map((person) => (
           <DetailCastListSliderItem
             person={person}
-            key={`${person.id}${person.character}`}
+            key={`${person.id}${person.cast_id}`}
           />
         ))}
       </ListSlider>

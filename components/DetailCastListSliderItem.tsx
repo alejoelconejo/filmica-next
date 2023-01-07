@@ -10,7 +10,7 @@ interface Props {
 
 export const DetailCastListSliderItem = ({ person }: Props) => {
   return (
-    <li>
+    <li className='hover:brightness-125 transition'>
       <Link className='h-full block' href={`/person/${person.id}`}>
         <div className='h-full'>
           <div className='flex flex-col items-center'>

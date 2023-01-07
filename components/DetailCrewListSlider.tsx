@@ -25,7 +25,7 @@ export const DetailCrewListSlider = ({ items, title }: Props) => {
         {items.map((person) => (
           <DetailCrewListSliderItem
             person={person}
-            key={`${person.id}${person.department}`}
+            key={`${person.id}${person.credit_id}`}
           />
         ))}
       </ListSlider>
