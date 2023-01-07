@@ -23,7 +23,10 @@ export const DetailCrewListSlider = ({ items, title }: Props) => {
       </div>
       <ListSlider options={carouselOptions}>
         {items.map((person) => (
-          <DetailCrewListSliderItem person={person} key={person.id} />
+          <DetailCrewListSliderItem
+            person={person}
+            key={`${person.id}${person.department}`}
+          />
         ))}
       </ListSlider>
     </section>
