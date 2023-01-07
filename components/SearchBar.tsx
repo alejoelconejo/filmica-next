@@ -90,8 +90,8 @@ export const SearchBar = () => {
               </Link>
             </>
           ) : (
-            <p className='text-gray-500'>
-              Search your favorite movie, person or TV show
+            <p className='text-neutral-300'>
+              Search any movie, person or TV show
             </p>
           )}
         </div>
