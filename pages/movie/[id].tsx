@@ -83,10 +83,10 @@ const MovieDetail = ({
 
   return (
     <div>
-      <div className='flex md:flex-row flex-col gap-4 mb-8'>
+      <div className='flex md:flex-row sm:flex-row flex-col gap-4 mb-8'>
         <Image
           src={`${API_IMG_URL}${POSTER_SIZES.lg}${movie.poster_path}`}
-          className='object-contain object-top'
+          className='object-contain object-top mx-auto rounded border border-orange-500/40'
           alt={movie.title}
           height={384}
           width={256}
