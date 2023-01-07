@@ -63,7 +63,7 @@ export const SearchBar = () => {
     >
       <label className='group flex-1 relative'>
         <input
-          className='rounded px-3 bg-neutral-900 border-neutral-300 w-full border-2 py-1 placeholder-neutral-400'
+          className='rounded caret-purple-700 px-3 bg-neutral-900 border-neutral-300 w-full border-2 py-1 placeholder-neutral-400'
           type='text'
           name='search'
           placeholder='Search by keyword...'
