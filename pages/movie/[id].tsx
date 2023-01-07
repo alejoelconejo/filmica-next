@@ -16,6 +16,7 @@ import { DetailMovieListSlider } from '../../components/DetailMovieListSlider'
 import { DetailCrewListSlider } from '../../components/DetailCrewListSlider'
 import { DetailCastListSlider } from '../../components/DetailCastListSlider'
 import Link from 'next/link'
+import { DetailLargeText } from '../../components/DetailLargeText'
 
 interface Props {
   userId: string
@@ -162,7 +163,9 @@ const MovieDetail = ({
           ) : (
             ''
           )}
-          <p className='mb-8'>{movie.overview}</p>
+          <section className='mb-8'>
+            <DetailLargeText text={movie.overview} />
+          </section>
           <ul className='flex flex-wrap gap-2 text-sm mb-4'>
             {movie.genres.map((genre) => (
               <li
@@ -175,8 +178,8 @@ const MovieDetail = ({
           </ul>
         </div>
       </div>
-      <DetailCastListSlider items={cast} title='Cast' />
-      <DetailCrewListSlider items={crew} title='Crew' />
+      {cast.length ? <DetailCastListSlider items={cast} title='Cast' /> : ''}
+      {crew.length ? <DetailCrewListSlider items={crew} title='Crew' /> : ''}
       {recommendedMovies.length ? (
         <DetailMovieListSlider
           title='Recommended Films'

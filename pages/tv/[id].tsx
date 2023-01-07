@@ -7,6 +7,7 @@ import {
   API_KEY,
   POSTER_SIZES,
 } from '../../api'
+import { DetailLargeText } from '../../components/DetailLargeText'
 import { DetailTVListSlider } from '../../components/DetailTVListSlider'
 import { useFavorites } from '../../contexts/FavoriteContext'
 import { TvShowsListResult, TvShow } from '../../types'
@@ -131,7 +132,9 @@ const TvDetail = ({ tvShow, recommendedTvShows }: Props) => {
             <span>Seasons: {tvShow.number_of_seasons}</span>
             <span>Episodes: {tvShow.number_of_episodes}</span>
           </p>
-          <p className='mt-4 mb-8'>{tvShow.overview}</p>
+          <p className='mt-4 mb-8'>
+            <DetailLargeText text={tvShow.overview} />
+          </p>
           <ul className='flex flex-wrap gap-2 text-sm mb-4'>
             {tvShow.genres.map((genre) => (
               <li

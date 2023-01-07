@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import { useState } from 'react'
 import {
   API_BASE_URL,
   API_DEFAULT_LANGUAGE,
@@ -7,6 +6,7 @@ import {
   API_KEY,
   PROFILE_SIZES,
 } from '../../api'
+import { DetailLargeText } from '../../components/DetailLargeText'
 import { DetailMovieListSlider } from '../../components/DetailMovieListSlider'
 import { useFavorites } from '../../contexts/FavoriteContext'
 import { Person, PersonCast, PersonCrew } from '../../types'
@@ -47,8 +47,6 @@ const PersonDetail = ({ person, crew, cast }: Props) => {
   // const toggleFavorites = (id: number, name: string, img: string) => {
   //   !isFavorite(id) ? addToFavorites(id, name, img) : removeFromFavorites(id)
   // }
-
-  const [isCollapsed, toggleCollapsed] = useState(true)
 
   return (
     <div>
@@ -115,16 +113,8 @@ const PersonDetail = ({ person, crew, cast }: Props) => {
             </div>
           </section>
           {person.biography ? (
-            <section>
-              <p className={`${isCollapsed ? 'line-clamp-5' : ''}`}>
-                {person.biography}
-              </p>
-              <button
-                className='text-sm border border-neutral-400 text-neutral-300 hover:text-neutral-100 transition rounded-full px-2 py-1 mt-2'
-                onClick={() => toggleCollapsed((prevValue) => !prevValue)}
-              >
-                {isCollapsed ? 'Read more...' : 'Read less...'}
-              </button>
+            <section className='mt-4'>
+              <DetailLargeText text={person.biography} />
             </section>
           ) : (
             ''
