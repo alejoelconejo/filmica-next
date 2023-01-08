@@ -27,7 +27,7 @@ export const DetailCastListSliderItem = ({ person }: Props) => {
               </div>
             ) : (
               <div className='h-[120px] w-20 flex items-center justify-center border rounded-lg border-neutral-700'>
-                <p className='line-clamp-2 text-center max-w-full font-semibold text-sm break-word'>
+                <p className='line-clamp-2 text-center max-w-full font-semibold text-sm break-all'>
                   {getInitialsFromFullName(person.name)}
                 </p>
               </div>

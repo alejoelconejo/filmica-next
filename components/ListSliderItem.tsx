@@ -20,7 +20,7 @@ export const ListSliderItem = ({ movie }: Props) => {
             height={240}
           />
         ) : (
-          <p className='line-clamp-3 text-center max-w-full text-xs md:text-sm break-word md:m-2'>
+          <p className='line-clamp-3 text-center max-w-full text-xs md:text-sm break-all md:m-2'>
             {movie.title}
           </p>
         )}

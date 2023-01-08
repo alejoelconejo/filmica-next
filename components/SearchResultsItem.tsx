@@ -14,7 +14,7 @@ export const SearchResultsItem = ({ result }: Props) => {
 
   if (result.media_type === 'person') {
     return (
-      <li className='bg-neutral-900 text-neutral-50 rounded border border-neutral-700 transition hover:bg-purple-900/30'>
+      <li className='bg-neutral-900 text-neutral-50 rounded border border-neutral-700 transition hover:brightness-125 hover:bg-purple-500/30'>
         <Link className='flex' href={`/person/${result.id}`}>
           <div className='relative h-24 w-16 shrink-0'>
             {result.profile_path ? (
@@ -27,8 +27,8 @@ export const SearchResultsItem = ({ result }: Props) => {
                 title={result.name}
               />
             ) : (
-              <div className='h-24 w-16 flex items-center justify-center bg-neutral-700/60'>
-                <p className='line-clamp-3 text-center max-w-full text-xs break-word'>
+              <div className='h-24 w-16 flex items-center justify-center px-1 bg-neutral-600'>
+                <p className='line-clamp-3 text-center max-w-full text-xs break-all'>
                   {result.name}
                 </p>
               </div>
@@ -57,7 +57,7 @@ export const SearchResultsItem = ({ result }: Props) => {
                 {result.name}
               </span>
             </div>
-            <p className='text-sm text-neutral-500'>
+            <p className='text-sm text-neutral-400'>
               <span className='mr-[0.15rem] text-yellow-400'>★</span>
               {roundNumOneDecimal(result.popularity)}
             </p>
@@ -69,7 +69,7 @@ export const SearchResultsItem = ({ result }: Props) => {
 
   if (result.media_type === 'tv') {
     return (
-      <li className='bg-neutral-900 text-neutral-50 rounded border border-neutral-700 transition hover:bg-purple-900/30'>
+      <li className='bg-neutral-900 text-neutral-50 rounded border border-neutral-700 transition hover:brightness-125 hover:bg-purple-500/30'>
         <Link className='flex' href={`/tv/${result.id}`}>
           <div className='relative w-16 flex-shrink-0'>
             {result.poster_path ? (
@@ -82,8 +82,8 @@ export const SearchResultsItem = ({ result }: Props) => {
                 title={result.original_name}
               />
             ) : (
-              <div className='h-24 w-16 flex items-center justify-center bg-neutral-700/60'>
-                <p className='line-clamp-3 text-center max-w-full text-xs break-word'>
+              <div className='h-24 w-16 flex items-center justify-center px-1 bg-neutral-600'>
+                <p className='line-clamp-3 text-center max-w-full text-xs break-all'>
                   {result.title}
                 </p>
               </div>
@@ -111,15 +111,15 @@ export const SearchResultsItem = ({ result }: Props) => {
               <span className='text-lg font-semibold line-clamp-1'>
                 {result.original_name}
               </span>
-              <span className='text-sm text-neutral-500'>
+              <span className='text-sm text-neutral-400'>
                 {getYearFromString(result.first_air_date as string)}
               </span>
             </div>
             {result.vote_count ? (
-              <p className='text-sm text-neutral-500'>
+              <p className='text-sm text-neutral-400'>
                 <span className='mr-[0.15rem] text-yellow-400'>★</span>
                 {roundNumOneDecimal(result.vote_average as number)}
-                <span className='text-xs'>({result.vote_count})</span>
+                <span className='text-xs ml-1'>({result.vote_count})</span>
               </p>
             ) : (
               ''
@@ -131,7 +131,7 @@ export const SearchResultsItem = ({ result }: Props) => {
   }
   // for 'movie' type
   return (
-    <li className='bg-neutral-900 text-neutral-50 rounded border border-neutral-700 transition hover:bg-purple-900/30'>
+    <li className='bg-neutral-900 text-neutral-50 rounded border border-neutral-700 transition hover:brightness-125 hover:bg-purple-500/30'>
       <Link className='flex' href={`/movie/${result.id}`}>
         <div className='w-16 relative shrink-0'>
           {result.poster_path ? (
@@ -144,8 +144,8 @@ export const SearchResultsItem = ({ result }: Props) => {
               title={result.original_title}
             />
           ) : (
-            <div className='h-24 w-16 flex items-center justify-center bg-neutral-700/60'>
-              <p className='line-clamp-3 text-center max-w-full text-xs break-word'>
+            <div className='h-24 w-16 flex items-center justify-center px-1 bg-neutral-600'>
+              <p className='line-clamp-3 text-center max-w-full text-xs break-all'>
                 {result.title}
               </p>
             </div>
@@ -173,15 +173,15 @@ export const SearchResultsItem = ({ result }: Props) => {
             <span className='text-lg font-semibold line-clamp-1'>
               {result.original_title}
             </span>
-            <span className='text-sm text-neutral-500'>
+            <span className='text-sm text-neutral-400'>
               {getYearFromString(result.release_date as string)}
             </span>
           </div>
           {result.vote_count ? (
-            <p className='text-sm text-neutral-500'>
+            <p className='text-sm text-neutral-400'>
               <span className='mr-[0.15rem] text-yellow-400'>★</span>
               {roundNumOneDecimal(result.vote_average as number)}
-              <span className='text-xs'>({result.vote_count})</span>
+              <span className='text-xs ml-1'>({result.vote_count})</span>
             </p>
           ) : (
             ''

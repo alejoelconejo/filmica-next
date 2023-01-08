@@ -19,7 +19,7 @@ export const ListGridItem = ({ item }: any) => {
             style={{ objectFit: 'cover', height: '100%' }}
           />
         ) : (
-          <p className='line-clamp-3 text-center max-w-full text-xs md:text-sm break-word md:m-2'>
+          <p className='line-clamp-3 text-center max-w-full text-xs md:text-sm break-all md:m-2'>
             {item.title}
           </p>
         )}

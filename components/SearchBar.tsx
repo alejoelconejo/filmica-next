@@ -70,6 +70,7 @@ export const SearchBar = () => {
           value={search || ''}
           autoComplete='off'
           onChange={handleSearchChange}
+          spellCheck={false}
         />
 
         <div
@@ -83,7 +84,7 @@ export const SearchBar = () => {
                 ))}
               </ul>
               <Link
-                className='w-fit ml-auto block border border-neutral-400 bg-neutral-900 hover:bg-purple-800/90 transition text-sm hover:text-gray-100 rounded text-neutral-100 px-2 py-1 hover:'
+                className='w-fit ml-auto block border border-neutral-400 bg-neutral-900 hover:brightness-125 transition text-sm rounded text-neutral-100 px-2 py-1 hover:'
                 href={`/results?kwd=${encodeURIComponent(search)}`}
               >
                 See all results

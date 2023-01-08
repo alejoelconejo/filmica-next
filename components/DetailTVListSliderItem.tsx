@@ -24,7 +24,7 @@ export const DetailTVListSliderItem = ({ tvShow }: Props) => {
           </div>
         ) : (
           <div className='aspect-[154/231] w-24 flex items-center justify-center border rounded-lg border-neutral-700'>
-            <p className='line-clamp-3 text-center max-w-full text-xs break-word'>
+            <p className='line-clamp-3 text-center max-w-full text-xs break-all'>
               {tvShow.name}
             </p>
           </div>
