@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { API_IMG_URL, PROFILE_SIZES } from '../api'
-import { Cast } from '../types'
 import { getInitialsFromFullName } from '../utils/getInitialsFromName'
 
 interface Props {
