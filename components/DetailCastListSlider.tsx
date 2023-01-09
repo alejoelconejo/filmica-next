@@ -24,10 +24,13 @@ export const DetailCastListSlider = ({ items, title }: Props) => {
         <h2 className='text-xl font-semibold'>{title}</h2>
       </div>
       <ListSlider options={carouselOptions}>
-        {items.map((person) => (
+        {items.map(({ id, profile_path, name, character, cast_id }) => (
           <DetailCastListSliderItem
-            person={person}
-            key={`${person.id}${person.cast_id}`}
+            key={`${id}${cast_id}`}
+            id={id}
+            name={name}
+            character={character}
+            profilePath={profile_path}
           />
         ))}
       </ListSlider>

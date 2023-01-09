@@ -24,10 +24,13 @@ export const DetailCrewListSlider = ({ items, title }: Props) => {
         <h2 className='text-xl font-semibold'>{title}</h2>
       </div>
       <ListSlider options={carouselOptions}>
-        {items.map((person) => (
+        {items.map(({ id, profile_path, name, department, credit_id }) => (
           <DetailCrewListSliderItem
-            person={person}
-            key={`${person.id}${person.credit_id}`}
+            id={id}
+            profilePath={profile_path}
+            name={name}
+            department={department}
+            key={`${id}${credit_id}`}
           />
         ))}
       </ListSlider>
