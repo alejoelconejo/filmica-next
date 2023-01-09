@@ -9,18 +9,20 @@ interface Props {
 
 export const ListSliderItem = ({ movie }: Props) => {
   return (
-    <li className='min-w-0 flex-shrink-0 flex-grow-0 basis-1/4 md:basis-1/6 hover:brightness-125 transition'>
+    <li className='hover:brightness-125 transition'>
       <Link href={`/movie/${movie.id}`}>
         {movie.poster_path ? (
-          <Image
-            className='rounded-lg h-full object-cover'
-            src={`${API_IMG_URL}${POSTER_SIZES.md}${movie.poster_path}`}
-            alt={movie.title}
-            width={160}
-            height={240}
-          />
+          <div className='md:w-36 sm:w-32 w-28'>
+            <Image
+              className='rounded-lg h-full object-cover border border-neutral-700'
+              src={`${API_IMG_URL}${POSTER_SIZES.md}${movie.poster_path}`}
+              alt={movie.title}
+              width={160}
+              height={240}
+            />
+          </div>
         ) : (
-          <p className='line-clamp-3 text-center max-w-full text-xs md:text-sm break-all md:m-2'>
+          <p className='line-clamp-3 md:w-36 sm:w-32 w-28 text-center max-w-full text-xs md:text-sm break-all md:m-2'>
             {movie.title}
           </p>
         )}
