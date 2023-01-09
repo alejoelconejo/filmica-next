@@ -16,6 +16,8 @@ const carouselOptions: EmblaOptionsType = {
 }
 
 export function DetailTVListSlider({ items, title }: Props) {
+  if (!items.length) return null
+
   return (
     <section className='mb-8'>
       <div className='flex justify-between mb-4 items-center'>
