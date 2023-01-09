@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import Link from 'next/link'
 
 import { getTVShowDetail, getTVShowRecommended } from '../../api'
@@ -24,45 +25,53 @@ export default function TvDetail({ tvShow, recommendedTvShows }: Props) {
   // }
 
   return (
-    <div>
-      <div className='flex md:flex-row flex-col gap-4 mb-8'>
-        <DetailMovieTVImage
-          title={tvShow.name}
-          posterPath={tvShow.poster_path}
-        />
-        <div className='flex flex-1 flex-col'>
-          <div className='flex justify-between items-start'>
-            <DetailTitle title={tvShow.name} />
-            <button
-              className={`text-2xl bg-neutral-400/20 p-2 rounded-full ${
-                isFavorite(tvShow.id) ? 'text-red-500' : 'text-transparent'
-              }`}
-              // onClick={() =>
-              //   toggleFavorites(movie.id, movie.title, movie.poster_path)
-              // }
-            >
-              <FavoriteIcon />
-            </button>
+    <>
+      <Head>
+        <title key='title'>{tvShow.name} - Filmica</title>
+        <meta name='description' key='description' content={tvShow.name} />
+      </Head>
+      <div>
+        <div className='flex md:flex-row flex-col gap-4 mb-8'>
+          <DetailMovieTVImage
+            title={tvShow.name}
+            posterPath={tvShow.poster_path}
+          />
+          <div className='flex flex-1 flex-col'>
+            <div className='flex justify-between items-start'>
+              <DetailTitle title={tvShow.name} />
+              <button
+                className={`text-2xl bg-neutral-400/20 p-2 rounded-full ${
+                  isFavorite(tvShow.id) ? 'text-red-500' : 'text-transparent'
+                }`}
+                // onClick={() =>
+                //   toggleFavorites(movie.id, movie.title, movie.poster_path)
+                // }
+              >
+                <FavoriteIcon />
+              </button>
+            </div>
+            <section>
+              <ul className='flex gap-4 flex-wrap'>
+                {tvShow.created_by.map((creator) => (
+                  <li key={creator.id}>
+                    <Link href={`/person/${creator.id}`}>{creator.name}</Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+            <DetailTVShowData tvShow={tvShow} />
+            <section className='mt-4 mb-8'>
+              <DetailLargeText text={tvShow.overview} />
+            </section>
+            <DetailGenres movieTV={tvShow} />
           </div>
-          <section>
-            {tvShow.created_by.map((creator) => (
-              <Link href={`/person/${creator.id}`} key={creator.id}>
-                {creator.name}
-              </Link>
-            ))}
-          </section>
-          <DetailTVShowData tvShow={tvShow} />
-          <section className='mt-4 mb-8'>
-            <DetailLargeText text={tvShow.overview} />
-          </section>
-          <DetailGenres movieTV={tvShow} />
         </div>
+        <DetailTVListSlider
+          title='Recommended TV Shows'
+          items={recommendedTvShows}
+        />
       </div>
-      <DetailTVListSlider
-        title='Recommended TV Shows'
-        items={recommendedTvShows}
-      />
-    </div>
+    </>
   )
 }
 

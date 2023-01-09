@@ -1,4 +1,5 @@
 import { unstable_getServerSession } from 'next-auth'
+import Head from 'next/head'
 
 import { getMovieCredits, getMovieDetail, getMovieRecommended } from '../../api'
 import { useFavorites } from '../../contexts/FavoriteContext'
@@ -40,40 +41,46 @@ function MovieDetail({
   }
 
   return (
-    <div>
-      <div className='flex md:flex-row sm:flex-row flex-col gap-4 mb-8'>
-        <DetailMovieTVImage
-          title={movie.title}
-          posterPath={movie.poster_path}
-        />
-        <div className='flex flex-1 flex-col'>
-          <div className='flex justify-between items-start'>
-            <DetailTitle title={movie.title} />
-            <button
-              className={`text-2xl bg-neutral-400/20 p-2 rounded-full ${
-                isFavorite(movie.id) ? 'text-red-500' : 'text-transparent'
-              }`}
-              onClick={() =>
-                toggleFavorites(movie.id, movie.title, movie.poster_path)
-              }
-            >
-              <FavoriteIcon />
-            </button>
+    <>
+      <Head>
+        <title key='title'>{movie.title} - Filmica</title>
+        <meta name='description' key='description' content={movie.title} />
+      </Head>
+      <div>
+        <div className='flex md:flex-row sm:flex-row flex-col gap-4 mb-8'>
+          <DetailMovieTVImage
+            title={movie.title}
+            posterPath={movie.poster_path}
+          />
+          <div className='flex flex-1 flex-col'>
+            <div className='flex justify-between items-start'>
+              <DetailTitle title={movie.title} />
+              <button
+                className={`text-2xl bg-neutral-400/20 p-2 rounded-full ${
+                  isFavorite(movie.id) ? 'text-red-500' : 'text-transparent'
+                }`}
+                onClick={() =>
+                  toggleFavorites(movie.id, movie.title, movie.poster_path)
+                }
+              >
+                <FavoriteIcon />
+              </button>
+            </div>
+            <DetailMovieData directors={directors} movie={movie} />
+            <section className='mb-8'>
+              <DetailLargeText text={movie.overview} />
+            </section>
+            <DetailGenres movieTV={movie} />
           </div>
-          <DetailMovieData directors={directors} movie={movie} />
-          <section className='mb-8'>
-            <DetailLargeText text={movie.overview} />
-          </section>
-          <DetailGenres movieTV={movie} />
         </div>
+        <DetailCastListSlider items={cast} title='Cast' />
+        <DetailCrewListSlider items={crew} title='Crew' />
+        <DetailMovieListSlider
+          title='Recommended Films'
+          items={recommendedMovies}
+        />
       </div>
-      <DetailCastListSlider items={cast} title='Cast' />
-      <DetailCrewListSlider items={crew} title='Crew' />
-      <DetailMovieListSlider
-        title='Recommended Films'
-        items={recommendedMovies}
-      />
-    </div>
+    </>
   )
 }
 

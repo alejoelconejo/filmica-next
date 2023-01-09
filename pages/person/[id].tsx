@@ -1,3 +1,5 @@
+import Head from 'next/head'
+
 import { getPersonCredits, getPersonDetail } from '../../api'
 import { DetailLargeText } from '../../components/DetailLargeText'
 import { DetailMovieListSlider } from '../../components/DetailMovieListSlider'
@@ -22,47 +24,47 @@ export default function PersonDetail({ person, crew, cast }: Props) {
   // }
 
   return (
-    <div>
-      <div className='flex md:flex-row sm:flex-row flex-col gap-8 mb-8'>
-        <DetailPersonImage
-          name={person.name}
-          profilePath={person.profile_path}
-        />
-        <div className='flex flex-1 flex-col'>
-          <div className='flex justify-between items-start'>
-            <DetailTitle title={person.name} />
-            <button
-              className={`text-2xl bg-neutral-400/20 p-2 rounded-full ${
-                isFavorite(person.id) ? 'text-red-500' : 'text-transparent'
-              }`}
-              // onClick={() =>
-              //   toggleFavorites(movie.id, movie.title, movie.poster_path)
-              // }
-            >
-              <FavoriteIcon />
-            </button>
+    <>
+      <Head>
+        <title key='title'>{person.name} - Filmica</title>
+        <meta name='description' key='description' content={person.name} />
+      </Head>
+      <div>
+        <div className='flex md:flex-row sm:flex-row flex-col gap-8 mb-8'>
+          <DetailPersonImage
+            name={person.name}
+            profilePath={person.profile_path}
+          />
+          <div className='flex flex-1 flex-col'>
+            <div className='flex justify-between items-start'>
+              <DetailTitle title={person.name} />
+              <button
+                className={`text-2xl bg-neutral-400/20 p-2 rounded-full ${
+                  isFavorite(person.id) ? 'text-red-500' : 'text-transparent'
+                }`}
+                // onClick={() =>
+                //   toggleFavorites(movie.id, movie.title, movie.poster_path)
+                // }
+              >
+                <FavoriteIcon />
+              </button>
+            </div>
+            <DetailPersonData person={person} />
+            {person.biography ? (
+              <section className='mt-4'>
+                <DetailLargeText text={person.biography} />
+              </section>
+            ) : null}
           </div>
-          <DetailPersonData person={person} />
-          {person.biography ? (
-            <section className='mt-4'>
-              <DetailLargeText text={person.biography} />
-            </section>
-          ) : (
-            ''
-          )}
         </div>
+        {crew.length ? (
+          <DetailMovieListSlider title='Participates in' items={crew} />
+        ) : null}
+        {cast.length ? (
+          <DetailMovieListSlider title='Acts in' items={cast} />
+        ) : null}
       </div>
-      {crew.length ? (
-        <DetailMovieListSlider title='Participates in' items={crew} />
-      ) : (
-        ''
-      )}
-      {cast.length ? (
-        <DetailMovieListSlider title='Acts in' items={cast} />
-      ) : (
-        ''
-      )}
-    </div>
+    </>
   )
 }
 

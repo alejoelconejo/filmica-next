@@ -18,22 +18,16 @@ export function DetailTVShowData({ tvShow }: Props) {
               <span className='ml-1'>
                 {getYearFromString(tvShow.last_air_date)}
               </span>
-            ) : (
-              ''
-            )}
+            ) : null}
             <span className='text-neutral-400 ml-1'>•</span>
           </span>
-        ) : (
-          ''
-        )}
+        ) : null}
         {tvShow.episode_run_time ? (
           <span>
             {tvShow.episode_run_time} min.
             <span className='text-neutral-400 ml-1'>•</span>
           </span>
-        ) : (
-          ''
-        )}
+        ) : null}
         {tvShow.origin_country ? <span>{tvShow.origin_country}</span> : ''}
       </section>
       {tvShow.vote_count ? (
@@ -42,9 +36,7 @@ export function DetailTVShowData({ tvShow }: Props) {
           {roundNumOneDecimal(tvShow.vote_average)}
           <span className='text-xs ml-1'>({tvShow.vote_count})</span>
         </p>
-      ) : (
-        ''
-      )}
+      ) : null}
       <p className='text-sm text-neutral-300 flex gap-2 mt-1'>
         <span>Seasons: {tvShow.number_of_seasons}</span>
         <span>Episodes: {tvShow.number_of_episodes}</span>
