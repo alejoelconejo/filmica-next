@@ -80,6 +80,14 @@ export interface MovieList {
   dates?: MovieDates
 }
 
+export interface TvShowList {
+  page: number
+  results: TvShowsListResult[]
+  total_results: number
+  total_pages: number
+  dates?: MovieDates
+}
+
 export interface MovieDates {
   maximum: string
   minimum: string

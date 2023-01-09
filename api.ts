@@ -8,6 +8,7 @@ import {
   PersonCast,
   PersonCrew,
   TvShowDetail,
+  TvShowList,
   TvShowsListResult,
 } from './types'
 
@@ -41,14 +42,14 @@ export async function getMovies(endpoint: string) {
   return movies
 }
 
-export async function getPersonDetail(id: string) {
+export async function getPersonDetail(id: number) {
   const endPoint = `${API_BASE_URL}/person/${id}?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}`
   const res = await fetch(endPoint)
   const person: Person = await res.json()
   return person
 }
 
-export async function getPersonCredits(id: string) {
+export async function getPersonCredits(id: number) {
   const creditsEndPoint = `${API_BASE_URL}/person/${id}/credits?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}`
   const creditsRes = await fetch(creditsEndPoint)
   const dataCredits = await creditsRes.json()
@@ -57,14 +58,14 @@ export async function getPersonCredits(id: string) {
   return { crew, cast }
 }
 
-export async function getTVShowDetail(id: string) {
+export async function getTVShowDetail(id: number) {
   const endPoint = `${API_BASE_URL}/tv/${id}?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}`
   const res = await fetch(endPoint)
   const tvShow: TvShowDetail = await res.json()
   return tvShow
 }
 
-export async function getTVShowRecommended(id: string) {
+export async function getTVShowRecommended(id: number) {
   const recommendedEndPoint = `${API_BASE_URL}/tv/${id}/recommendations?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}`
   const recommendedRes = await fetch(recommendedEndPoint)
   const dataTvShows = await recommendedRes.json()
@@ -72,14 +73,14 @@ export async function getTVShowRecommended(id: string) {
   return recommendedTvShows
 }
 
-export async function getMovieDetail(id: string) {
+export async function getMovieDetail(id: number) {
   const endPoint = `${API_BASE_URL}/movie/${id}?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}`
   const res = await fetch(endPoint)
   const movie: MovieDetail = await res.json()
   return movie
 }
 
-export async function getMovieRecommended(id: string) {
+export async function getMovieRecommended(id: number) {
   const recommendedEndPoint = `${API_BASE_URL}/movie/${id}/recommendations?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}`
   const recommendedRes = await fetch(recommendedEndPoint)
   const dataMovies = await recommendedRes.json()
@@ -87,13 +88,34 @@ export async function getMovieRecommended(id: string) {
   return recommendedMovies
 }
 
-export async function getMovieCredits(id: string) {
+export async function getMovieCredits(id: number) {
   const creditsEndPoint = `${API_BASE_URL}/movie/${id}/credits?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}`
   const creditsRes = await fetch(creditsEndPoint)
   const dataCredits = await creditsRes.json()
   const crew: Crew[] = await dataCredits.crew
   const cast: Cast[] = await dataCredits.cast
   return { crew, cast }
+}
+
+export async function getTvShowPopular() {
+  const tvShowPopularEndPoint = `${API_BASE_URL}/tv/popular?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}`
+  const popularRes = await fetch(tvShowPopularEndPoint)
+  const data: TvShowList = await popularRes.json()
+  return data.results
+}
+
+export async function getTvShowOnAir() {
+  const tvShowOnAirEndPoint = `${API_BASE_URL}/tv/on_the_air?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}`
+  const onAirRes = await fetch(tvShowOnAirEndPoint)
+  const data: TvShowList = await onAirRes.json()
+  return data.results
+}
+
+export async function getTvShowTopRated() {
+  const tvShowTopRatedEndPoint = `${API_BASE_URL}/tv/top_rated?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}`
+  const topRatedRes = await fetch(tvShowTopRatedEndPoint)
+  const data: TvShowList = await topRatedRes.json()
+  return data.results
 }
 
 // IMAGE SIZES ALLOWED FOR URLS IN TMDB API
