@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { API_BASE_URL, API_DEFAULT_LANGUAGE, API_KEY_PUBLIC } from '../../api'
@@ -28,26 +29,32 @@ export const Trending = () => {
   }
 
   return (
-    <section>
-      <h2 className='text-3xl font-semibold mb-4'>Trending</h2>
-      <InfiniteScroll
-        dataLength={movies.length}
-        next={fetchMoreData}
-        hasMore={page < totalPages}
-        loader={<Spinner />}
-      >
-        <ListGrid>
-          {movies.map((movie) => (
-            <li
-              key={movie.id}
-              className='rounded-lg shadow-md bg-gray-800 border-gray-700 overflow-hidden'
-            >
-              <ListGridItem key={movie.id} item={movie} />
-            </li>
-          ))}
-        </ListGrid>
-      </InfiniteScroll>
-    </section>
+    <>
+      <Head>
+        <title key='title'>Trending movies - Filmica</title>
+        <meta name='description' key='description' content='Trending movies' />
+      </Head>
+      <section>
+        <h2 className='text-3xl font-semibold mb-4'>Trending</h2>
+        <InfiniteScroll
+          dataLength={movies.length}
+          next={fetchMoreData}
+          hasMore={page < totalPages}
+          loader={<Spinner />}
+        >
+          <ListGrid>
+            {movies.map((movie) => (
+              <li
+                key={movie.id}
+                className='rounded-lg shadow-md bg-gray-800 border-gray-700 overflow-hidden'
+              >
+                <ListGridItem key={movie.id} item={movie} />
+              </li>
+            ))}
+          </ListGrid>
+        </InfiniteScroll>
+      </section>
+    </>
   )
 }
 

@@ -14,7 +14,7 @@ export const SearchResultsItem = ({ result }: Props) => {
 
   if (result.media_type === 'person') {
     return (
-      <li className='bg-neutral-900 text-neutral-50 rounded border border-neutral-700 transition hover:brightness-110 hover:bg-purple-500/30'>
+      <li className='bg-neutral-900 text-neutral-50 rounded border border-neutral-700 transition hover:brightness-125 hover:bg-purple-500/30'>
         <Link className='flex' href={`/person/${result.id}`}>
           <div className='relative h-24 w-16 shrink-0'>
             {result.profile_path ? (
@@ -69,7 +69,7 @@ export const SearchResultsItem = ({ result }: Props) => {
 
   if (result.media_type === 'tv') {
     return (
-      <li className='bg-neutral-900 text-neutral-50 rounded border border-neutral-700 transition hover:brightness-110 hover:bg-purple-500/30'>
+      <li className='bg-neutral-900 text-neutral-50 rounded border border-neutral-700 transition hover:brightness-125 hover:bg-purple-500/30'>
         <Link className='flex' href={`/tv/${result.id}`}>
           <div className='relative w-16 flex-shrink-0'>
             {result.poster_path ? (
@@ -131,7 +131,7 @@ export const SearchResultsItem = ({ result }: Props) => {
   }
   // for 'movie' type
   return (
-    <li className='bg-neutral-900 text-neutral-50 rounded border border-neutral-700 transition hover:brightness-110 hover:bg-purple-500/30'>
+    <li className='bg-neutral-900 text-neutral-50 rounded border border-neutral-700 transition hover:brightness-125 hover:bg-purple-500/30'>
       <Link className='flex' href={`/movie/${result.id}`}>
         <div className='w-16 relative shrink-0'>
           {result.poster_path ? (

@@ -9,7 +9,7 @@ interface Props {
 
 export const DetailListSliderItem = ({ movie }: Props) => {
   return (
-    <li className='hover:brightness-110 transition'>
+    <li className='hover:brightness-125 transition'>
       <Link href={`/movie/${movie.id}`}>
         {movie.poster_path ? (
           <div className='aspect-[154/231] w-24'>

@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { API_BASE_URL, API_DEFAULT_LANGUAGE, API_KEY_PUBLIC } from '../../api'
@@ -28,21 +29,27 @@ export const Upcoming = () => {
   }
 
   return (
-    <section>
-      <h2 className='text-3xl font-semibold mb-4'>Upcoming</h2>
-      <InfiniteScroll
-        dataLength={movies.length}
-        next={fetchMoreData}
-        hasMore={page < totalPages}
-        loader={<Spinner />}
-      >
-        <ListGrid>
-          {movies.map((movie) => (
-            <ListGridItem key={movie.id} item={movie} />
-          ))}
-        </ListGrid>
-      </InfiniteScroll>
-    </section>
+    <>
+      <Head>
+        <title key='title'>Upcoming movies - Filmica</title>
+        <meta name='description' key='description' content='Upcoming movies' />
+      </Head>
+      <section>
+        <h2 className='text-3xl font-semibold mb-4'>Upcoming</h2>
+        <InfiniteScroll
+          dataLength={movies.length}
+          next={fetchMoreData}
+          hasMore={page < totalPages}
+          loader={<Spinner />}
+        >
+          <ListGrid>
+            {movies.map((movie) => (
+              <ListGridItem key={movie.id} item={movie} />
+            ))}
+          </ListGrid>
+        </InfiniteScroll>
+      </section>
+    </>
   )
 }
 

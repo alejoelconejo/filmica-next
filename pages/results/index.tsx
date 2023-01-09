@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { API_BASE_URL, API_DEFAULT_LANGUAGE, API_KEY } from '../../api'
 import { SearchResultsItem } from '../../components/SearchResultsItem'
@@ -27,6 +28,14 @@ export default function Results({ searchResults }: Props) {
 
   return (
     <>
+      <Head>
+        <title key='title'>{keywords} - Filmica</title>
+        <meta
+          name='description'
+          key='description'
+          content={keywords as string}
+        />
+      </Head>
       <h2 className='mb-2 text-2xl'>Results</h2>
       <p className='text-xl mb-4'>Your are looking for {keywords}</p>
       {searchResults.length ? (
