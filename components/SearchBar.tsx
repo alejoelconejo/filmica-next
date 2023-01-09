@@ -1,25 +1,11 @@
-import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useCallback, useEffect, useState } from 'react'
+import { useState } from 'react'
 import { API_BASE_URL, API_DEFAULT_LANGUAGE, API_KEY_PUBLIC } from '../api'
-import { SearchResultsItem } from './SearchResultsItem'
+import { useDebounce } from '../hooks/useDebounce'
+import { SearchBarIcon } from './SearchBarIcon'
+import { SearchBarResult } from './SearchBarResult'
 
-function useDebounce(
-  effect: () => void,
-  dependencies: string[],
-  delay: number
-) {
-  const callback = useCallback(effect, [dependencies, effect])
-
-  useEffect(() => {
-    const timeout = setTimeout(callback, delay)
-    return () => clearTimeout(timeout)
-  }, [callback, delay])
-}
-
-const SEARCH_LIST_LENGTH = 6
-
-export const SearchBar = () => {
+export function SearchBar() {
   const [search, setSearch] = useState('')
   const [filteredList, setFilteredList] = useState([])
 
@@ -72,48 +58,9 @@ export const SearchBar = () => {
           onChange={handleSearchChange}
           spellCheck={false}
         />
-
-        <div
-          className={`md:w-2/5 sm:w-96 w-full overflow-y-auto max-h-[80vh] max-w-full absolute group-focus-within:block hidden bg-neutral-800 border-2 border-neutral-900 rounded-b text-black p-4 z-50`}
-        >
-          {filteredList.length ? (
-            <>
-              <ul className='flex flex-col gap-2 mb-4'>
-                {filteredList.slice(0, SEARCH_LIST_LENGTH).map((item: any) => (
-                  <SearchResultsItem key={item.id} result={item} />
-                ))}
-              </ul>
-              <Link
-                className='w-fit ml-auto block border border-neutral-400 bg-neutral-900 hover:brightness-125 transition text-sm rounded text-neutral-100 px-2 py-1 hover:'
-                href={`/results?kwd=${encodeURIComponent(search)}`}
-              >
-                See all results
-              </Link>
-            </>
-          ) : (
-            <p className='text-neutral-300'>
-              Search any movie, person or TV show
-            </p>
-          )}
-        </div>
+        <SearchBarResult list={filteredList} search={search} />
         <button className='absolute right-2 top-0 bottom-0' type='submit'>
-          <div>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              width='25'
-              height='25'
-              viewBox='0 0 24 24'
-              strokeWidth='1.5'
-              stroke='#ffffff'
-              fill='none'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-            >
-              <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-              <circle cx='10' cy='10' r='7' />
-              <line x1='21' y1='21' x2='15' y2='15' />
-            </svg>
-          </div>
+          <SearchBarIcon />
         </button>
       </label>
     </form>
