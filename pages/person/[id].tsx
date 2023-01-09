@@ -122,11 +122,15 @@ const PersonDetail = ({ person, crew, cast }: Props) => {
         </div>
       </div>
       {crew.length ? (
-        <DetailMovieListSlider title='Participate in' items={crew} />
+        <DetailMovieListSlider title='Participates in' items={crew} />
       ) : (
         ''
       )}
-      {cast.length ? <DetailMovieListSlider title='Act in' items={cast} /> : ''}
+      {cast.length ? (
+        <DetailMovieListSlider title='Acts in' items={cast} />
+      ) : (
+        ''
+      )}
     </div>
   )
 }
