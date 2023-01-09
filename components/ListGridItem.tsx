@@ -4,7 +4,7 @@ import { API_IMG_URL, POSTER_SIZES } from '../api'
 
 export const ListGridItem = ({ item }: any) => {
   return (
-    <li className='rounded-lg shadow-md bg-gray-800 border-gray-700 overflow-hidden flex items-stretch hover:brightness-125 transition'>
+    <li className='rounded-lg shadow-md bg-gray-800 border-gray-700 overflow-hidden flex items-stretch hover:brightness-110 transition'>
       <Link
         className='flex items-center justify-center flex-1'
         href={`/movie/${item.id}`}

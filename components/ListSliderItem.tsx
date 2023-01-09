@@ -9,7 +9,7 @@ interface Props {
 
 export const ListSliderItem = ({ movie }: Props) => {
   return (
-    <li className='min-w-0 flex-shrink-0 flex-grow-0 basis-1/4 md:basis-1/6 hover:brightness-125 transition'>
+    <li className='min-w-0 flex-shrink-0 flex-grow-0 basis-1/4 md:basis-1/6 hover:brightness-110 transition'>
       <Link href={`/movie/${movie.id}`}>
         {movie.poster_path ? (
           <Image
