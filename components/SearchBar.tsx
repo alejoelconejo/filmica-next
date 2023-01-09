@@ -59,7 +59,11 @@ export function SearchBar() {
           spellCheck={false}
         />
         <SearchBarResult list={filteredList} search={search} />
-        <button className='absolute right-2 top-0 bottom-0' type='submit'>
+        <button
+          className='absolute right-2 top-0 bottom-0'
+          type='submit'
+          aria-label='Search'
+        >
           <SearchBarIcon />
         </button>
       </label>
