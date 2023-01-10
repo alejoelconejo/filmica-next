@@ -35,6 +35,13 @@ export const enum PROFILE_SIZES {
   original = 'original',
 }
 
+export const enum BACKDROP_SIZES {
+  xs = 'w300',
+  md = 'w780',
+  xl = 'h1280',
+  original = 'original',
+}
+
 export async function getMovies(endpoint: string) {
   const res = await fetch(endpoint)
   const data: MovieList = await res.json()
@@ -120,12 +127,6 @@ export async function getTvShowTopRated() {
 
 // IMAGE SIZES ALLOWED FOR URLS IN TMDB API
 //
-//   "backdrop_sizes": [
-//     "w300",
-//     "w780",
-//     "w1280",
-//     "original"
-//   ],
 //   "logo_sizes": [
 //     "w45",
 //     "w92",
