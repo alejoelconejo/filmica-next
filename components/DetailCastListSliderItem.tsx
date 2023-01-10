@@ -24,7 +24,7 @@ export const DetailCastListSliderItem = ({
             {profilePath ? (
               <div className='h-[120px] w-20'>
                 <Image
-                  className='rounded-lg h-full object-cover position-center border border-neutral-700'
+                  className='rounded-lg h-full object-cover border border-neutral-700'
                   src={`${API_IMG_URL}${PROFILE_SIZES.md}${profilePath}`}
                   alt={name}
                   width={80}

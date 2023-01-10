@@ -39,13 +39,28 @@ export const Footer = () => {
             <h2 className='text-lg font-bold uppercase mb-1'>Tv Shows</h2>
             <ul>
               <li>
-                <Link href=''>Popular</Link>
+                <Link
+                  href=''
+                  className='hover:text-orange-400 hover:brightness-125'
+                >
+                  Popular
+                </Link>
               </li>
               <li>
-                <Link href=''>Top Rated</Link>
+                <Link
+                  href=''
+                  className='hover:text-orange-400 hover:brightness-125'
+                >
+                  Top Rated
+                </Link>
               </li>
               <li>
-                <Link href=''>On Air</Link>
+                <Link
+                  href=''
+                  className='hover:text-orange-400 hover:brightness-125'
+                >
+                  On Air
+                </Link>
               </li>
             </ul>
           </div>
@@ -86,7 +101,7 @@ export const Footer = () => {
           <Link
             href='https://alejojanin.vercel.app'
             target='_blank'
-            className='text-neutral-100 mx-auto block w-fit hover:text-orange-400 transition'
+            className='text-neutral-100 mx-auto block w-fit hover:text-orange-400 hover:brightness-125 transition'
           >
             Developed by <span>alejoelconejo</span> 🐰
           </Link>

@@ -10,9 +10,9 @@ interface Props {
 export const ListSliderItem = ({ movie }: Props) => {
   return (
     <li className='hover:brightness-125 transition'>
-      <Link href={`/movie/${movie.id}`}>
+      <Link className='h-full block' href={`/movie/${movie.id}`}>
         {movie.poster_path ? (
-          <div className='md:w-36 sm:w-32 w-28'>
+          <div className='md:w-36 sm:w-32 w-28 h-full'>
             <Image
               className='rounded-lg h-full object-cover border border-neutral-700'
               src={`${API_IMG_URL}${POSTER_SIZES.md}${movie.poster_path}`}
