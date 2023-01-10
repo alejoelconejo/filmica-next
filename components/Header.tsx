@@ -43,11 +43,6 @@ export const Header = () => {
               <SearchBar />
               <ul className='flex gap-4 items-center flex-col justify-center flex-1 mt-4'>
                 <li>
-                  <Link href='/' className='text-lg font-semibold'>
-                    <h2>Home</h2>
-                  </Link>
-                </li>
-                <li>
                   <Link href='/favorites' className='text-lg font-semibold'>
                     <h2>Favorites</h2>
                   </Link>

@@ -54,9 +54,9 @@ export const Footer = () => {
                   y2='66.7'
                   gradientUnits='userSpaceOnUse'
                 >
-                  <stop offset='0' stop-color='#90cea1' />
-                  <stop offset='.56' stop-color='#3cbec9' />
-                  <stop offset='1' stop-color='#00b3e5' />
+                  <stop offset='0' stopColor='#90cea1' />
+                  <stop offset='.56' stopColor='#3cbec9' />
+                  <stop offset='1' stopColor='#00b3e5' />
                 </linearGradient>
               </defs>
               <g data-name='Layer 2'>
@@ -67,15 +67,21 @@ export const Footer = () => {
                 />
               </g>
             </svg>
-            <small className='text-sm text-white'>
+            <small className='text-sm text-neutral-200'>
               This product uses the TMDB API but is not endorsed or certified by
               TMDB.
             </small>
           </div>
         </div>
-        <p className='text-neutral-100 text-center mt-16'>
-          Developed by alejoelconejo 🐰
-        </p>
+        <div className='mt-16'>
+          <Link
+            href='https://alejojanin.vercel.app'
+            target='_blank'
+            className='text-neutral-100 mx-auto block w-fit hover:text-orange-400 transition'
+          >
+            Developed by <span>alejoelconejo</span> 🐰
+          </Link>
+        </div>
       </Container>
     </footer>
   )

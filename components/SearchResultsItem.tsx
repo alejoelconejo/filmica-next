@@ -84,7 +84,7 @@ export const SearchResultsItem = ({ result }: Props) => {
             ) : (
               <div className='h-24 w-16 flex items-center justify-center px-1 bg-neutral-600'>
                 <p className='line-clamp-3 text-center max-w-full text-xs break-all'>
-                  {result.title}
+                  {result.original_name}
                 </p>
               </div>
             )}

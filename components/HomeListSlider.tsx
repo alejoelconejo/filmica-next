@@ -28,7 +28,7 @@ export const HomeListSlider = ({ items, title, route }: Props) => {
           className='flex items-center hover:text-orange-400 transition font-semibold'
           href={`/${route}`}
         >
-          See all →
+          View all →
         </Link>
       </div>
       <ListSlider options={carouselOptions}>
