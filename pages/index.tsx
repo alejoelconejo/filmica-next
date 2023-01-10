@@ -71,7 +71,6 @@ export default function Home({
         </div>
       </section>
       <section className=''>
-        <h2 className='text-5xl font-semibold text-center mb-8'>Tv Shows</h2>
         <DetailTVListSlider
           items={tvShowPopular}
           title='Popular Tv Shows'

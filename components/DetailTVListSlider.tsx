@@ -27,12 +27,12 @@ export function DetailTVListSlider({ items, title, route = null }: Props) {
           <>
             <Link
               href={`/${route}`}
-              className='hover:text-orange-400 transition'
+              className='hover:text-orange-400 hover:brightness-125 transition'
             >
               <h2 className='text-xl font-semibold'>{title}</h2>
             </Link>
             <Link
-              className='flex items-center hover:text-orange-400 transition font-semibold'
+              className='flex items-center hover:text-orange-400 hover:brightness-125 transition font-semibold'
               href={`/${route}`}
             >
               View all →

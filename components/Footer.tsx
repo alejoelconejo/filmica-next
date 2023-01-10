@@ -5,22 +5,31 @@ export const Footer = () => {
   return (
     <footer className='mt-16 py-4 bg-gradient-to-t from-black to-neutral-900/70'>
       <Container>
-        <div className='sm:grid-cols-3 grid-cols-1 grid my-8 max-w-4xl px-4 mx-auto gap-4 text-center'>
+        <div className='sm:grid-cols-3 grid-cols-1 grid my-8 max-w-4xl px-4 gap-4'>
           <div>
             <h2 className='text-lg font-bold uppercase mb-1'>Movies</h2>
             <ul>
               <li>
-                <Link className='hover:text-orange-400' href='/popular'>
+                <Link
+                  className='hover:text-orange-400 hover:brightness-125'
+                  href='/popular'
+                >
                   Popular
                 </Link>
               </li>
               <li>
-                <Link className='hover:text-orange-400' href='/upcoming'>
+                <Link
+                  className='hover:text-orange-400 hover:brightness-125'
+                  href='/upcoming'
+                >
                   Upcoming
                 </Link>
               </li>
               <li>
-                <Link className='hover:text-orange-400' href='/trending'>
+                <Link
+                  className='hover:text-orange-400 hover:brightness-125'
+                  href='/trending'
+                >
                   Trending
                 </Link>
               </li>
@@ -40,7 +49,7 @@ export const Footer = () => {
               </li>
             </ul>
           </div>
-          <div className='flex flex-col gap-4 justify-center items-center text-blue-900'>
+          <div className='flex flex-col gap-4 md:justify-center justify-start items-start md:items-center sm:mt-0 mt-4 text-blue-900'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               viewBox='0 0 185.04 133.4'
