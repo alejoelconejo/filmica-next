@@ -8,6 +8,7 @@ import {
   getTvShowTopRated,
 } from '../api'
 import { DetailTVListSlider } from '../components/DetailTVListSlider'
+import { HomeLatestMovie } from '../components/HomeLatestMovie'
 import { HomeListSlider } from '../components/HomeListSlider'
 import { MovieListResult, TvShowsListResult } from '../types'
 
@@ -54,8 +55,8 @@ export default function Home({
 }: Props) {
   return (
     <>
+      <HomeLatestMovie movies={moviesTrending} />
       <section className='py-16'>
-        <h2 className='text-5xl font-semibold text-center mb-8'>Movies</h2>
         <div>
           <HomeListSlider
             title='Popular movies'
@@ -66,11 +67,6 @@ export default function Home({
             title='Upcoming movies'
             items={moviesUpcoming}
             route='upcoming'
-          />
-          <HomeListSlider
-            title='Trending movies'
-            items={moviesTrending}
-            route='trending'
           />
         </div>
       </section>
