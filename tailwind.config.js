@@ -14,6 +14,9 @@ module.exports = {
       animation: {
         'spin-slow': 'spin 1.8s linear infinite',
       },
+      backgroundImage: {
+        stars: "url('../public/bg-stars.png')",
+      },
     },
   },
   plugins: [require('@tailwindcss/line-clamp')],

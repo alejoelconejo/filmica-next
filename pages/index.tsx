@@ -54,24 +54,32 @@ export default function Home({
 }: Props) {
   return (
     <>
-      <HomeListSlider
-        title='Popular films'
-        items={moviesPopular}
-        route='popular'
-      />
-      <HomeListSlider
-        title='Upcoming films'
-        items={moviesUpcoming}
-        route='upcoming'
-      />
-      <HomeListSlider
-        title='Trending films'
-        items={moviesTrending}
-        route='trending'
-      />
-      <DetailTVListSlider items={tvShowPopular} title='Popular Tv Shows' />
-      <DetailTVListSlider items={tvShowOnAir} title='On Air Tv Shows' />
-      <DetailTVListSlider items={tvShowTopRated} title='Top Rated Tv Shows' />
+      <section className='py-16'>
+        <h2 className='text-5xl font-semibold text-center mb-8'>Movies</h2>
+        <div>
+          <HomeListSlider
+            title='Popular movies'
+            items={moviesPopular}
+            route='popular'
+          />
+          <HomeListSlider
+            title='Upcoming movies'
+            items={moviesUpcoming}
+            route='upcoming'
+          />
+          <HomeListSlider
+            title='Trending movies'
+            items={moviesTrending}
+            route='trending'
+          />
+        </div>
+      </section>
+      <section className=''>
+        <h2 className='text-5xl font-semibold text-center mb-8'>Tv Shows</h2>
+        <DetailTVListSlider items={tvShowPopular} title='Popular Tv Shows' />
+        <DetailTVListSlider items={tvShowOnAir} title='On Air Tv Shows' />
+        <DetailTVListSlider items={tvShowTopRated} title='Top Rated Tv Shows' />
+      </section>
     </>
   )
 }

@@ -29,7 +29,7 @@ export default function App({
   }, [router])
 
   return (
-    <div className={`${inter.variable} font-sans`}>
+    <div className={`${inter.variable} font-sans bg-stars`}>
       <SessionProvider session={session}>
         <FavoritesProvider>
           <Head>

@@ -12,7 +12,7 @@ const SEARCH_LIST_LENGTH = 6
 export function SearchBarResult({ list, search }: Props) {
   return (
     <div
-      className={`md:w-2/5 sm:w-96 w-full overflow-y-auto max-h-[80vh] max-w-full absolute group-focus-within:block hidden bg-neutral-800 border-2 border-neutral-900 rounded-b text-black p-4 z-50`}
+      className={`w-full overflow-y-auto max-h-[80vh] max-w-full absolute group-focus-within:block hidden bg-neutral-800 border-2 border-neutral-900 rounded-b text-black p-4 z-50`}
     >
       {list.length ? (
         <>
