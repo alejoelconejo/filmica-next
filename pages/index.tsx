@@ -76,9 +76,21 @@ export default function Home({
       </section>
       <section className=''>
         <h2 className='text-5xl font-semibold text-center mb-8'>Tv Shows</h2>
-        <DetailTVListSlider items={tvShowPopular} title='Popular Tv Shows' />
-        <DetailTVListSlider items={tvShowOnAir} title='On Air Tv Shows' />
-        <DetailTVListSlider items={tvShowTopRated} title='Top Rated Tv Shows' />
+        <DetailTVListSlider
+          items={tvShowPopular}
+          title='Popular Tv Shows'
+          route='popular-tv'
+        />
+        <DetailTVListSlider
+          items={tvShowOnAir}
+          title='On Air Tv Shows'
+          route='on-air-tv'
+        />
+        <DetailTVListSlider
+          items={tvShowTopRated}
+          title='Top Rated Tv Shows'
+          route='top-rated-tv'
+        />
       </section>
     </>
   )
