@@ -27,7 +27,7 @@ export function HomeLatestMovie({ movies }: Props) {
                 className='group-hover:brightness-110 group-hover:scale-105 transition duration-200 h-[300px] sm:h-full object-cover'
               />
             </div>
-            <div className='absolute left-1 -bottom-4 bg-black p-2 rounded w-2/5 [box-shadow:_rgba(0,_0,_0,_0.24)_3px_3px_8px;] border border-neutral-500/30'>
+            <div className='absolute left-1 -bottom-4 bg-black p-2 rounded w-1/2 sm:w-2/5 [box-shadow:_rgba(0,_0,_0,_0.24)_3px_3px_8px;] border border-neutral-500/30'>
               <h3 className='font-bold text-xl line-clamp-2'>
                 {firstMovie.original_title}
               </h3>
@@ -40,19 +40,19 @@ export function HomeLatestMovie({ movies }: Props) {
                 <span className='text-xs ml-1'>({firstMovie.vote_count})</span>
               </p>
             </div>
-            <div className='bg-green-500/50 rounded-full aspect-square w-16 absolute right-2 top-2 flex items-center justify-center border border-neutral-900/30'>
-              <span className='text-4xl font-bold'>1</span>
+            <div className='bg-green-500/50 rounded-full aspect-square w-10 sm:w-16 absolute right-2 top-2 flex items-center justify-center border border-neutral-900/30'>
+              <span className='sm:text-4xl text-2xl font-bold'>1</span>
             </div>
           </div>
         </Link>
       </div>
-      <div className='mx-auto'>
+      <div className='sm:mx-auto'>
         <Link href='/trending'>
-          <h2 className='font-semibold text-2xl text-center uppercase hover:text-neutral-200 mb-4 hover:underline hover:decoration-green-500/50 hover:decoration-2'>
+          <h2 className='font-semibold text-2xl text-center uppercase hover:text-neutral-200 mb-2 hover:underline hover:decoration-green-500/50 hover:decoration-2'>
             Trending movies
           </h2>
         </Link>
-        <ul className='divide-y-2 divide-neutral-400'>
+        <ul className='divide-y-2 divide-neutral-400 mb-2'>
           {movieList.map((movie, index) => (
             <li key={movie.id} className='flex gap-2 py-2 group'>
               <div className='text-xl font-semibold underline decoration-green-500/50 decoration-2'>
@@ -60,7 +60,7 @@ export function HomeLatestMovie({ movies }: Props) {
               </div>
               <Link href={`/movie/${movie.id}`}>
                 <div>
-                  <span className='line-clamp-1 group-hover:text-orange-400 hover:brightness-125 group-hover:brightness-125 font-semibold'>
+                  <span className='line-clamp-1 group-hover:text-orange-400 hover:brightness-125 group-hover:brightness-125 font-semibold mb-1'>
                     {movie.original_title}
                   </span>
                   <p className='text-sm text-neutral-300'>
@@ -73,6 +73,12 @@ export function HomeLatestMovie({ movies }: Props) {
             </li>
           ))}
         </ul>
+        <Link
+          className='hover:underline hover:decoration-green-500/50 hover:decoration-2 hover:text-neutral'
+          href='/trending'
+        >
+          See more
+        </Link>
       </div>
     </div>
   )
