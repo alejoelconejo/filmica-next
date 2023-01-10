@@ -33,6 +33,7 @@ export const ListSlider = ({ children, options }: Props) => {
 
   return (
     <div className='overflow-hidden relative'>
+      <div className='absolute right-0 top-0 w-8 bg-gradient-to-r from-transparent to-black h-full z-10'></div>
       <div ref={emblaRef}>
         <ul className='flex gap-2 mr-4'>{children}</ul>
       </div>
