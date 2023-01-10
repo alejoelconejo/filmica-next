@@ -23,8 +23,6 @@ export async function getStaticProps() {
   const tvShowOnAir = await getTvShowOnAir()
   const tvShowTopRated = await getTvShowTopRated()
 
-  console.log(tvShowPopular)
-
   return {
     props: {
       moviesPopular,
