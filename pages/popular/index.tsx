@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { API_BASE_URL, API_DEFAULT_LANGUAGE, API_KEY_PUBLIC } from '../../api'
 import { ListGrid } from '../../components/ListGrid'
-import { ListGridItem } from '../../components/ListGridItem'
+import { ListMovieGridItem } from '../../components/ListMovieGridItem'
 import { Spinner } from '../../components/Spinner'
 import { MovieListResult } from '../../types'
 
@@ -35,7 +35,7 @@ export const Popular = () => {
         <meta name='description' key='description' content='Popular movies' />
       </Head>
       <section>
-        <h2 className='text-3xl font-semibold mb-4'>Popular</h2>
+        <h2 className='text-3xl font-semibold mb-4'>Popular Movies</h2>
         <InfiniteScroll
           dataLength={movies.length}
           next={fetchMoreData}
@@ -44,7 +44,7 @@ export const Popular = () => {
         >
           <ListGrid>
             {movies.map((movie) => (
-              <ListGridItem key={movie.id} item={movie} />
+              <ListMovieGridItem key={movie.id} item={movie} />
             ))}
           </ListGrid>
         </InfiniteScroll>
