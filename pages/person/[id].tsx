@@ -6,7 +6,6 @@ import { DetailMovieListSlider } from '../../components/DetailMovieListSlider'
 import { DetailPersonImage } from '../../components/DetailPersonImage'
 import { DetailTitle } from '../../components/DetailTitle'
 import { FavoriteIcon } from '../../components/FavoriteIcon'
-import { useFavorites } from '../../utils/firebaseApi'
 import { Person, PersonCast, PersonCrew } from '../../types'
 import { DetailPersonData } from '../../components/DetailPersonData'
 
@@ -17,12 +16,6 @@ interface Props {
 }
 
 export default function PersonDetail({ person, crew, cast }: Props) {
-  const { addToFavorites, isFavorite, removeFromFavorites } = useFavorites()
-
-  // const toggleFavorites = (id: number, name: string, img: string) => {
-  //   !isFavorite(id) ? addToFavorites(id, name, img) : removeFromFavorites(id)
-  // }
-
   return (
     <>
       <Head>
@@ -39,9 +32,7 @@ export default function PersonDetail({ person, crew, cast }: Props) {
             <div className='flex justify-between items-start'>
               <DetailTitle title={person.name} />
               <button
-                className={`text-2xl bg-neutral-400/20 p-2 rounded-full ${
-                  isFavorite(person.id) ? 'text-red-500' : 'text-transparent'
-                }`}
+                className={`text-2xl bg-neutral-400/20 p-2 rounded-full`}
                 // onClick={() =>
                 //   toggleFavorites(movie.id, movie.title, movie.poster_path)
                 // }

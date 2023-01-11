@@ -9,7 +9,6 @@ import { DetailTitle } from '../../components/DetailTitle'
 import { DetailTVListSlider } from '../../components/DetailTVListSlider'
 import { DetailTVShowData } from '../../components/DetailTVShowData'
 import { FavoriteIcon } from '../../components/FavoriteIcon'
-import { useFavorites } from '../../utils/firebaseApi'
 import { TvShowsListResult, TvShowDetail } from '../../types'
 
 interface Props {
@@ -18,12 +17,6 @@ interface Props {
 }
 
 export default function TvDetail({ tvShow, recommendedTvShows }: Props) {
-  const { addToFavorites, isFavorite, removeFromFavorites } = useFavorites()
-
-  // const toggleFavorites = (id: number, title: string, img: string) => {
-  //   !isFavorite(id) ? addToFavorites(id, title, img) : removeFromFavorites(id)
-  // }
-
   return (
     <>
       <Head>
@@ -40,9 +33,7 @@ export default function TvDetail({ tvShow, recommendedTvShows }: Props) {
             <div className='flex justify-between items-start'>
               <DetailTitle title={tvShow.name} />
               <button
-                className={`text-2xl bg-neutral-400/20 p-2 rounded-full ${
-                  isFavorite(tvShow.id) ? 'text-red-500' : 'text-transparent'
-                }`}
+                className={`text-2xl bg-neutral-400/20 p-2 rounded-full`}
                 // onClick={() =>
                 //   toggleFavorites(movie.id, movie.title, movie.poster_path)
                 // }
