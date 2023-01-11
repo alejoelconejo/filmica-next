@@ -22,7 +22,7 @@ export const HomeListSlider = ({ items, title, route }: Props) => {
     <section className='mb-12'>
       <div className='flex justify-between mb-4 items-center'>
         <Link href={`/${route}`}>
-          <h2 className='font-semibold text-2xl text-center hover:text-neutral-200 hover:underline hover:decoration-green-500/50 hover:decoration-2'>
+          <h2 className='font-semibold text-2xl hover:text-neutral-200 hover:underline hover:decoration-green-500/50 hover:decoration-2'>
             {title}
           </h2>
         </Link>
