@@ -7,8 +7,8 @@ export const Footer = () => {
       <Container>
         <div className='sm:grid-cols-3 grid-cols-2 grid my-8 max-w-4xl px-4 gap-4'>
           <div>
-            <h2 className='text-lg font-bold uppercase mb-1'>Movies</h2>
-            <ul>
+            <h2 className='text-lg font-bold uppercase mb-2'>Movies</h2>
+            <ul className='flex flex-col gap-2'>
               <li>
                 <Link
                   className='hover:text-orange-400 hover:brightness-125'
@@ -36,8 +36,8 @@ export const Footer = () => {
             </ul>
           </div>
           <div>
-            <h2 className='text-lg font-bold uppercase mb-1'>Tv Shows</h2>
-            <ul>
+            <h2 className='text-lg font-bold uppercase mb-2'>Tv Shows</h2>
+            <ul className='flex flex-col gap-2'>
               <li>
                 <Link
                   href=''
