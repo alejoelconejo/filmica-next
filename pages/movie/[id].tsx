@@ -38,6 +38,8 @@ function MovieDetail({
   cast,
   directors,
 }: Props) {
+  const { id, title, poster_path, overview } = movie
+
   const toggleFavorites = ({
     id,
     title,
@@ -53,8 +55,6 @@ function MovieDetail({
       ? mutationDel.mutate({ id, title, img, userId })
       : mutationAdd.mutate({ id, title, img, userId })
   }
-
-  const { id, title, poster_path, overview } = movie
 
   const {
     isLoading,

@@ -16,21 +16,20 @@ interface Props {
 }
 
 export default function PersonDetail({ person, crew, cast }: Props) {
+  const { id, name, profile_path, biography } = person
+
   return (
     <>
       <Head>
-        <title key='title'>{person.name} - Filmica</title>
-        <meta name='description' key='description' content={person.name} />
+        <title key='title'>{name} - Filmica</title>
+        <meta name='description' key='description' content={name} />
       </Head>
       <div>
         <div className='flex md:flex-row sm:flex-row flex-col gap-8 mb-8'>
-          <DetailPersonImage
-            name={person.name}
-            profilePath={person.profile_path}
-          />
+          <DetailPersonImage name={name} profilePath={profile_path} />
           <div className='flex flex-1 flex-col'>
             <div className='flex justify-between items-start'>
-              <DetailTitle title={person.name} />
+              <DetailTitle title={name} />
               <button
                 className={`text-2xl bg-neutral-400/20 p-2 rounded-full`}
                 // onClick={() =>
@@ -43,7 +42,7 @@ export default function PersonDetail({ person, crew, cast }: Props) {
             <DetailPersonData person={person} />
             {person.biography ? (
               <section className='mt-4'>
-                <DetailLargeText text={person.biography} />
+                <DetailLargeText text={biography} />
               </section>
             ) : null}
           </div>

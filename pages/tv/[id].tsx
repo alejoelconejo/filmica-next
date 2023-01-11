@@ -17,21 +17,20 @@ interface Props {
 }
 
 export default function TvDetail({ tvShow, recommendedTvShows }: Props) {
+  const { id, name, poster_path, overview } = tvShow
+
   return (
     <>
       <Head>
-        <title key='title'>{tvShow.name} - Filmica</title>
-        <meta name='description' key='description' content={tvShow.name} />
+        <title key='title'>{name} - Filmica</title>
+        <meta name='description' key='description' content={name} />
       </Head>
       <div>
         <div className='flex md:flex-row flex-col gap-4 mb-8'>
-          <DetailMovieTVImage
-            title={tvShow.name}
-            posterPath={tvShow.poster_path}
-          />
+          <DetailMovieTVImage title={name} posterPath={poster_path} />
           <div className='flex flex-1 flex-col'>
             <div className='flex justify-between items-start'>
-              <DetailTitle title={tvShow.name} />
+              <DetailTitle title={name} />
               <button
                 className={`text-2xl bg-neutral-400/20 p-2 rounded-full`}
                 // onClick={() =>
@@ -52,7 +51,7 @@ export default function TvDetail({ tvShow, recommendedTvShows }: Props) {
             </section>
             <DetailTVShowData tvShow={tvShow} />
             <section className='mt-4 mb-8'>
-              <DetailLargeText text={tvShow.overview} />
+              <DetailLargeText text={overview} />
             </section>
             <DetailGenres movieTV={tvShow} />
           </div>
