@@ -6,7 +6,7 @@ import { DetailMovieListSlider } from '../../components/DetailMovieListSlider'
 import { DetailPersonImage } from '../../components/DetailPersonImage'
 import { DetailTitle } from '../../components/DetailTitle'
 import { FavoriteIcon } from '../../components/FavoriteIcon'
-import { useFavorites } from '../../contexts/FavoriteContext'
+import { useFavorites } from '../../utils/firebaseApi'
 import { Person, PersonCast, PersonCrew } from '../../types'
 import { DetailPersonData } from '../../components/DetailPersonData'
 

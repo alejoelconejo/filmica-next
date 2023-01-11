@@ -1,11 +1,15 @@
+import { useQuery } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { unstable_getServerSession } from 'next-auth'
 import Image from 'next/image'
 import { API_IMG_URL, PROFILE_SIZES } from '../../api'
+import { Spinner } from '../../components/Spinner'
 import {
   FavoritesItem,
   getFavorites,
-  useFavorites,
-} from '../../contexts/FavoriteContext'
+  removeAllFavorites,
+  removeFromFavorites,
+} from '../../utils/firebaseApi'
 import { authOptions } from '../api/auth/[...nextauth]'
 
 interface Props {
@@ -31,33 +35,46 @@ export async function getServerSideProps(context: any) {
 
   const userId = session.user.id
 
-  const favorites = await getFavorites(userId)
-
   return {
     props: {
       userId,
-      favorites,
     },
   }
 }
 
-const Favorites = ({ userId, favorites }: Props) => {
-  const {
-    addToFavorites,
-    favoritesItems,
-    setFavoritesItems,
-    isFavorite,
-    removeFromFavorites,
-    removeAllFavorites,
-  } = useFavorites()
+const Favorites = ({ userId }: Props) => {
+  const { isLoading, isError, data, error } = useQuery({
+    queryKey: ['favorites', userId],
+    queryFn: () => getFavorites(userId),
+  })
+
+  const mutation = useMutation({
+    mutationFn: (userId: string) => removeAllFavorites(userId),
+  })
+
+  const mutationSingle = useMutation({
+    mutationFn: ({
+      id,
+      title,
+      img,
+      userId,
+    }: {
+      id: number
+      title: string
+      img: string
+      userId: string
+    }) => removeFromFavorites({ id, title, img, userId }),
+  })
+
+  if (isLoading) return <Spinner />
 
   return (
     <>
-      <h2 className='text-3xl font-semibold mb-4'>Favorites Profile</h2>
+      <h2 className='text-3xl font-semibold mb-8'>My Favorites</h2>
       <section className='mb-8'>
-        {favorites ? (
+        {data ? (
           <ul className='flex flex-col gap-2'>
-            {favorites.map(({ id, img, title }) => (
+            {data.map(({ id, img, title }) => (
               <li className='flex gap-4' key={id}>
                 <Image
                   alt={title}
@@ -69,7 +86,9 @@ const Favorites = ({ userId, favorites }: Props) => {
                   <h3 className='text-xl'>{title}</h3>
                   <button
                     className='h-9 w-9 text-2xl bg-neutral-400/20 p-2 rounded-full text-red-500'
-                    onClick={() => removeFromFavorites(id, title, img, userId)}
+                    onClick={() =>
+                      mutationSingle.mutate({ id, title, img, userId })
+                    }
                   >
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
@@ -97,7 +116,7 @@ const Favorites = ({ userId, favorites }: Props) => {
       <div>
         <button
           className='border border-white rounded px-4 py-2 hover:bg-white hover:text-black transition-colors duration-100'
-          onClick={() => removeAllFavorites(userId)}
+          onClick={() => mutation.mutate(userId)}
         >
           Remove all
         </button>

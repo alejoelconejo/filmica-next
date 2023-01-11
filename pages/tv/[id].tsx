@@ -9,7 +9,7 @@ import { DetailTitle } from '../../components/DetailTitle'
 import { DetailTVListSlider } from '../../components/DetailTVListSlider'
 import { DetailTVShowData } from '../../components/DetailTVShowData'
 import { FavoriteIcon } from '../../components/FavoriteIcon'
-import { useFavorites } from '../../contexts/FavoriteContext'
+import { useFavorites } from '../../utils/firebaseApi'
 import { TvShowsListResult, TvShowDetail } from '../../types'
 
 interface Props {

@@ -2,7 +2,6 @@ import { unstable_getServerSession } from 'next-auth'
 import Head from 'next/head'
 
 import { getMovieCredits, getMovieDetail, getMovieRecommended } from '../../api'
-import { useFavorites } from '../../contexts/FavoriteContext'
 import { authOptions } from '../api/auth/[...nextauth]'
 import { DetailMovieListSlider } from '../../components/DetailMovieListSlider'
 import { DetailCrewListSlider } from '../../components/DetailCrewListSlider'
@@ -14,6 +13,13 @@ import { DetailTitle } from '../../components/DetailTitle'
 import { Cast, Crew, MovieDetail, MovieListResult } from '../../types'
 import { DetailMovieData } from '../../components/DetailMovieData'
 import { DetailGenres } from '../../components/DetailGenres'
+import { useMutation } from '@tanstack/react-query'
+import {
+  addToFavorites,
+  checkIsFavorite,
+  removeFromFavorites,
+} from '../../utils/firebaseApi'
+import { useQuery } from '@tanstack/react-query'
 
 interface Props {
   userId: string
@@ -32,35 +38,80 @@ function MovieDetail({
   cast,
   directors,
 }: Props) {
-  const { addToFavorites, isFavorite, removeFromFavorites } = useFavorites()
-
-  const toggleFavorites = (id: number, title: string, img: string) => {
-    isFavorite(movie.id)
-      ? addToFavorites(id, title, img, userId)
-      : removeFromFavorites(id, title, img, userId)
+  const toggleFavorites = ({
+    id,
+    title,
+    img,
+    userId,
+  }: {
+    id: number
+    title: string
+    img: string
+    userId: string
+  }) => {
+    isFavorite
+      ? mutationDel.mutate({ id, title, img, userId })
+      : mutationAdd.mutate({ id, title, img, userId })
   }
+
+  const { id, title, poster_path, overview } = movie
+
+  const {
+    isLoading,
+    isError,
+    data: isFavorite,
+    error,
+  } = useQuery({
+    queryKey: ['favorites', { id, userId }],
+    queryFn: () => checkIsFavorite({ id, userId }),
+  })
+
+  const mutationAdd = useMutation({
+    mutationFn: ({
+      id,
+      title,
+      img,
+      userId,
+    }: {
+      id: number
+      title: string
+      img: string
+      userId: string
+    }) => addToFavorites({ id, title, img, userId }),
+  })
+
+  const mutationDel = useMutation({
+    mutationFn: ({
+      id,
+      title,
+      img,
+      userId,
+    }: {
+      id: number
+      title: string
+      img: string
+      userId: string
+    }) => removeFromFavorites({ id, title, img, userId }),
+  })
 
   return (
     <>
       <Head>
-        <title key='title'>{movie.title} - Filmica</title>
-        <meta name='description' key='description' content={movie.title} />
+        <title key='title'>{title} - Filmica</title>
+        <meta name='description' key='description' content={title} />
       </Head>
       <div>
         <div className='flex md:flex-row sm:flex-row flex-col gap-4 mb-8'>
-          <DetailMovieTVImage
-            title={movie.title}
-            posterPath={movie.poster_path}
-          />
+          <DetailMovieTVImage title={title} posterPath={poster_path} />
           <div className='flex flex-1 flex-col'>
             <div className='flex justify-between items-start'>
-              <DetailTitle title={movie.title} />
+              <DetailTitle title={title} />
               <button
                 className={`text-2xl bg-neutral-400/20 p-2 rounded-full ${
-                  isFavorite(movie.id) ? 'text-red-500' : 'text-transparent'
-                }`}
+                  isFavorite ? 'text-red-500' : 'text-transparent'
+                } `}
                 onClick={() =>
-                  toggleFavorites(movie.id, movie.title, movie.poster_path)
+                  toggleFavorites({ id, title, img: poster_path, userId })
                 }
               >
                 <FavoriteIcon />
@@ -68,7 +119,7 @@ function MovieDetail({
             </div>
             <DetailMovieData directors={directors} movie={movie} />
             <section className='mb-8'>
-              <DetailLargeText text={movie.overview} />
+              <DetailLargeText text={overview} />
             </section>
             <DetailGenres movieTV={movie} />
           </div>
@@ -92,7 +143,6 @@ export async function getServerSideProps(context: any) {
   )
 
   const userId = session ? session.user.id : null
-
   const { id } = context.params
 
   const movie = await getMovieDetail(id)

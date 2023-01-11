@@ -1,6 +1,5 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import { FavoritesProvider } from '../contexts/FavoriteContext'
 import { SessionProvider } from 'next-auth/react'
 import { Inter } from '@next/font/google'
 import Head from 'next/head'
@@ -9,6 +8,8 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { usePageLoading } from '../hooks/usePageLoading'
 import { SpinnerPages } from '../components/SpinnerPages'
+import { QueryClientProvider } from '@tanstack/react-query'
+import { QueryClient } from '@tanstack/query-core'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -21,6 +22,7 @@ export default function App({
 }: AppProps) {
   const router = useRouter()
   const { isPageLoading } = usePageLoading()
+  const queryClient = new QueryClient()
 
   // Remove focus when changing route
   useEffect(() => {
@@ -31,7 +33,7 @@ export default function App({
   return (
     <div className={`${inter.variable} font-sans bg-stars`}>
       <SessionProvider session={session}>
-        <FavoritesProvider>
+        <QueryClientProvider client={queryClient}>
           <Head>
             <title key='title'>Filmica - Discover your favourite films</title>
             <meta
@@ -48,7 +50,7 @@ export default function App({
           <Layout>
             {isPageLoading ? <SpinnerPages /> : <Component {...pageProps} />}
           </Layout>
-        </FavoritesProvider>
+        </QueryClientProvider>
       </SessionProvider>
     </div>
   )
