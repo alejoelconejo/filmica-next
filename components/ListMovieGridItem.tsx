@@ -1,8 +1,13 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { API_IMG_URL, POSTER_SIZES } from '../api'
+import { MovieListResult } from '../types'
 
-export const ListGridItem = ({ item }: any) => {
+interface Props {
+  item: MovieListResult
+}
+
+export const ListMovieGridItem = ({ item }: Props) => {
   return (
     <li className='aspect-[384/576] rounded-lg shadow-md bg-gray-800 border-gray-700 overflow-hidden flex items-stretch hover:brightness-125 transition'>
       <Link
