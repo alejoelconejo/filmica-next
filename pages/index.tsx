@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import {
   API_BASE_URL,
   API_DEFAULT_LANGUAGE,
@@ -7,14 +8,17 @@ import {
   getTvShowPopular,
   getTvShowTopRated,
 } from '../api'
-import { DetailTVListSlider } from '../components/DetailTVListSlider'
 import { HomeLatestMovie } from '../components/HomeLatestMovie'
 import { HomeListSlider } from '../components/HomeListSlider'
+import { HomeTvList } from '../components/HomeTvList'
+import { HomeTvListItem } from '../components/HomeTvListItem'
 import { MovieListResult, TvShowsListResult } from '../types'
 
 const endPointPopular = `${API_BASE_URL}/movie/popular?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}&page=1`
 const endPointTrending = `${API_BASE_URL}/trending/movie/week?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}&page=1`
 const endPointUpcoming = `${API_BASE_URL}/movie/upcoming?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}&page=1`
+
+const TV_SHOW_LIST_LENGTH = 5
 
 export async function getStaticProps() {
   const moviesPopular = await getMovies(endPointPopular)
@@ -53,10 +57,14 @@ export default function Home({
   tvShowOnAir,
   tvShowTopRated,
 }: Props) {
+  const tvShowPopularSliced = tvShowPopular.slice(0, TV_SHOW_LIST_LENGTH)
+  const tvShowOnAirSliced = tvShowOnAir.slice(0, TV_SHOW_LIST_LENGTH)
+  const tvShowTopRatedSliced = tvShowTopRated.slice(0, TV_SHOW_LIST_LENGTH)
+
   return (
     <>
       <HomeLatestMovie movies={moviesTrending} />
-      <section className='py-16'>
+      <section className='my-16'>
         <div>
           <HomeListSlider
             title='Popular movies'
@@ -70,22 +78,25 @@ export default function Home({
           />
         </div>
       </section>
-      <section className=''>
-        <DetailTVListSlider
-          items={tvShowPopular}
-          title='Popular Tv Shows'
-          route='popular-tv'
-        />
-        <DetailTVListSlider
-          items={tvShowOnAir}
-          title='On Air Tv Shows'
-          route='on-air-tv'
-        />
-        <DetailTVListSlider
-          items={tvShowTopRated}
-          title='Top Rated Tv Shows'
-          route='top-rated-tv'
-        />
+      <section>
+        <h2 className='font-semibold text-2xl mb-4 uppercase'>TV Shows</h2>
+        <div className='grid md:grid-cols-3 gap-x-8 sm:grid-cols-2 grid-cols-1'>
+          <HomeTvList
+            title='Popular'
+            items={tvShowPopularSliced}
+            route='popular-tv'
+          />
+          <HomeTvList
+            title='On Air'
+            items={tvShowOnAirSliced}
+            route='on-air-tv'
+          />
+          <HomeTvList
+            title='Top Rated'
+            items={tvShowTopRatedSliced}
+            route='top-rated-tv'
+          />
+        </div>
       </section>
     </>
   )
