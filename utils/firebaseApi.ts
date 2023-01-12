@@ -65,7 +65,7 @@ export async function getFavorites(
     return null
   }
 
-  const favsArray = docSnap.data().favs
+  const favsArray: FavoritesItem[] = docSnap.data().favs
   return favsArray
 }
 

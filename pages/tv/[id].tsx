@@ -1,3 +1,4 @@
+import { unstable_getServerSession } from 'next-auth'
 import Head from 'next/head'
 import Link from 'next/link'
 
@@ -9,15 +10,52 @@ import { DetailTitle } from '../../components/DetailTitle'
 import { DetailTVListSlider } from '../../components/DetailTVListSlider'
 import { DetailTVShowData } from '../../components/DetailTVShowData'
 import { FavoriteIcon } from '../../components/FavoriteIcon'
+import {
+  useAddFavorite,
+  useCheckIsFavorite,
+  useRemoveFavorite,
+} from '../../hooks/useFavorites'
 import { TvShowsListResult, TvShowDetail } from '../../types'
+import { authOptions } from '../api/auth/[...nextauth]'
 
 interface Props {
+  userId: string
   tvShow: TvShowDetail
   recommendedTvShows: TvShowsListResult[]
 }
 
-export default function TvDetail({ tvShow, recommendedTvShows }: Props) {
+export default function TvDetail({
+  userId,
+  tvShow,
+  recommendedTvShows,
+}: Props) {
   const { id, name, poster_path, overview } = tvShow
+
+  const {
+    isLoading,
+    isError,
+    data: isFavorite,
+    error,
+  } = useCheckIsFavorite({ id, userId })
+
+  const addFavorite = useAddFavorite(userId)
+  const removeFavorite = useRemoveFavorite(userId)
+
+  const toggleFavorites = ({
+    id,
+    title,
+    img,
+    userId,
+  }: {
+    id: number
+    title: string
+    img: string
+    userId: string
+  }) => {
+    isFavorite
+      ? removeFavorite.mutate({ id, title, img, userId })
+      : addFavorite.mutate({ id, title, img, userId })
+  }
 
   return (
     <>
@@ -32,10 +70,12 @@ export default function TvDetail({ tvShow, recommendedTvShows }: Props) {
             <div className='flex justify-between items-start'>
               <DetailTitle title={name} />
               <button
-                className={`text-2xl bg-neutral-400/20 p-2 rounded-full`}
-                // onClick={() =>
-                //   toggleFavorites(movie.id, movie.title, movie.poster_path)
-                // }
+                className={`text-2xl bg-neutral-400/20 p-2 rounded-full ${
+                  isFavorite ? 'text-red-500' : 'text-transparent'
+                } `}
+                onClick={() =>
+                  toggleFavorites({ id, title: name, img: poster_path, userId })
+                }
               >
                 <FavoriteIcon />
               </button>
@@ -65,14 +105,21 @@ export default function TvDetail({ tvShow, recommendedTvShows }: Props) {
   )
 }
 
-export async function getServerSideProps({ params }: any) {
-  const { id } = params
+export async function getServerSideProps(context: any) {
+  const session = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions
+  )
+  const userId = session ? session.user.id : null
+  const { id } = context.params
 
   const tvShow = await getTVShowDetail(id)
   const recommendedTvShows = await getTVShowRecommended(id)
 
   return {
     props: {
+      userId,
       tvShow,
       recommendedTvShows,
     },

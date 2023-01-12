@@ -13,13 +13,11 @@ import { DetailTitle } from '../../components/DetailTitle'
 import { Cast, Crew, MovieDetail, MovieListResult } from '../../types'
 import { DetailMovieData } from '../../components/DetailMovieData'
 import { DetailGenres } from '../../components/DetailGenres'
-import { useMutation } from '@tanstack/react-query'
 import {
-  addToFavorites,
-  checkIsFavorite,
-  removeFromFavorites,
-} from '../../utils/firebaseApi'
-import { useQuery } from '@tanstack/react-query'
+  useAddFavorite,
+  useCheckIsFavorite,
+  useRemoveFavorite,
+} from '../../hooks/useFavorites'
 
 interface Props {
   userId: string
@@ -40,6 +38,16 @@ function MovieDetail({
 }: Props) {
   const { id, title, poster_path, overview } = movie
 
+  const {
+    isLoading,
+    isError,
+    data: isFavorite,
+    error,
+  } = useCheckIsFavorite({ id, userId })
+
+  const addFavorite = useAddFavorite(userId)
+  const removeFavorite = useRemoveFavorite(userId)
+
   const toggleFavorites = ({
     id,
     title,
@@ -52,47 +60,9 @@ function MovieDetail({
     userId: string
   }) => {
     isFavorite
-      ? mutationDel.mutate({ id, title, img, userId })
-      : mutationAdd.mutate({ id, title, img, userId })
+      ? removeFavorite.mutate({ id, title, img, userId })
+      : addFavorite.mutate({ id, title, img, userId })
   }
-
-  const {
-    isLoading,
-    isError,
-    data: isFavorite,
-    error,
-  } = useQuery({
-    queryKey: ['favorites', { id, userId }],
-    queryFn: () => checkIsFavorite({ id, userId }),
-  })
-
-  const mutationAdd = useMutation({
-    mutationFn: ({
-      id,
-      title,
-      img,
-      userId,
-    }: {
-      id: number
-      title: string
-      img: string
-      userId: string
-    }) => addToFavorites({ id, title, img, userId }),
-  })
-
-  const mutationDel = useMutation({
-    mutationFn: ({
-      id,
-      title,
-      img,
-      userId,
-    }: {
-      id: number
-      title: string
-      img: string
-      userId: string
-    }) => removeFromFavorites({ id, title, img, userId }),
-  })
 
   return (
     <>

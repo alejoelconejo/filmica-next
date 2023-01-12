@@ -1,70 +1,22 @@
-import { useQuery } from '@tanstack/react-query'
-import { useMutation } from '@tanstack/react-query'
 import { unstable_getServerSession } from 'next-auth'
 import Image from 'next/image'
 import { API_IMG_URL, PROFILE_SIZES } from '../../api'
 import { Spinner } from '../../components/Spinner'
 import {
-  FavoritesItem,
-  getFavorites,
-  removeAllFavorites,
-  removeFromFavorites,
-} from '../../utils/firebaseApi'
+  useGetFavorites,
+  useRemoveAllFavorites,
+  useRemoveFavorite,
+} from '../../hooks/useFavorites'
 import { authOptions } from '../api/auth/[...nextauth]'
 
 interface Props {
   userId: string
-  favorites: FavoritesItem[]
-}
-
-export async function getServerSideProps(context: any) {
-  const session = await unstable_getServerSession(
-    context.req,
-    context.res,
-    authOptions
-  )
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    }
-  }
-
-  const userId = session.user.id
-
-  return {
-    props: {
-      userId,
-    },
-  }
 }
 
 const Favorites = ({ userId }: Props) => {
-  const { isLoading, isError, data, error } = useQuery({
-    queryKey: ['favorites', userId],
-    queryFn: () => getFavorites(userId),
-  })
-
-  const mutation = useMutation({
-    mutationFn: (userId: string) => removeAllFavorites(userId),
-  })
-
-  const mutationSingle = useMutation({
-    mutationFn: ({
-      id,
-      title,
-      img,
-      userId,
-    }: {
-      id: number
-      title: string
-      img: string
-      userId: string
-    }) => removeFromFavorites({ id, title, img, userId }),
-  })
+  const { isLoading, isError, data, error } = useGetFavorites(userId)
+  const removeFavorite = useRemoveFavorite(userId)
+  const removeAllFavorites = useRemoveAllFavorites(userId)
 
   if (isLoading) return <Spinner />
 
@@ -87,7 +39,7 @@ const Favorites = ({ userId }: Props) => {
                   <button
                     className='h-9 w-9 text-2xl bg-neutral-400/20 p-2 rounded-full text-red-500'
                     onClick={() =>
-                      mutationSingle.mutate({ id, title, img, userId })
+                      removeFavorite.mutate({ id, title, img, userId })
                     }
                   >
                     <svg
@@ -116,7 +68,7 @@ const Favorites = ({ userId }: Props) => {
       <div>
         <button
           className='border border-white rounded px-4 py-2 hover:bg-white hover:text-black transition-colors duration-100'
-          onClick={() => mutation.mutate(userId)}
+          onClick={() => removeAllFavorites.mutate(userId)}
         >
           Remove all
         </button>
@@ -126,3 +78,28 @@ const Favorites = ({ userId }: Props) => {
 }
 
 export default Favorites
+
+export async function getServerSideProps(context: any) {
+  const session = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions
+  )
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+
+  const userId = session.user.id
+
+  return {
+    props: {
+      userId,
+    },
+  }
+}
