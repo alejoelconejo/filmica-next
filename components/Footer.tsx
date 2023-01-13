@@ -64,7 +64,7 @@ export const Footer = () => {
               </li>
             </ul>
           </div>
-          <div className='flex flex-col gap-4 justify-start items-start md:items-center sm:mt-0 mt-4 sm:col-auto col-span-2 text-blue-900'>
+          <div className='flex flex-col gap-4 justify-end items-start md:items-center sm:mt-0 mt-4 sm:col-auto col-span-2 text-blue-900'>
             <div className='mr-auto'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
