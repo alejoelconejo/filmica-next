@@ -1,55 +1,48 @@
+import { Menu, Transition } from '@headlessui/react'
 import Link from 'next/link'
-import { useState } from 'react'
+import { Fragment } from 'react'
 import { Container } from './Container'
-import { HamburgerButton } from './HamburguerButton'
-import LoginButton from './LoginButton'
+import LoginMenu from './LoginMenu'
 import { SearchBar } from './SearchBar'
+import { SearchBarIcon } from './SearchBarIcon'
 
 export const Header = () => {
-  const [isMenuOpen, toggleMenu] = useState(false)
-
-  function handleMenuToggle() {
-    toggleMenu((prevState) => !prevState)
-  }
-
   return (
-    <header className='p-2 md:py-4 md:px-0 bg-gradient-to-b from-black to to-black/50 fixed top-0 left-0 right-0 z-50 backdrop-blur shadow-sm shadow-white/5'>
+    <header className='px-2 py-1 sm:py-4 md:px-0 bg-gradient-to-b from-black to to-black/50 fixed top-0 left-0 right-0 z-50 backdrop-blur shadow-sm shadow-white/10'>
       <Container>
-        <div className='flex flex-col gap-4'>
-          <div className='flex justify-between items-center'>
-            <Link href='/'>
-              {/* <h1 className='text-3xl font-bold text-orange-500 hover:text-white transition-colors'>
-                filmica.
-              </h1> */}
-              <h1 className='bg-gradient-to-r from-red-500 via-green-500 to-blue-500 text-transparent bg-clip-text text-4xl font-bold hover:brightness-125 transition'>
-                filmica.
-              </h1>
-            </Link>
-            <div className='hidden md:block w-1/2'>
-              <SearchBar />
-            </div>
-            <div className='hidden md:block'>
-              <LoginButton />
-            </div>
-            <div className='block md:hidden'>
-              <HamburgerButton
-                isMenuOpen={isMenuOpen}
-                toggleMenu={handleMenuToggle}
-              />
-            </div>
+        <div className='flex justify-between items-center'>
+          <Link href='/'>
+            <h1 className='bg-gradient-to-r from-red-500 via-green-500 to-blue-500 text-transparent bg-clip-text text-4xl font-bold hover:brightness-125 transition'>
+              filmica.
+            </h1>
+          </Link>
+          <div className='hidden md:block w-1/2'>
+            <SearchBar />
           </div>
-          <div className={`${isMenuOpen ? 'block' : 'hidden'} w-full pb-4`}>
-            <nav className='items-center flex flex-col'>
-              <SearchBar />
-              <ul className='flex gap-4 items-center flex-col justify-center flex-1 mt-4'>
-                <li>
-                  <Link href='/favorites' className='text-lg font-semibold'>
-                    <h2>Favorites</h2>
-                  </Link>
-                </li>
-                <LoginButton />
-              </ul>
-            </nav>
+          <div className='flex gap-8 items-center'>
+            <div className='block md:hidden'>
+              <Menu as='div' className=''>
+                <Menu.Button className='flex items-center'>
+                  <SearchBarIcon />
+                </Menu.Button>
+                <Transition
+                  as={Fragment}
+                  enter='transition ease-out duration-100'
+                  enterFrom='transform opacity-0 scale-95'
+                  enterTo='transform opacity-100 scale-100'
+                  leave='transition ease-in duration-75'
+                  leaveFrom='transform opacity-100 scale-100'
+                  leaveTo='transform opacity-0 scale-95'
+                >
+                  <Menu.Items className='absolute right-0 left-0 mt-3 px-2 w-full'>
+                    <Menu.Item>
+                      <SearchBar />
+                    </Menu.Item>
+                  </Menu.Items>
+                </Transition>
+              </Menu>
+            </div>
+            <LoginMenu />
           </div>
         </div>
       </Container>
