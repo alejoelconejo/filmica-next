@@ -1,6 +1,7 @@
 import { unstable_getServerSession } from 'next-auth'
 import Head from 'next/head'
 import Link from 'next/link'
+import toast, { Toaster } from 'react-hot-toast'
 
 import { getTVShowDetail, getTVShowRecommended } from '../../api'
 import { DetailGenres } from '../../components/DetailGenres'
@@ -9,13 +10,15 @@ import { DetailMovieTVImage } from '../../components/DetailMovieTVImage'
 import { DetailTitle } from '../../components/DetailTitle'
 import { DetailTVListSlider } from '../../components/DetailTVListSlider'
 import { DetailTVShowData } from '../../components/DetailTVShowData'
+import { DialogSignIn } from '../../components/DialogSignIn'
 import { FavoriteIcon } from '../../components/FavoriteIcon'
 import {
   useAddFavorite,
   useCheckIsFavorite,
   useRemoveFavorite,
 } from '../../hooks/useFavorites'
-import { TvShowsListResult, TvShowDetail } from '../../types'
+import { useToggle } from '../../hooks/useToggle'
+import { TvShowsListResult, TvShowDetail, UserFavorite } from '../../types'
 import { authOptions } from '../api/auth/[...nextauth]'
 
 interface Props {
@@ -29,6 +32,8 @@ export default function TvDetail({
   tvShow,
   recommendedTvShows,
 }: Props) {
+  const [isOpen, toggleOpen] = useToggle(false)
+
   const { id, name, poster_path, overview } = tvShow
 
   const {
@@ -41,20 +46,24 @@ export default function TvDetail({
   const addFavorite = useAddFavorite(userId)
   const removeFavorite = useRemoveFavorite(userId)
 
-  const toggleFavorites = ({
-    id,
-    title,
-    img,
-    userId,
-  }: {
-    id: number
-    title: string
-    img: string
-    userId: string
-  }) => {
-    isFavorite
-      ? removeFavorite.mutate({ id, title, img, userId })
-      : addFavorite.mutate({ id, title, img, userId })
+  const handleAddFavorite = ({ id, title, img, userId }: UserFavorite) => {
+    addFavorite.mutate({ id, title, img, userId })
+    toast.success('Added to your favorites!')
+  }
+
+  const handleRemoveFavorite = ({ id, title, img, userId }: UserFavorite) => {
+    removeFavorite.mutate({ id, title, img, userId })
+    toast.success('Removed from your favorites!')
+  }
+
+  const toggleFavorites = ({ id, title, img, userId }: UserFavorite) => {
+    if (!userId) {
+      toggleOpen()
+    } else {
+      isFavorite
+        ? handleRemoveFavorite({ id, title, img, userId })
+        : handleAddFavorite({ id, title, img, userId })
+    }
   }
 
   return (
@@ -64,7 +73,7 @@ export default function TvDetail({
         <meta name='description' key='description' content={name} />
       </Head>
       <div>
-        <div className='flex md:flex-row flex-col gap-4 mb-8'>
+        <div className='flex md:flex-row flex-col gap-4 mb-16'>
           <DetailMovieTVImage title={name} posterPath={poster_path} />
           <div className='flex flex-1 flex-col'>
             <div className='flex justify-between items-start'>
@@ -101,6 +110,8 @@ export default function TvDetail({
           items={recommendedTvShows}
         />
       </div>
+      <Toaster />
+      <DialogSignIn isOpen={isOpen} toggleOpen={toggleOpen} />
     </>
   )
 }

@@ -1,4 +1,6 @@
 import Head from 'next/head'
+import { toast, Toaster } from 'react-hot-toast'
+import { unstable_getServerSession } from 'next-auth'
 
 import { getPersonCredits, getPersonDetail } from '../../api'
 import { DetailLargeText } from '../../components/DetailLargeText'
@@ -6,15 +8,16 @@ import { DetailMovieListSlider } from '../../components/DetailMovieListSlider'
 import { DetailPersonImage } from '../../components/DetailPersonImage'
 import { DetailTitle } from '../../components/DetailTitle'
 import { FavoriteIcon } from '../../components/FavoriteIcon'
-import { Person, PersonCast, PersonCrew } from '../../types'
+import { Person, PersonCast, PersonCrew, UserFavorite } from '../../types'
 import { DetailPersonData } from '../../components/DetailPersonData'
 import { authOptions } from '../api/auth/[...nextauth]'
-import { unstable_getServerSession } from 'next-auth'
 import {
   useAddFavorite,
   useCheckIsFavorite,
   useRemoveFavorite,
 } from '../../hooks/useFavorites'
+import { useToggle } from '../../hooks/useToggle'
+import { DialogSignIn } from '../../components/DialogSignIn'
 
 interface Props {
   userId: string
@@ -24,6 +27,8 @@ interface Props {
 }
 
 export default function PersonDetail({ userId, person, crew, cast }: Props) {
+  const [isOpen, toggleOpen] = useToggle(false)
+
   const { id, name, profile_path, biography } = person
 
   const {
@@ -36,20 +41,24 @@ export default function PersonDetail({ userId, person, crew, cast }: Props) {
   const addFavorite = useAddFavorite(userId)
   const removeFavorite = useRemoveFavorite(userId)
 
-  const toggleFavorites = ({
-    id,
-    title,
-    img,
-    userId,
-  }: {
-    id: number
-    title: string
-    img: string
-    userId: string
-  }) => {
-    isFavorite
-      ? removeFavorite.mutate({ id, title, img, userId })
-      : addFavorite.mutate({ id, title, img, userId })
+  const handleAddFavorite = ({ id, title, img, userId }: UserFavorite) => {
+    addFavorite.mutate({ id, title, img, userId })
+    toast.success('Added to your favorites!')
+  }
+
+  const handleRemoveFavorite = ({ id, title, img, userId }: UserFavorite) => {
+    removeFavorite.mutate({ id, title, img, userId })
+    toast.success('Removed from your favorites!')
+  }
+
+  const toggleFavorites = ({ id, title, img, userId }: UserFavorite) => {
+    if (!userId) {
+      toggleOpen()
+    } else {
+      isFavorite
+        ? handleRemoveFavorite({ id, title, img, userId })
+        : handleAddFavorite({ id, title, img, userId })
+    }
   }
 
   return (
@@ -59,7 +68,7 @@ export default function PersonDetail({ userId, person, crew, cast }: Props) {
         <meta name='description' key='description' content={name} />
       </Head>
       <div>
-        <div className='flex md:flex-row sm:flex-row flex-col gap-8 mb-8'>
+        <div className='flex md:flex-row sm:flex-row flex-col gap-8 mb-16'>
           <DetailPersonImage name={name} profilePath={profile_path} />
           <div className='flex flex-1 flex-col'>
             <div className='flex justify-between items-start'>
@@ -95,6 +104,8 @@ export default function PersonDetail({ userId, person, crew, cast }: Props) {
           <DetailMovieListSlider title='Acts in' items={cast} />
         ) : null}
       </div>
+      <Toaster />
+      <DialogSignIn isOpen={isOpen} toggleOpen={toggleOpen} />
     </>
   )
 }

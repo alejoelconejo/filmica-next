@@ -1,5 +1,6 @@
 import { unstable_getServerSession } from 'next-auth'
 import Head from 'next/head'
+import toast, { Toaster } from 'react-hot-toast'
 
 import { getMovieCredits, getMovieDetail, getMovieRecommended } from '../../api'
 import { authOptions } from '../api/auth/[...nextauth]'
@@ -10,7 +11,13 @@ import { DetailLargeText } from '../../components/DetailLargeText'
 import { FavoriteIcon } from '../../components/FavoriteIcon'
 import { DetailMovieTVImage } from '../../components/DetailMovieTVImage'
 import { DetailTitle } from '../../components/DetailTitle'
-import { Cast, Crew, MovieDetail, MovieListResult } from '../../types'
+import {
+  Cast,
+  Crew,
+  MovieDetail,
+  MovieListResult,
+  UserFavorite,
+} from '../../types'
 import { DetailMovieData } from '../../components/DetailMovieData'
 import { DetailGenres } from '../../components/DetailGenres'
 import {
@@ -18,6 +25,8 @@ import {
   useCheckIsFavorite,
   useRemoveFavorite,
 } from '../../hooks/useFavorites'
+import { useToggle } from '../../hooks/useToggle'
+import { DialogSignIn } from '../../components/DialogSignIn'
 
 interface Props {
   userId: string
@@ -36,6 +45,8 @@ function MovieDetail({
   cast,
   directors,
 }: Props) {
+  const [isOpen, toggleOpen] = useToggle(false)
+
   const { id, title, poster_path, overview } = movie
 
   const {
@@ -48,20 +59,24 @@ function MovieDetail({
   const addFavorite = useAddFavorite(userId)
   const removeFavorite = useRemoveFavorite(userId)
 
-  const toggleFavorites = ({
-    id,
-    title,
-    img,
-    userId,
-  }: {
-    id: number
-    title: string
-    img: string
-    userId: string
-  }) => {
-    isFavorite
-      ? removeFavorite.mutate({ id, title, img, userId })
-      : addFavorite.mutate({ id, title, img, userId })
+  const handleAddFavorite = ({ id, title, img, userId }: UserFavorite) => {
+    addFavorite.mutate({ id, title, img, userId })
+    toast.success('Added to your favorites!')
+  }
+
+  const handleRemoveFavorite = ({ id, title, img, userId }: UserFavorite) => {
+    removeFavorite.mutate({ id, title, img, userId })
+    toast.success('Removed from your favorites!')
+  }
+
+  const toggleFavorites = ({ id, title, img, userId }: UserFavorite) => {
+    if (!userId) {
+      toggleOpen()
+    } else {
+      isFavorite
+        ? handleRemoveFavorite({ id, title, img, userId })
+        : handleAddFavorite({ id, title, img, userId })
+    }
   }
 
   return (
@@ -71,7 +86,7 @@ function MovieDetail({
         <meta name='description' key='description' content={title} />
       </Head>
       <div>
-        <div className='flex md:flex-row sm:flex-row flex-col gap-4 mb-8'>
+        <div className='flex md:flex-row sm:flex-row flex-col gap-4 mb-16'>
           <DetailMovieTVImage title={title} posterPath={poster_path} />
           <div className='flex flex-1 flex-col'>
             <div className='flex justify-between items-start'>
@@ -101,6 +116,8 @@ function MovieDetail({
           items={recommendedMovies}
         />
       </div>
+      <Toaster />
+      <DialogSignIn isOpen={isOpen} toggleOpen={toggleOpen} />
     </>
   )
 }
