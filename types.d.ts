@@ -312,3 +312,10 @@ export interface TvShowDetail {
   vote_average: number
   vote_count: number
 }
+
+export interface UserFavorite {
+  id: number
+  title: string
+  img: string
+  userId: string
+}
