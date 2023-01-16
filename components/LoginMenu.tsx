@@ -11,13 +11,14 @@ export default function LoginMenu() {
     return (
       <div className='flex'>
         <Menu as='div' className='relative'>
-          <Menu.Button className='flex items-center'>
+          <Menu.Button className='flex items-center hover:brightness-110 transition'>
             <Image
               className='rounded-full border border-gray-400 bg-gray-400'
               width={36}
               height={36}
               alt={session.user.name ?? 'User'}
               src={session.user.image!}
+              title={session.user.name!}
               referrerPolicy='no-referrer'
             />
           </Menu.Button>
@@ -59,7 +60,10 @@ export default function LoginMenu() {
 
   return (
     <div className='flex'>
-      <button onClick={() => signIn()}>
+      <button
+        onClick={() => signIn()}
+        className='hover:brightness-110 transition'
+      >
         <svg
           className='w-9 h-9 text-gray-500'
           aria-hidden='true'
