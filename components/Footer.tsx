@@ -40,7 +40,7 @@ export const Footer = () => {
             <ul className='flex flex-col gap-2'>
               <li>
                 <Link
-                  href=''
+                  href='/popular-tv'
                   className='hover:text-orange-400 hover:brightness-125'
                 >
                   Popular
@@ -48,7 +48,7 @@ export const Footer = () => {
               </li>
               <li>
                 <Link
-                  href=''
+                  href='/on-air-tv'
                   className='hover:text-orange-400 hover:brightness-125'
                 >
                   Top Rated
@@ -56,7 +56,7 @@ export const Footer = () => {
               </li>
               <li>
                 <Link
-                  href=''
+                  href='/top-rated-tv'
                   className='hover:text-orange-400 hover:brightness-125'
                 >
                   On Air
