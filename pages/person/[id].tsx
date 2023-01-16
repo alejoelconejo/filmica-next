@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import { toast, Toaster } from 'react-hot-toast'
 import { unstable_getServerSession } from 'next-auth'
 
@@ -18,6 +17,7 @@ import {
 } from '../../hooks/useFavorites'
 import { useToggle } from '../../hooks/useToggle'
 import { DialogSignIn } from '../../components/DialogSignIn'
+import { HeadCustom } from '../../components/HeadCustom'
 
 interface Props {
   userId: string
@@ -75,10 +75,7 @@ export default function PersonDetail({ userId, person, crew, cast }: Props) {
 
   return (
     <>
-      <Head>
-        <title key='title'>{name} - Filmica</title>
-        <meta name='description' key='description' content={name} />
-      </Head>
+      <HeadCustom title={`${name} - Filmica`} description={person.biography} />
       <div>
         <div className='flex md:flex-row sm:flex-row flex-col gap-8 mb-16'>
           <DetailPersonImage name={name} profilePath={profile_path} />

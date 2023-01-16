@@ -1,8 +1,8 @@
-import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { API_BASE_URL, API_DEFAULT_LANGUAGE, API_KEY_PUBLIC } from '../../api'
+import { HeadCustom } from '../../components/HeadCustom'
 import { SearchResultsItem } from '../../components/SearchResultsItem'
 import { Spinner } from '../../components/Spinner'
 import { SearchResult } from '../../types'
@@ -34,14 +34,10 @@ export default function Results() {
 
   return (
     <>
-      <Head>
-        <title key='title'>{keywords} - Filmica</title>
-        <meta
-          name='description'
-          key='description'
-          content={keywords as string}
-        />
-      </Head>
+      <HeadCustom
+        title={`${keywords} - Filmica`}
+        description={keywords as string}
+      />
       <section>
         <h2 className='mb-2 text-2xl font-semibold'>Results</h2>
         <p className='text-xl mb-4'>

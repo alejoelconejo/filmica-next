@@ -1,7 +1,7 @@
-import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { API_BASE_URL, API_DEFAULT_LANGUAGE, API_KEY_PUBLIC } from '../../api'
+import { HeadCustom } from '../../components/HeadCustom'
 import { ListGrid } from '../../components/ListGrid'
 import { ListMovieGridItem } from '../../components/ListMovieGridItem'
 import { Spinner } from '../../components/Spinner'
@@ -30,10 +30,10 @@ export const Trending = () => {
 
   return (
     <>
-      <Head>
-        <title key='title'>Trending movies - Filmica</title>
-        <meta name='description' key='description' content='Trending movies' />
-      </Head>
+      <HeadCustom
+        title='Trending movies - Filmica'
+        description='Trending movies'
+      />
       <section>
         <h2 className='text-3xl font-semibold mb-4'>Trending Movies</h2>
         <InfiniteScroll

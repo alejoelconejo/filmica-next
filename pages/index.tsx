@@ -8,6 +8,7 @@ import {
   getTvShowPopular,
   getTvShowTopRated,
 } from '../api'
+import { HeadCustom } from '../components/HeadCustom'
 import { HomeLatestMovie } from '../components/HomeLatestMovie'
 import { HomeListSlider } from '../components/HomeListSlider'
 import { HomeTvList } from '../components/HomeTvList'
@@ -63,6 +64,10 @@ export default function Home({
 
   return (
     <>
+      <HeadCustom
+        title='Filmica - Discover your favourite movies'
+        description='Discover your favourite movies, tv shows and people'
+      />
       <HomeLatestMovie movies={moviesTrending} />
       <section className='my-16'>
         <div>

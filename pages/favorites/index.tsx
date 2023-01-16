@@ -1,6 +1,7 @@
 import { unstable_getServerSession } from 'next-auth'
 import { Toaster } from 'react-hot-toast'
 import { FavoriteItem } from '../../components/FavoriteItem'
+import { HeadCustom } from '../../components/HeadCustom'
 import { Spinner } from '../../components/Spinner'
 import {
   useGetFavorites,
@@ -20,6 +21,10 @@ const Favorites = ({ userId }: Props) => {
 
   return (
     <>
+      <HeadCustom
+        title='My Favorites - Filmica'
+        description='Discover your favourite movies, tv shows and people'
+      />
       <h2 className='text-3xl font-semibold mb-8'>My Favorites</h2>
       <section className='mb-8'>
         {data ? (

@@ -1,5 +1,4 @@
 import { unstable_getServerSession } from 'next-auth'
-import Head from 'next/head'
 import Link from 'next/link'
 import toast, { Toaster } from 'react-hot-toast'
 
@@ -12,6 +11,7 @@ import { DetailTVListSlider } from '../../components/DetailTVListSlider'
 import { DetailTVShowData } from '../../components/DetailTVShowData'
 import { DialogSignIn } from '../../components/DialogSignIn'
 import { FavoriteIcon } from '../../components/FavoriteIcon'
+import { HeadCustom } from '../../components/HeadCustom'
 import {
   useAddFavorite,
   useCheckIsFavorite,
@@ -80,10 +80,7 @@ export default function TvDetail({
 
   return (
     <>
-      <Head>
-        <title key='title'>{name} - Filmica</title>
-        <meta name='description' key='description' content={name} />
-      </Head>
+      <HeadCustom title={`${name} - Filmica`} description={tvShow.overview} />
       <div>
         <div className='flex md:flex-row flex-col gap-4 mb-16'>
           <DetailMovieTVImage title={name} posterPath={poster_path} />

@@ -1,7 +1,7 @@
-import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { API_BASE_URL, API_DEFAULT_LANGUAGE, API_KEY_PUBLIC } from '../../api'
+import { HeadCustom } from '../../components/HeadCustom'
 import { ListGrid } from '../../components/ListGrid'
 import { ListTvShowGridItem } from '../../components/ListTvShowGridItem'
 import { Spinner } from '../../components/Spinner'
@@ -30,14 +30,10 @@ export const TopRatedTV = () => {
 
   return (
     <>
-      <Head>
-        <title key='title'>Top Rated TV Shows - Filmica</title>
-        <meta
-          name='description'
-          key='description'
-          content='Top Rated Tv Shows'
-        />
-      </Head>
+      <HeadCustom
+        title='Top Rated TV Shows - Filmica'
+        description='Top Rated TV Shows'
+      />
       <section>
         <h2 className='text-3xl font-semibold mb-4'>Top Rated TV Shows</h2>
         <InfiniteScroll

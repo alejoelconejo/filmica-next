@@ -1,5 +1,4 @@
 import { unstable_getServerSession } from 'next-auth'
-import Head from 'next/head'
 import toast, { Toaster } from 'react-hot-toast'
 
 import { getMovieCredits, getMovieDetail, getMovieRecommended } from '../../api'
@@ -27,6 +26,7 @@ import {
 } from '../../hooks/useFavorites'
 import { useToggle } from '../../hooks/useToggle'
 import { DialogSignIn } from '../../components/DialogSignIn'
+import { HeadCustom } from '../../components/HeadCustom'
 
 interface Props {
   userId: string
@@ -93,10 +93,7 @@ function MovieDetail({
 
   return (
     <>
-      <Head>
-        <title key='title'>{title} - Filmica</title>
-        <meta name='description' key='description' content={title} />
-      </Head>
+      <HeadCustom title={`${title} - Filmica`} description={movie.overview} />
       <div>
         <div className='flex md:flex-row sm:flex-row flex-col gap-4 mb-16'>
           <DetailMovieTVImage title={title} posterPath={poster_path} />
