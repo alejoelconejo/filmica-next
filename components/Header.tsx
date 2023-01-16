@@ -8,7 +8,7 @@ import { SearchBarIcon } from './SearchBarIcon'
 
 export const Header = () => {
   return (
-    <header className='px-2 py-1 sm:py-4 md:px-0 bg-gradient-to-b from-black to to-black/50 fixed top-0 left-0 right-0 z-50 backdrop-blur shadow-sm shadow-white/10'>
+    <header className='px-2 py-1 sm:py-4 md:px-0 bg-gradient-to-b from-black to to-black/50 sticky top-0 left-0 right-0 z-50 backdrop-blur shadow-sm shadow-white/10'>
       <Container>
         <div className='flex justify-between items-center'>
           <Link href='/'>
