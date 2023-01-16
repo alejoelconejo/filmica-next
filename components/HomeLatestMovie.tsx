@@ -28,9 +28,9 @@ export function HomeLatestMovie({ movies }: Props) {
               />
             </div>
             <div className='absolute left-1 -bottom-4 bg-black p-2 rounded w-1/2 sm:w-2/5 [box-shadow:_rgba(0,_0,_0,_0.24)_3px_3px_8px;] border border-neutral-500/30'>
-              <h3 className='font-bold text-xl line-clamp-2'>
+              <h2 className='font-bold text-xl line-clamp-2'>
                 {firstMovie.original_title}
-              </h3>
+              </h2>
               <span className='font-semibold text-sm'>
                 {getYearFromString(firstMovie.release_date)}
               </span>
@@ -77,7 +77,7 @@ export function HomeLatestMovie({ movies }: Props) {
           className='hover:underline hover:decoration-green-500/50 hover:decoration-2 hover:text-neutral'
           href='/trending'
         >
-          See more
+          View all
         </Link>
       </div>
     </div>

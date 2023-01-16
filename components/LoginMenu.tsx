@@ -11,7 +11,10 @@ export default function LoginMenu() {
     return (
       <div className='flex'>
         <Menu as='div' className='relative'>
-          <Menu.Button className='flex items-center hover:brightness-110 transition'>
+          <Menu.Button
+            className='flex items-center hover:brightness-110 transition'
+            aria-label='User'
+          >
             <Image
               className='rounded-full border border-gray-400 bg-gray-400'
               width={36}
@@ -63,6 +66,7 @@ export default function LoginMenu() {
       <button
         onClick={() => signIn()}
         className='hover:brightness-110 transition'
+        aria-label='Sign in'
       >
         <svg
           className='w-9 h-9 text-gray-500'
