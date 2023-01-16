@@ -59,23 +59,35 @@ function MovieDetail({
   const addFavorite = useAddFavorite(userId)
   const removeFavorite = useRemoveFavorite(userId)
 
-  const handleAddFavorite = ({ id, title, img, userId }: UserFavorite) => {
-    addFavorite.mutate({ id, title, img, userId })
+  const handleAddFavorite = ({
+    id,
+    title,
+    img,
+    type,
+    userId,
+  }: UserFavorite) => {
+    addFavorite.mutate({ id, title, img, type, userId })
     toast.success('Added to your favorites!')
   }
 
-  const handleRemoveFavorite = ({ id, title, img, userId }: UserFavorite) => {
-    removeFavorite.mutate({ id, title, img, userId })
+  const handleRemoveFavorite = ({
+    id,
+    title,
+    img,
+    type,
+    userId,
+  }: UserFavorite) => {
+    removeFavorite.mutate({ id, title, img, type, userId })
     toast.success('Removed from your favorites!')
   }
 
-  const toggleFavorites = ({ id, title, img, userId }: UserFavorite) => {
+  const toggleFavorites = ({ id, title, img, type, userId }: UserFavorite) => {
     if (!userId) {
       toggleOpen()
     } else {
       isFavorite
-        ? handleRemoveFavorite({ id, title, img, userId })
-        : handleAddFavorite({ id, title, img, userId })
+        ? handleRemoveFavorite({ id, title, img, type, userId })
+        : handleAddFavorite({ id, title, img, type, userId })
     }
   }
 
@@ -96,7 +108,13 @@ function MovieDetail({
                   isFavorite ? 'text-red-500' : 'text-transparent'
                 } `}
                 onClick={() =>
-                  toggleFavorites({ id, title, img: poster_path, userId })
+                  toggleFavorites({
+                    id,
+                    title,
+                    img: poster_path,
+                    type: 'movie',
+                    userId,
+                  })
                 }
               >
                 <FavoriteIcon />

@@ -317,5 +317,6 @@ export interface UserFavorite {
   id: number
   title: string
   img: string
+  type: string
   userId: string
 }

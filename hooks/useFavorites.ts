@@ -15,13 +15,15 @@ export function useAddFavorite(userId: string) {
       id,
       title,
       img,
+      type,
       userId,
     }: {
       id: number
       title: string
       img: string
+      type: string
       userId: string
-    }) => addToFavorites({ id, title, img, userId }),
+    }) => addToFavorites({ id, title, img, type, userId }),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['favorites', userId],
@@ -38,13 +40,15 @@ export function useRemoveFavorite(userId: string) {
       id,
       title,
       img,
+      type,
       userId,
     }: {
       id: number
       title: string
       img: string
+      type: string
       userId: string
-    }) => removeFromFavorites({ id, title, img, userId }),
+    }) => removeFromFavorites({ id, title, img, type, userId }),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['favorites', userId],

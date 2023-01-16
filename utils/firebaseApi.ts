@@ -13,6 +13,7 @@ export interface FavoritesItem {
   id: number
   title: string
   img: string
+  type: string
 }
 
 export async function checkIsFavorite({
@@ -36,15 +37,17 @@ export async function removeFromFavorites({
   id,
   title,
   img,
+  type,
   userId,
 }: {
   id: number
   title: string
   img: string
+  type: string
   userId: string
 }) {
   const newFavRef = doc(db, 'favorites', userId)
-  const favData = { id, title, img }
+  const favData = { id, title, img, type }
   await updateDoc(newFavRef, {
     favs: arrayRemove(favData),
   })
@@ -73,11 +76,13 @@ export async function addToFavorites({
   id,
   title,
   img,
+  type,
   userId,
 }: {
   id: number
   title: string
   img: string
+  type: string
   userId: string
 }) {
   if (userId === null) {
@@ -90,11 +95,11 @@ export async function addToFavorites({
 
   if (!docSnap.exists()) {
     const favData = {
-      favs: [{ id, title, img }],
+      favs: [{ id, title, img, type }],
     }
     await setDoc(newFavRef, favData)
   } else {
-    const favData = { id, title, img }
+    const favData = { id, title, img, type }
     await updateDoc(newFavRef, {
       favs: arrayUnion(favData),
     })
