@@ -22,7 +22,7 @@ export const Header = () => {
           <div className='flex gap-8 items-center'>
             <div className='block md:hidden'>
               <Menu as='div' className=''>
-                <Menu.Button className='flex items-center'>
+                <Menu.Button className='flex items-center' aria-label='Search'>
                   <SearchBarIcon />
                 </Menu.Button>
                 <Transition
