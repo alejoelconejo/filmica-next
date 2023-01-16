@@ -2,12 +2,13 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { API_BASE_URL, API_DEFAULT_LANGUAGE, API_KEY_PUBLIC } from '../api'
 import { useDebounce } from '../hooks/useDebounce'
+import { SearchResult } from '../types'
 import { SearchBarIcon } from './SearchBarIcon'
 import { SearchBarResult } from './SearchBarResult'
 
 export function SearchBar() {
   const [search, setSearch] = useState('')
-  const [filteredList, setFilteredList] = useState([])
+  const [filteredList, setFilteredList] = useState<SearchResult[]>([])
 
   const endPoint = `${API_BASE_URL}/search/multi?api_key=${API_KEY_PUBLIC}&language=${API_DEFAULT_LANGUAGE}&query=${search}&page=1`
 
@@ -20,7 +21,7 @@ export function SearchBar() {
         : setFilteredList([])
     },
     [search],
-    1000
+    500
   )
 
   const router = useRouter()
