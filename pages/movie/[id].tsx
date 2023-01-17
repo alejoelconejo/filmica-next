@@ -148,6 +148,11 @@ export async function getServerSideProps(context: any) {
   const { id } = context.params
 
   const movie = await getMovieDetail(id)
+  if (!movie.title) {
+    return {
+      notFound: true,
+    }
+  }
   const recommendedMovies = await getMovieRecommended(id)
   const { crew, cast } = await getMovieCredits(id)
 

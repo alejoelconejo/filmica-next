@@ -130,6 +130,11 @@ export async function getServerSideProps(context: any) {
   const { id } = context.params
 
   const person = await getPersonDetail(id)
+  if (!person.name) {
+    return {
+      notFound: true,
+    }
+  }
   const { crew, cast } = await getPersonCredits(id)
 
   return {
