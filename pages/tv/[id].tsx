@@ -141,7 +141,7 @@ export async function getServerSideProps(context: any) {
   const { id } = context.params
 
   const tvShow = await getTVShowDetail(id)
-  if (!tvShow.name) {
+  if (!tvShow.id) {
     return {
       notFound: true,
     }

@@ -130,7 +130,7 @@ export async function getServerSideProps(context: any) {
   const { id } = context.params
 
   const person = await getPersonDetail(id)
-  if (!person.name) {
+  if (!person.id) {
     return {
       notFound: true,
     }
