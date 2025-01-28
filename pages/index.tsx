@@ -36,6 +36,7 @@ export async function getStaticProps() {
       tvShowOnAir,
       tvShowTopRated,
     },
+    revalidate: 300,
   }
 }
 
