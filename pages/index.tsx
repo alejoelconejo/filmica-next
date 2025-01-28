@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import {
   API_BASE_URL,
   API_DEFAULT_LANGUAGE,
@@ -12,7 +11,6 @@ import { HeadCustom } from '../components/HeadCustom'
 import { HomeLatestMovie } from '../components/HomeLatestMovie'
 import { HomeListSlider } from '../components/HomeListSlider'
 import { HomeTvList } from '../components/HomeTvList'
-import { HomeTvListItem } from '../components/HomeTvListItem'
 import { MovieListResult, TvShowsListResult } from '../types'
 
 const endPointPopular = `${API_BASE_URL}/movie/popular?api_key=${API_KEY}&language=${API_DEFAULT_LANGUAGE}&page=1`
